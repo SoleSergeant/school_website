@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { teachers as initialTeachers } from '../../data/mock'
 import { Pencil, Trash2, Plus, X } from 'lucide-react'
+import ImageUpload from '../components/ImageUpload'
 
 export default function AdminTeachers() {
   const [teachers, setTeachers] = useState(initialTeachers)
@@ -86,7 +87,6 @@ export default function AdminTeachers() {
               { name: 'name', label: 'Full Name', placeholder: 'Teacher name' },
               { name: 'subject', label: 'Subject', placeholder: 'e.g. Mathematics' },
               { name: 'experience', label: 'Experience', placeholder: 'e.g. 8 years' },
-              { name: 'photo', label: 'Photo URL', placeholder: 'https://...' },
             ].map(({ name, label, placeholder }) => (
               <div key={name} style={{ marginBottom: 16 }}>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{label}</label>
@@ -98,6 +98,13 @@ export default function AdminTeachers() {
                 />
               </div>
             ))}
+            <div style={{ marginBottom: 16 }}>
+              <ImageUpload
+                value={form.photo}
+                onChange={url => setForm(f => ({ ...f, photo: url }))}
+                label="Photo"
+              />
+            </div>
             <div style={{ marginBottom: 24 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Bio</label>
               <textarea

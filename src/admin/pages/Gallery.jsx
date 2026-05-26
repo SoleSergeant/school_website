@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { galleryItems as initial } from '../../data/mock'
 import { Plus, Trash2, X } from 'lucide-react'
+import ImageUpload from '../components/ImageUpload'
 
 export default function AdminGallery() {
   const [items, setItems] = useState(initial)
@@ -48,11 +49,13 @@ export default function AdminGallery() {
               <button onClick={() => setShowForm(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94A3B8' }}><X size={20} /></button>
             </div>
             <div style={{ marginBottom: 16 }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Image URL</label>
-              <input value={form.url} onChange={e => setForm(f => ({ ...f, url: e.target.value }))} placeholder="https://..."
-                style={{ width: '100%', padding: '10px 14px', border: '1px solid #E2E8F0', borderRadius: 10, fontSize: 14, boxSizing: 'border-box', outline: 'none' }} />
+              <ImageUpload
+                value={form.url}
+                onChange={url => setForm(f => ({ ...f, url }))}
+                label="Photo"
+                aspect="wide"
+              />
             </div>
-            {form.url && <img src={form.url} alt="preview" style={{ width: '100%', height: 180, objectFit: 'cover', borderRadius: 10, marginBottom: 16 }} onError={e => e.target.style.display='none'} />}
             <div style={{ marginBottom: 24 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Caption</label>
               <input value={form.caption} onChange={e => setForm(f => ({ ...f, caption: e.target.value }))} placeholder="Event or description"

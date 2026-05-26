@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { students as initialStudents } from '../../data/mock'
 import { Pencil, Trash2, Plus, X } from 'lucide-react'
+import ImageUpload from '../components/ImageUpload'
 
 export default function AdminStudents() {
   const [students, setStudents] = useState(initialStudents)
@@ -68,7 +69,6 @@ export default function AdminStudents() {
             {[
               { name: 'name', label: 'Full Name', placeholder: 'Student name' },
               { name: 'grade', label: 'Grade', placeholder: '9, 10, 11, or 12' },
-              { name: 'photo', label: 'Photo URL', placeholder: 'https://...' },
             ].map(({ name, label, placeholder }) => (
               <div key={name} style={{ marginBottom: 16 }}>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{label}</label>
@@ -76,6 +76,13 @@ export default function AdminStudents() {
                   style={{ width: '100%', padding: '10px 14px', border: '1px solid #E2E8F0', borderRadius: 10, fontSize: 14, boxSizing: 'border-box', outline: 'none' }} />
               </div>
             ))}
+            <div style={{ marginBottom: 16 }}>
+              <ImageUpload
+                value={form.photo}
+                onChange={url => setForm(f => ({ ...f, photo: url }))}
+                label="Photo"
+              />
+            </div>
             <div style={{ marginBottom: 24 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Achievement</label>
               <textarea value={form.achievement} onChange={e => setForm(f => ({ ...f, achievement: e.target.value }))} rows={3}

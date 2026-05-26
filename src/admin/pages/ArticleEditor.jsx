@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { articles } from '../../data/mock'
 import { ArrowLeft, Save } from 'lucide-react'
+import ImageUpload from '../components/ImageUpload'
 
 export default function ArticleEditor() {
   const { id } = useParams()
@@ -80,11 +81,12 @@ export default function ArticleEditor() {
 
           <div style={{ backgroundColor: '#fff', borderRadius: 18, padding: 24, boxShadow: '0 1px 6px rgba(0,0,0,0.06)' }}>
             <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15, color: '#111827', marginBottom: 16 }}>Cover Image</h3>
-            <input value={form.cover} onChange={e => setForm(f => ({ ...f, cover: e.target.value }))} placeholder="https://..."
-              style={{ width: '100%', padding: '10px 12px', border: '1px solid #E2E8F0', borderRadius: 10, fontSize: 13, boxSizing: 'border-box', outline: 'none', marginBottom: 12 }} />
-            {form.cover && (
-              <img src={form.cover} alt="cover" style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 10 }} onError={e => e.target.style.display='none'} />
-            )}
+            <ImageUpload
+              value={form.cover}
+              onChange={url => setForm(f => ({ ...f, cover: url }))}
+              label=""
+              aspect="wide"
+            />
           </div>
         </div>
       </div>
