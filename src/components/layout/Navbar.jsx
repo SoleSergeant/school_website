@@ -22,32 +22,32 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div style={{ backgroundColor: '#1E3273', borderRadius: '10px', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ color: '#fff', fontWeight: 800, fontSize: 18, fontFamily: 'Plus Jakarta Sans' }}>PS</span>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <div style={{ backgroundColor: '#1E3273', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <span style={{ color: '#fff', fontWeight: 800, fontSize: 14, fontFamily: 'Plus Jakarta Sans', letterSpacing: '0.02em' }}>PS</span>
             </div>
             <div>
-              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15, color: '#1E3273', lineHeight: 1.1 }}>Fergana</div>
-              <div style={{ fontSize: 11, color: '#64748B', lineHeight: 1.1 }}>Presidential School</div>
+              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14, color: '#111827', letterSpacing: '-0.01em', lineHeight: 1.2 }}>Fergana Presidential School</div>
             </div>
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center" style={{ gap: 2 }}>
             {links.map(({ to, label }) => (
               <NavLink
                 key={to}
                 to={to}
                 end={to === '/'}
                 style={({ isActive }) => ({
-                  padding: '6px 12px',
-                  borderRadius: 8,
-                  fontSize: 14,
-                  fontWeight: 500,
+                  padding: '5px 11px',
+                  borderRadius: 6,
+                  fontSize: 13.5,
+                  fontWeight: isActive ? 600 : 450,
                   textDecoration: 'none',
-                  color: isActive ? '#1E3273' : '#4B5563',
-                  backgroundColor: isActive ? '#EEF2FF' : 'transparent',
-                  borderBottom: isActive ? '2px solid #C9A84C' : '2px solid transparent',
+                  color: isActive ? '#1E3273' : '#6B7280',
+                  backgroundColor: isActive ? '#F0F4FF' : 'transparent',
+                  letterSpacing: '-0.01em',
+                  transition: 'color 0.15s',
                 })}
               >
                 {label}
