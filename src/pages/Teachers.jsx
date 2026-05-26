@@ -2,28 +2,48 @@ import { teachers } from '../data/mock'
 
 export default function Teachers() {
   return (
-    <div style={{ padding: '80px 24px', maxWidth: 960, margin: '0 auto' }}>
-      {/* Page header */}
-      <div style={{ textAlign: 'center', marginBottom: 56 }}>
-        <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>Our faculty</p>
-        <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#111827', letterSpacing: '-0.025em', marginBottom: 12 }}>Meet the Teachers</h1>
-        <p style={{ color: '#6B7280', fontSize: 15, maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>Dedicated educators and subject specialists committed to unlocking each student's potential.</p>
-      </div>
+    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh' }}>
+      <div className="wrap" style={{ padding: '80px 24px' }}>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {teachers.map(t => (
-          <div key={t.id} style={{ backgroundColor: '#F8F9FC', border: '1px solid #EAECF0', borderRadius: 14, padding: '28px 24px', textAlign: 'center' }}>
-            <img
-              src={t.photo}
-              alt={t.name}
-              style={{ width: 72, height: 72, borderRadius: '50%', objectFit: 'cover', margin: '0 auto 14px', display: 'block', border: '2px solid #E2E8F0' }}
-            />
-            <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16, color: '#111827', letterSpacing: '-0.01em', marginBottom: 4 }}>{t.name}</h3>
-            <div style={{ display: 'inline-block', backgroundColor: '#EEF2FF', color: '#1E3273', fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 100, marginBottom: 12, letterSpacing: '0.02em' }}>{t.subject}</div>
-            <p style={{ fontSize: 13.5, color: '#6B7280', lineHeight: 1.7, marginBottom: 10 }}>{t.bio}</p>
-            <p style={{ fontSize: 12, color: '#9CA3AF' }}>{t.experience} experience</p>
-          </div>
-        ))}
+        {/* Header */}
+        <div style={{ maxWidth: 560, marginBottom: 72 }}>
+          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(36px, 5vw, 56px)', color: '#111', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: 16 }}>
+            Our Faculty
+          </h1>
+          <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8 }}>
+            Subject specialists and Cambridge-certified educators committed to developing each student's potential.
+          </p>
+        </div>
+
+        {/* Teacher list */}
+        <div>
+          {teachers.map((t, i) => (
+            <div
+              key={t.id}
+              style={{
+                display: 'flex', gap: 28, alignItems: 'flex-start',
+                padding: '32px 0',
+                borderTop: '1px solid #E5E3DC',
+                borderBottom: i === teachers.length - 1 ? '1px solid #E5E3DC' : 'none',
+              }}
+            >
+              <img
+                src={t.photo || `https://i.pravatar.cc/80?u=${t.id}`}
+                alt={t.name}
+                style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, marginTop: 2 }}
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 16, marginBottom: 4, flexWrap: 'wrap' }}>
+                  <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 18, color: '#111', letterSpacing: '-0.02em' }}>{t.name}</h3>
+                  <span style={{ fontSize: 12, color: '#bbb', flexShrink: 0 }}>{t.experience} experience</span>
+                </div>
+                <span style={{ display: 'inline-block', fontSize: 11.5, color: '#1E3273', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 10 }}>{t.subject}</span>
+                <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75 }}>{t.bio}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   )

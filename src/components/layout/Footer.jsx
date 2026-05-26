@@ -1,77 +1,65 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail } from 'lucide-react'
 
-const quickLinks = [
-  ['/', 'Home'],
-  ['/teachers', 'Teachers'],
-  ['/students', 'Student Results'],
-  ['/admissions', 'Admissions'],
-  ['/echo', 'Echo'],
-  ['/gallery', 'Gallery'],
+const cols = [
+  {
+    title: 'School',
+    links: [['/', 'Home'], ['/teachers', 'Teachers'], ['/students', 'Students'], ['/life', 'Campus Life']],
+  },
+  {
+    title: 'Resources',
+    links: [['/articles', 'Articles'], ['/echo', 'Echo'], ['/gallery', 'Gallery'], ['/admissions', 'Admissions']],
+  },
+  {
+    title: 'Contact',
+    text: ['1 Qashqar Street, Fergana', 'info@ferganaschool.uz', '+998 73 000 00 00'],
+  },
 ]
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#0F1A3E', color: '#94A3B8', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ padding: '56px 24px 40px' }}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer style={{ backgroundColor: '#0D1B36', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+      <div className="wrap" style={{ padding: '60px 24px 40px' }}>
+        <div className="grid grid-cols-1 md:grid-cols-4" style={{ gap: 48, marginBottom: 48 }}>
 
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <img src="/logo.jpg" alt="ITMA" style={{ width: 38, height: 38, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
-              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.2 }}>Fergana Presidential School</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14 }}>
+              <img src="/logo.jpg" alt="ITMA" style={{ width: 28, height: 28, borderRadius: 6, objectFit: 'cover' }} />
+              <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 13, color: '#fff', letterSpacing: '-0.01em' }}>Fergana Presidential School</span>
             </div>
-            <p style={{ fontSize: 13.5, lineHeight: 1.75, color: '#64748B' }}>Nurturing the next generation of leaders through world-class education and a commitment to excellence.</p>
+            <p style={{ fontSize: 13, color: '#4A6080', lineHeight: 1.75 }}>Nurturing tomorrow's leaders through world-class education and a commitment to excellence.</p>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h4 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, color: '#fff', marginBottom: 16, fontSize: 13.5, letterSpacing: '-0.01em' }}>Quick Links</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {quickLinks.map(([to, label]) => (
-                <Link
-                  key={to}
-                  to={to}
-                  style={{ color: '#64748B', textDecoration: 'none', fontSize: 13.5, transition: 'color 0.15s' }}
-                  onMouseEnter={e => e.target.style.color = '#C9A84C'}
-                  onMouseLeave={e => e.target.style.color = '#64748B'}
-                >
-                  {label}
-                </Link>
-              ))}
+          {/* Link columns */}
+          {cols.map(col => (
+            <div key={col.title}>
+              <div style={{ fontSize: 11, color: '#3D5270', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>{col.title}</div>
+              {col.links ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+                  {col.links.map(([to, label]) => (
+                    <Link key={to} to={to} style={{ fontSize: 13.5, color: '#6B82A0', textDecoration: 'none' }}
+                      onMouseEnter={e => e.target.style.color = '#fff'}
+                      onMouseLeave={e => e.target.style.color = '#6B82A0'}
+                    >{label}</Link>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 9 }}>
+                  {col.text.map(t => <span key={t} style={{ fontSize: 13.5, color: '#6B82A0' }}>{t}</span>)}
+                </div>
+              )}
             </div>
-          </div>
+          ))}
 
-          {/* Contact */}
-          <div>
-            <h4 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, color: '#fff', marginBottom: 16, fontSize: 13.5, letterSpacing: '-0.01em' }}>Contact</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 9, fontSize: 13.5 }}>
-                <MapPin size={14} style={{ color: '#C9A84C', marginTop: 2, flexShrink: 0 }} />
-                <span>1 Qashqar Street, Fergana, Uzbekistan</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13.5 }}>
-                <Phone size={14} style={{ color: '#C9A84C', flexShrink: 0 }} />
-                <span>+998 73 000 00 00</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9, fontSize: 13.5 }}>
-                <Mail size={14} style={{ color: '#C9A84C', flexShrink: 0 }} />
-                <span>info@ferganaschool.uz</span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', marginTop: 40, paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-          <p style={{ fontSize: 12.5, color: '#475569' }}>© 2025 Fergana Presidential School. All rights reserved.</p>
-          <Link to="/admin/login" style={{ fontSize: 12.5, color: '#334155', textDecoration: 'none' }}
-            onMouseEnter={e => e.target.style.color = '#94A3B8'}
-            onMouseLeave={e => e.target.style.color = '#334155'}
-          >
-            Admin
-          </Link>
+        {/* Bottom */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+          <span style={{ fontSize: 12.5, color: '#3D5270' }}>© 2025 Fergana Presidential School. All rights reserved.</span>
+          <Link to="/admin/login" style={{ fontSize: 12.5, color: '#2A3A52' }}
+            onMouseEnter={e => e.target.style.color = '#6B82A0'}
+            onMouseLeave={e => e.target.style.color = '#2A3A52'}
+          >Admin</Link>
         </div>
       </div>
     </footer>

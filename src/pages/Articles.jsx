@@ -1,64 +1,59 @@
 import { Link } from 'react-router-dom'
-import { Calendar, User, ArrowRight } from 'lucide-react'
 import { articles } from '../data/mock'
 
 export default function Articles() {
-  return (
-    <div style={{ padding: '80px 24px', maxWidth: 960, margin: '0 auto' }}>
-      {/* Page header */}
-      <div style={{ textAlign: 'center', marginBottom: 56 }}>
-        <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>From the school</p>
-        <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#111827', letterSpacing: '-0.025em', marginBottom: 12 }}>News & Articles</h1>
-        <p style={{ color: '#6B7280', fontSize: 15, maxWidth: 440, margin: '0 auto', lineHeight: 1.7 }}>Stories, announcements, and updates from Fergana Presidential School.</p>
-      </div>
+  const [featured, ...rest] = articles
 
-      {/* Featured article */}
-      <Link to={`/articles/${articles[0].id}`} style={{ textDecoration: 'none', display: 'block', marginBottom: 40 }}>
-        <div
-          style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid #EAECF0', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', transition: 'box-shadow 0.2s' }}
-          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.08)'}
-          onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
-        >
-          <img src={articles[0].cover} alt={articles[0].title} style={{ width: '100%', height: 260, objectFit: 'cover', display: 'block' }} />
-          <div style={{ padding: '36px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#fff' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-              <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{articles[0].category}</span>
-              <span style={{ fontSize: 10.5, color: '#D1D5DB', fontWeight: 400 }}>·</span>
-              <span style={{ fontSize: 10.5, color: '#9CA3AF', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Featured</span>
-            </div>
-            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(18px, 2vw, 22px)', color: '#111827', letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 10 }}>{articles[0].title}</h2>
-            <p style={{ color: '#6B7280', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>{articles[0].excerpt}</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 12.5, color: '#9CA3AF' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><User size={12} /> {articles[0].author}</span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><Calendar size={12} /> {articles[0].date}</span>
+  return (
+    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh' }}>
+      <div className="wrap" style={{ padding: '80px 24px' }}>
+
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 56, paddingBottom: 24, borderBottom: '1px solid #E5E3DC' }}>
+          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.04em' }}>
+            News & Articles
+          </h1>
+          <span style={{ fontSize: 13, color: '#bbb' }}>{articles.length} stories</span>
+        </div>
+
+        {/* Featured */}
+        <Link to={`/articles/${featured.id}`} style={{ display: 'block', marginBottom: 64 }}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #E5E3DC', backgroundColor: '#fff' }}
+            onMouseEnter={e => { e.currentTarget.querySelector('h2').style.color = '#C9A84C' }}
+            onMouseLeave={e => { e.currentTarget.querySelector('h2').style.color = '#111' }}
+          >
+            <img src={featured.cover} alt={featured.title} style={{ width: '100%', height: 280, objectFit: 'cover', display: 'block' }} />
+            <div style={{ padding: '36px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>
+                {featured.category} · Featured
+              </span>
+              <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(18px, 2.5vw, 24px)', color: '#111', letterSpacing: '-0.025em', lineHeight: 1.25, marginBottom: 12, transition: 'color 0.15s' }}>
+                {featured.title}
+              </h2>
+              <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7, marginBottom: 24 }}>{featured.excerpt}</p>
+              <div style={{ fontSize: 12.5, color: '#bbb' }}>{featured.author} · {featured.date}</div>
             </div>
           </div>
-        </div>
-      </Link>
+        </Link>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {articles.slice(1).map(a => (
-          <Link key={a.id} to={`/articles/${a.id}`} style={{ textDecoration: 'none' }}>
-            <div
-              style={{ backgroundColor: '#fff', border: '1px solid #EAECF0', borderRadius: 14, overflow: 'hidden', transition: 'box-shadow 0.2s' }}
-              onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.07)'}
-              onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: 40 }}>
+          {rest.map(a => (
+            <Link key={a.id} to={`/articles/${a.id}`} style={{ display: 'block' }}
+              onMouseEnter={e => { e.currentTarget.querySelector('h3').style.color = '#C9A84C' }}
+              onMouseLeave={e => { e.currentTarget.querySelector('h3').style.color = '#111' }}
             >
-              <img src={a.cover} alt={a.title} style={{ width: '100%', height: 188, objectFit: 'cover', display: 'block' }} />
-              <div style={{ padding: '18px 20px 22px' }}>
-                <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{a.category}</span>
-                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15.5, color: '#111827', margin: '7px 0 8px', lineHeight: 1.4, letterSpacing: '-0.01em' }}>{a.title}</h3>
-                <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.65, marginBottom: 14 }}>{a.excerpt}</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: '#9CA3AF' }}>
-                  <span>{a.author}</span>
-                  <span>·</span>
-                  <span>{a.date}</span>
-                </div>
-              </div>
-            </div>
-          </Link>
-        ))}
+              <img src={a.cover} alt={a.title} style={{ width: '100%', height: 196, objectFit: 'cover', borderRadius: 8, marginBottom: 16 }} />
+              <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{a.category}</span>
+              <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16, color: '#111', margin: '6px 0 8px', lineHeight: 1.35, letterSpacing: '-0.015em', transition: 'color 0.15s' }}>{a.title}</h3>
+              <p style={{ fontSize: 13, color: '#999', lineHeight: 1.65, marginBottom: 12 }}>{a.excerpt}</p>
+              <div style={{ fontSize: 12, color: '#bbb' }}>{a.author} · {a.date}</div>
+            </Link>
+          ))}
+        </div>
+
       </div>
     </div>
   )

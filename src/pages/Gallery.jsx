@@ -1,56 +1,67 @@
 import { galleryItems } from '../data/mock'
 import { useState } from 'react'
-import { X } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 export default function Gallery() {
-  const [selected, setSelected] = useState(null)
+  const [idx, setIdx] = useState(null)
+
+  const prev = () => setIdx(i => (i - 1 + galleryItems.length) % galleryItems.length)
+  const next = () => setIdx(i => (i + 1) % galleryItems.length)
 
   return (
-    <div style={{ padding: '80px 24px', maxWidth: 1060, margin: '0 auto' }}>
-      {/* Page header */}
-      <div style={{ textAlign: 'center', marginBottom: 52 }}>
-        <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>Visual stories</p>
-        <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(26px, 3.5vw, 36px)', color: '#111827', letterSpacing: '-0.025em', marginBottom: 12 }}>Gallery</h1>
-        <p style={{ color: '#6B7280', fontSize: 15, maxWidth: 400, margin: '0 auto', lineHeight: 1.7 }}>Moments from campus life, events, and competitions.</p>
-      </div>
+    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh' }}>
+      <div className="wrap" style={{ padding: '80px 24px' }}>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        {galleryItems.map(item => (
-          <div
-            key={item.id}
-            onClick={() => setSelected(item)}
-            style={{ borderRadius: 12, overflow: 'hidden', cursor: 'pointer', position: 'relative', border: '1px solid #EAECF0' }}
-            onMouseEnter={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1.04)' }}
-            onMouseLeave={e => { e.currentTarget.querySelector('img').style.transform = 'scale(1)' }}
-          >
-            <img
-              src={item.url}
-              alt={item.caption}
-              style={{ width: '100%', height: 192, objectFit: 'cover', display: 'block', transition: 'transform 0.3s ease' }}
-            />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.55))', padding: '28px 12px 10px', color: '#fff', fontSize: 12.5, fontWeight: 500 }}>
-              {item.caption}
+        {/* Header */}
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 48, paddingBottom: 24, borderBottom: '1px solid #E5E3DC' }}>
+          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.04em' }}>
+            Gallery
+          </h1>
+          <span style={{ fontSize: 13, color: '#bbb' }}>{galleryItems.length} photos</span>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4" style={{ gap: 8 }}>
+          {galleryItems.map((item, i) => (
+            <div key={item.id} onClick={() => setIdx(i)} style={{ position: 'relative', cursor: 'pointer', borderRadius: 8, overflow: 'hidden', aspectRatio: '1' }}>
+              <img
+                src={item.url}
+                alt={item.caption}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
+                onMouseEnter={e => e.target.style.transform = 'scale(1.05)'}
+                onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+              />
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
 
       {/* Lightbox */}
-      {selected && (
+      {idx !== null && (
         <div
-          onClick={() => setSelected(null)}
-          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: 24 }}
+          onClick={() => setIdx(null)}
+          style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: 24 }}
         >
-          <button
-            onClick={() => setSelected(null)}
-            style={{ position: 'absolute', top: 18, right: 18, background: 'rgba(255,255,255,0.12)', border: 'none', borderRadius: '50%', width: 38, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}
-          >
+          {/* Close */}
+          <button onClick={() => setIdx(null)} style={{ position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: 38, height: 38, cursor: 'pointer', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <X size={18} />
           </button>
-          <div onClick={e => e.stopPropagation()} style={{ maxWidth: 820, width: '100%' }}>
-            <img src={selected.url} alt={selected.caption} style={{ width: '100%', borderRadius: 14, maxHeight: '80vh', objectFit: 'contain', display: 'block' }} />
-            <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.7)', marginTop: 14, fontSize: 14 }}>{selected.caption}</p>
+          {/* Prev */}
+          <button onClick={e => { e.stopPropagation(); prev() }} style={{ position: 'absolute', left: 20, background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: 44, height: 44, cursor: 'pointer', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ChevronLeft size={22} />
+          </button>
+          {/* Image */}
+          <div onClick={e => e.stopPropagation()} style={{ maxWidth: 880, width: '100%' }}>
+            <img src={galleryItems[idx].url} alt={galleryItems[idx].caption} style={{ width: '100%', maxHeight: '80vh', objectFit: 'contain', borderRadius: 10, display: 'block' }} />
+            <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.5)', marginTop: 14, fontSize: 13 }}>
+              {galleryItems[idx].caption} <span style={{ marginLeft: 8, color: 'rgba(255,255,255,0.25)' }}>{idx + 1} / {galleryItems.length}</span>
+            </p>
           </div>
+          {/* Next */}
+          <button onClick={e => { e.stopPropagation(); next() }} style={{ position: 'absolute', right: 20, background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '50%', width: 44, height: 44, cursor: 'pointer', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <ChevronRight size={22} />
+          </button>
         </div>
       )}
     </div>

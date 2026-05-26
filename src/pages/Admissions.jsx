@@ -1,10 +1,10 @@
-import { CheckCircle, ClipboardList, UserCheck, BookOpen, Award } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 
 const steps = [
-  { icon: ClipboardList, title: 'Check Eligibility', desc: 'Applicants must be between 11–18 years old and demonstrate strong academic performance.' },
-  { icon: BookOpen, title: 'Take the Entrance Test', desc: 'Sit the Cambridge Assessment Admissions Test covering math, science, logic, and English.' },
-  { icon: UserCheck, title: 'Interview Round', desc: 'Shortlisted candidates attend a personal interview to assess motivation and aptitude.' },
-  { icon: Award, title: 'Receive Your Offer', desc: 'Successful applicants receive an offer letter and begin enrollment paperwork.' },
+  { n: '01', title: 'Check Eligibility', desc: 'Applicants must be between 11–18 years old and demonstrate strong academic performance.' },
+  { n: '02', title: 'Take the Entrance Test', desc: 'Sit the Cambridge Assessment Admissions Test covering math, science, logic, and English.' },
+  { n: '03', title: 'Interview Round', desc: 'Shortlisted candidates attend a personal interview to assess motivation and aptitude.' },
+  { n: '04', title: 'Receive Your Offer', desc: 'Successful applicants receive an offer letter and begin enrollment paperwork.' },
 ]
 
 const requirements = [
@@ -18,42 +18,39 @@ const requirements = [
 const faqs = [
   { q: 'Is studying at the Presidential School free?', a: 'Yes. All tuition, boarding, and meals are fully funded by the state.' },
   { q: 'What subjects are covered in the entrance test?', a: 'The test covers mathematics, logical reasoning, natural sciences, and English language.' },
-  { q: 'Can students from all regions of Uzbekistan apply?', a: 'Yes. The Fergana Presidential School accepts students from across the country, with priority for Fergana region applicants.' },
+  { q: 'Can students from all regions of Uzbekistan apply?', a: 'Yes. The school accepts students from across the country, with priority for Fergana region applicants.' },
   { q: 'What is the school year schedule?', a: 'The academic year runs September–June, with breaks for Nowruz, national holidays, and summer.' },
 ]
 
 export default function Admissions() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#FAFAF8' }}>
+
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(150deg, #152760 0%, #1E3273 50%, #243888 100%)', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 620, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D4AA5A', marginBottom: 10 }}>Admissions open</p>
-          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 42px)', color: '#fff', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: 16 }}>Join the School</h1>
-          <p style={{ fontSize: 15, color: '#94A8D0', maxWidth: 460, margin: '0 auto', lineHeight: 1.75 }}>
-            Applications are open for gifted students aged 11–18. Take the admissions test and begin your journey.
+      <section style={{ backgroundColor: '#0D1B36', padding: '80px 24px' }}>
+        <div className="wrap">
+          <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>Admissions open</p>
+          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
+            Join the school.
+          </h1>
+          <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.8, maxWidth: 400 }}>
+            Applications are open for gifted students aged 11–18. The process is free, and places are awarded on merit.
           </p>
         </div>
       </section>
 
       {/* Steps */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>Process</p>
-            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#111827', letterSpacing: '-0.025em' }}>How to Apply</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {steps.map(({ icon: Icon, title, desc }, i) => (
-              <div key={title} style={{ backgroundColor: '#F8F9FC', border: '1px solid #EAECF0', borderRadius: 14, padding: '24px 22px', display: 'flex', gap: 16 }}>
-                <div style={{ backgroundColor: '#1E3273', borderRadius: 10, width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
-                  <Icon size={20} style={{ color: '#fff' }} />
-                </div>
-                <div>
-                  <div style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 6 }}>Step {i + 1}</div>
-                  <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15.5, color: '#111827', letterSpacing: '-0.01em', marginBottom: 6 }}>{title}</h3>
-                  <p style={{ fontSize: 13.5, color: '#6B7280', lineHeight: 1.7 }}>{desc}</p>
-                </div>
+      <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC', padding: '88px 24px' }}>
+        <div className="wrap">
+          <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 52 }}>
+            How to apply
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '1px', backgroundColor: '#E5E3DC', border: '1px solid #E5E3DC', borderRadius: 10, overflow: 'hidden' }}>
+            {steps.map(({ n, title, desc }) => (
+              <div key={n} style={{ backgroundColor: '#fff', padding: '32px 28px' }}>
+                <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 11, color: '#C9A84C', letterSpacing: '0.06em', display: 'block', marginBottom: 12 }}>{n}</span>
+                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16.5, color: '#111', letterSpacing: '-0.015em', marginBottom: 8 }}>{title}</h3>
+                <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -61,56 +58,51 @@ export default function Admissions() {
       </section>
 
       {/* Requirements */}
-      <section style={{ backgroundColor: '#F8F9FC', borderTop: '1px solid #EAECF0', borderBottom: '1px solid #EAECF0', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 640, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>Eligibility</p>
-            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#111827', letterSpacing: '-0.025em' }}>Requirements</h2>
-          </div>
-          <div style={{ backgroundColor: '#fff', border: '1px solid #EAECF0', borderRadius: 14, overflow: 'hidden' }}>
-            {requirements.map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 12,
-                  padding: '14px 22px',
-                  borderBottom: i < requirements.length - 1 ? '1px solid #F3F4F6' : 'none',
-                }}
-              >
-                <CheckCircle size={16} style={{ color: '#16A34A', flexShrink: 0 }} />
-                <span style={{ fontSize: 14, color: '#374151' }}>{item}</span>
-              </div>
-            ))}
+      <section style={{ padding: '88px 24px' }}>
+        <div className="wrap">
+          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: 80, alignItems: 'start' }}>
+            <div>
+              <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 16 }}>
+                Eligibility
+              </h2>
+              <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8 }}>
+                All applicants are evaluated on academic merit. There are no fees at any stage.
+              </p>
+            </div>
+            <div>
+              {requirements.map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px 0', borderBottom: i < requirements.length - 1 ? '1px solid #E5E3DC' : 'none' }}>
+                  <CheckCircle size={15} style={{ color: '#16A34A', flexShrink: 0, marginTop: 2 }} />
+                  <span style={{ fontSize: 14, color: '#444' }}>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: 680, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>FAQ</p>
-            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#111827', letterSpacing: '-0.025em' }}>Common Questions</h2>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {faqs.map(({ q, a }) => (
-              <div key={q} style={{ backgroundColor: '#F8F9FC', border: '1px solid #EAECF0', borderRadius: 12, padding: '20px 22px' }}>
-                <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14.5, color: '#111827', letterSpacing: '-0.01em', marginBottom: 8 }}>{q}</div>
-                <div style={{ fontSize: 13.5, color: '#6B7280', lineHeight: 1.7 }}>{a}</div>
+      <section style={{ backgroundColor: '#fff', borderTop: '1px solid #E5E3DC', padding: '88px 24px' }}>
+        <div className="wrap">
+          <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 52 }}>
+            Common questions
+          </h2>
+          <div style={{ maxWidth: 680 }}>
+            {faqs.map(({ q, a }, i) => (
+              <div key={i} style={{ padding: '24px 0', borderBottom: '1px solid #E5E3DC' }}>
+                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15.5, color: '#111', letterSpacing: '-0.01em', marginBottom: 8 }}>{q}</h3>
+                <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75 }}>{a}</p>
               </div>
             ))}
           </div>
-
-          <div style={{ textAlign: 'center', marginTop: 52 }}>
-            <a
-              href="mailto:admissions@ferganaschool.uz"
-              style={{ display: 'inline-block', backgroundColor: '#1E3273', color: '#fff', padding: '13px 30px', borderRadius: 9, fontWeight: 600, textDecoration: 'none', fontSize: 14, letterSpacing: '-0.01em' }}
-            >
+          <div style={{ marginTop: 52 }}>
+            <a href="mailto:admissions@ferganaschool.uz" style={{ display: 'inline-block', backgroundColor: '#0D1B36', color: '#fff', padding: '13px 28px', borderRadius: 7, fontWeight: 600, fontSize: 14, letterSpacing: '-0.01em' }}>
               Contact Admissions Office
             </a>
           </div>
         </div>
       </section>
+
     </div>
   )
 }

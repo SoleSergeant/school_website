@@ -1,104 +1,116 @@
 import { Link } from 'react-router-dom'
-import { Trophy, Users, BookOpen, Globe, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { articles } from '../data/mock'
 
 const stats = [
-  { icon: Users, value: '500+', label: 'Students enrolled' },
-  { icon: Trophy, value: '120+', label: 'Olympiad medals' },
-  { icon: BookOpen, value: '14', label: 'Subjects offered' },
-  { icon: Globe, value: '100%', label: 'University placement' },
+  { value: '500+', label: 'Students enrolled' },
+  { value: '120+', label: 'Olympiad medals' },
+  { value: '14', label: 'Subjects offered' },
+  { value: '100%', label: 'University placement' },
 ]
 
 const features = [
-  { title: 'Cambridge IGCSE', desc: 'Internationally recognised curriculum alongside the Uzbek national programme.' },
-  { title: 'STEAM Focus', desc: 'Science, Technology, Engineering, Arts and Mathematics — integrated and hands-on.' },
-  { title: 'Free Boarding', desc: 'Full accommodation and meals provided on campus, funded by the state.' },
-  { title: 'CIS Accredited', desc: 'Accredited by the Council of International Schools as of April 2025.' },
+  { n: '01', title: 'Cambridge IGCSE', desc: 'Internationally recognised curriculum alongside the Uzbek national programme.' },
+  { n: '02', title: 'STEAM Focus', desc: 'Science, Technology, Engineering, Arts and Mathematics — integrated and hands-on.' },
+  { n: '03', title: 'Free Boarding', desc: 'Full accommodation and meals provided on campus, funded by the state.' },
+  { n: '04', title: 'CIS Accredited', desc: 'Accredited by the Council of International Schools as of April 2025.' },
 ]
 
 export default function Home() {
   return (
     <div>
-      {/* Hero */}
-      <section style={{ background: 'linear-gradient(150deg, #152760 0%, #1E3273 50%, #243888 100%)', color: '#fff', padding: '96px 24px 88px' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, backgroundColor: 'rgba(201,168,76,0.15)', border: '1px solid rgba(201,168,76,0.3)', borderRadius: 100, padding: '5px 14px', marginBottom: 28 }}>
-            <span style={{ fontSize: 12, color: '#D4AA5A', fontWeight: 500, letterSpacing: '0.02em' }}>CIS Accredited · Est. 2020</span>
-          </div>
-          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(34px, 5.5vw, 54px)', lineHeight: 1.1, letterSpacing: '-0.03em', marginBottom: 22, color: '#fff' }}>
-            Fergana Presidential School
-          </h1>
-          <p style={{ fontSize: 'clamp(15px, 2vw, 17px)', color: '#94A8D0', maxWidth: 520, margin: '0 auto 40px', lineHeight: 1.75, fontWeight: 400 }}>
-            Nurturing tomorrow's leaders through world-class education, Cambridge curriculum, and a commitment to excellence.
+
+      {/* ── Hero ── */}
+      <section style={{ backgroundColor: '#0D1B36', padding: '108px 24px 96px' }}>
+        <div className="wrap">
+          <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 36 }}>
+            Est. 2020 · CIS Accredited · Fergana, Uzbekistan
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10 }}>
-            <Link to="/admissions" style={{ backgroundColor: '#C9A84C', color: '#111', padding: '13px 28px', borderRadius: 8, fontWeight: 600, textDecoration: 'none', fontSize: 14, letterSpacing: '-0.01em' }}>
+          <h1 style={{
+            fontFamily: 'Plus Jakarta Sans', fontWeight: 800,
+            fontSize: 'clamp(44px, 7vw, 80px)',
+            color: '#fff', lineHeight: 1.02,
+            letterSpacing: '-0.05em', marginBottom: 28,
+            maxWidth: 740,
+          }}>
+            Where gifted minds<br />find their calling.
+          </h1>
+          <p style={{ fontSize: 16, color: '#7A90A8', lineHeight: 1.8, maxWidth: 460, marginBottom: 48 }}>
+            Cambridge IGCSE meets Uzbekistan's national programme — giving exceptional students aged 11–18 a path to the world's finest universities.
+          </p>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <Link to="/admissions" style={{ backgroundColor: '#C9A84C', color: '#0D1B36', padding: '12px 26px', borderRadius: 7, fontWeight: 700, fontSize: 14, letterSpacing: '-0.01em' }}>
               Apply Now
             </Link>
-            <Link to="/life" style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#fff', padding: '13px 28px', borderRadius: 8, fontWeight: 500, textDecoration: 'none', fontSize: 14, border: '1px solid rgba(255,255,255,0.15)', letterSpacing: '-0.01em' }}>
-              Explore campus
+            <Link to="/life" style={{ color: '#7A90A8', padding: '12px 26px', borderRadius: 7, fontWeight: 400, fontSize: 14, border: '1px solid rgba(255,255,255,0.08)' }}>
+              Campus life →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section style={{ backgroundColor: '#F8F9FC', padding: '56px 24px', borderBottom: '1px solid #EAECF0' }}>
-        <div style={{ maxWidth: 860, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1 }}>
-          {stats.map(({ icon: Icon, value, label }, i) => (
-            <div key={label} style={{ padding: '28px 20px', textAlign: 'center', borderRight: i < 3 ? '1px solid #EAECF0' : 'none' }}>
-              <Icon size={20} style={{ color: '#1E3273', margin: '0 auto 10px', opacity: 0.7 }} />
-              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 30, color: '#111827', letterSpacing: '-0.03em', lineHeight: 1 }}>{value}</div>
-              <div style={{ fontSize: 12.5, color: '#6B7280', marginTop: 6, letterSpacing: '0.01em' }}>{label}</div>
+      {/* ── Stats ── */}
+      <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC' }}>
+        <div className="wrap" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+          {stats.map(({ value, label }, i) => (
+            <div key={label} style={{ padding: '36px 24px', borderRight: i < 3 ? '1px solid #E5E3DC' : 'none' }}>
+              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 38, color: '#111', letterSpacing: '-0.045em', lineHeight: 1 }}>{value}</div>
+              <div style={{ fontSize: 12.5, color: '#999', marginTop: 7 }}>{label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Features */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 52 }}>
-            <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 10 }}>Why choose us</p>
-            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(22px, 3vw, 30px)', color: '#111827', letterSpacing: '-0.025em', marginBottom: 12 }}>Built for excellence</h2>
-            <p style={{ color: '#6B7280', fontSize: 15, maxWidth: 440, margin: '0 auto', lineHeight: 1.7 }}>A unique environment designed to push gifted students to their full potential.</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-            {features.map(({ title, desc }) => (
-              <div key={title} style={{ backgroundColor: '#F8F9FC', borderRadius: 14, padding: '28px 26px', border: '1px solid #EAECF0' }}>
-                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16, color: '#111827', letterSpacing: '-0.015em', marginBottom: 8 }}>{title}</h3>
-                <p style={{ color: '#6B7280', fontSize: 14, lineHeight: 1.7 }}>{desc}</p>
-              </div>
-            ))}
+      {/* ── Features — editorial two-col ── */}
+      <section style={{ backgroundColor: '#FAFAF8', padding: '104px 24px' }}>
+        <div className="wrap">
+          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '80px', alignItems: 'start' }}>
+            <div>
+              <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.04em', lineHeight: 1.08, marginBottom: 20 }}>
+                Built for<br />excellence.
+              </h2>
+              <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8, maxWidth: 360 }}>
+                A unique environment designed to push gifted students to their full potential — academically, creatively, and personally.
+              </p>
+            </div>
+            <div>
+              {features.map(({ n, title, desc }, i) => (
+                <div key={n} style={{ display: 'flex', gap: 20, paddingBottom: 28, marginBottom: 28, borderBottom: i < features.length - 1 ? '1px solid #E5E3DC' : 'none' }}>
+                  <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 11, color: '#C9A84C', letterSpacing: '0.06em', paddingTop: 3, flexShrink: 0, minWidth: 20 }}>{n}</span>
+                  <div>
+                    <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15.5, color: '#111', letterSpacing: '-0.01em', marginBottom: 5 }}>{title}</h3>
+                    <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7 }}>{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Articles */}
-      <section style={{ backgroundColor: '#F8F9FC', borderTop: '1px solid #EAECF0', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 40 }}>
-            <div>
-              <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 8 }}>From the school</p>
-              <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(20px, 2.5vw, 26px)', color: '#111827', letterSpacing: '-0.02em' }}>Latest news</h2>
-            </div>
-            <Link to="/articles" style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#1E3273', textDecoration: 'none', fontWeight: 500, fontSize: 13.5, letterSpacing: '-0.01em' }}>
-              View all <ArrowRight size={14} />
+      {/* ── Articles ── */}
+      <section style={{ backgroundColor: '#fff', borderTop: '1px solid #E5E3DC', padding: '104px 24px' }}>
+        <div className="wrap">
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 48, paddingBottom: 20, borderBottom: '1px solid #E5E3DC' }}>
+            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em' }}>
+              Latest news
+            </h2>
+            <Link to="/articles" style={{ fontSize: 13, color: '#999', display: 'flex', alignItems: 'center', gap: 4 }}>
+              All articles <ArrowRight size={12} />
             </Link>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: 36 }}>
             {articles.map(a => (
-              <Link key={a.id} to={`/articles/${a.id}`} style={{ textDecoration: 'none' }}>
-                <div style={{ backgroundColor: '#fff', borderRadius: 14, overflow: 'hidden', border: '1px solid #EAECF0', transition: 'box-shadow 0.2s' }}
-                  onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)'}
-                  onMouseLeave={e => e.currentTarget.style.boxShadow = 'none'}
+              <Link key={a.id} to={`/articles/${a.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+                <div
+                  onMouseEnter={e => e.currentTarget.querySelector('h3').style.color = '#C9A84C'}
+                  onMouseLeave={e => e.currentTarget.querySelector('h3').style.color = '#111'}
                 >
-                  <img src={a.cover} alt={a.title} style={{ width: '100%', height: 168, objectFit: 'cover', display: 'block' }} />
-                  <div style={{ padding: '18px 20px 22px' }}>
-                    <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{a.category}</span>
-                    <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15, color: '#111827', margin: '7px 0 8px', lineHeight: 1.4, letterSpacing: '-0.01em' }}>{a.title}</h3>
-                    <p style={{ fontSize: 13, color: '#6B7280', lineHeight: 1.6 }}>{a.excerpt}</p>
-                  </div>
+                  <img src={a.cover} alt={a.title} style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 8, marginBottom: 16 }} />
+                  <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{a.category}</span>
+                  <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16, color: '#111', margin: '6px 0 8px', lineHeight: 1.35, letterSpacing: '-0.01em', transition: 'color 0.15s' }}>{a.title}</h3>
+                  <p style={{ fontSize: 13, color: '#999', lineHeight: 1.65 }}>{a.excerpt}</p>
                 </div>
               </Link>
             ))}
@@ -106,19 +118,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ padding: '96px 24px', textAlign: 'center' }}>
-        <div style={{ maxWidth: 560, margin: '0 auto' }}>
-          <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C9A84C', marginBottom: 14 }}>Admissions open</p>
-          <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(22px, 3vw, 32px)', color: '#111827', letterSpacing: '-0.025em', marginBottom: 16, lineHeight: 1.2 }}>Ready to join?</h2>
-          <p style={{ color: '#6B7280', fontSize: 15, marginBottom: 36, lineHeight: 1.75 }}>
-            Applications are open for gifted students aged 11–18. Take the admissions test and begin your journey.
-          </p>
-          <Link to="/admissions" style={{ backgroundColor: '#1E3273', color: '#fff', padding: '14px 32px', borderRadius: 8, fontWeight: 600, textDecoration: 'none', fontSize: 14, letterSpacing: '-0.01em' }}>
-            Start your application →
+      {/* ── CTA ── */}
+      <section style={{ backgroundColor: '#0D1B36', padding: '100px 24px' }}>
+        <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 40 }}>
+          <div>
+            <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>Admissions open</p>
+            <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(30px, 4.5vw, 52px)', color: '#fff', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: 12 }}>
+              Ready to begin<br />your journey?
+            </h2>
+            <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.7 }}>For gifted students aged 11–18. Applications are free.</p>
+          </div>
+          <Link to="/admissions" style={{ backgroundColor: '#C9A84C', color: '#0D1B36', padding: '14px 30px', borderRadius: 7, fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
+            Start your application
           </Link>
         </div>
       </section>
+
     </div>
   )
 }
