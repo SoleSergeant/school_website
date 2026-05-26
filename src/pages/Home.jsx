@@ -35,7 +35,7 @@ export default function Home() {
             <Link to="/admissions" style={{ backgroundColor: '#C9A84C', color: '#111B4A', padding: '14px 28px', borderRadius: 10, fontWeight: 700, textDecoration: 'none', fontSize: 15 }}>
               Apply Now
             </Link>
-            <Link to="/about" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#fff', padding: '14px 28px', borderRadius: 10, fontWeight: 600, textDecoration: 'none', fontSize: 15, border: '1px solid rgba(255,255,255,0.2)' }}>
+            <Link to="/life" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: '#fff', padding: '14px 28px', borderRadius: 10, fontWeight: 600, textDecoration: 'none', fontSize: 15, border: '1px solid rgba(255,255,255,0.2)' }}>
               Learn More
             </Link>
           </div>

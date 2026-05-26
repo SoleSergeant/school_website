@@ -12,8 +12,7 @@ export default function Articles() {
 
       {/* Featured */}
       <Link to={`/articles/${articles[0].id}`} style={{ textDecoration: 'none', display: 'block', marginBottom: 32 }}>
-        <div style={{ borderRadius: 20, overflow: 'hidden', backgroundColor: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.08)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}
-          className="flex-col md:grid"
+        <div style={{ borderRadius: 20, overflow: 'hidden', backgroundColor: '#fff', boxShadow: '0 2px 12px rgba(0,0,0,0.08)', display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}
           onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
           onMouseLeave={e => e.currentTarget.style.transform = 'none'}
         >
