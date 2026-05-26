@@ -19,9 +19,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-              <div style={{ backgroundColor: '#C9A84C', borderRadius: 9, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <span style={{ color: '#0F1A3E', fontWeight: 800, fontSize: 13, fontFamily: 'Plus Jakarta Sans' }}>PS</span>
-              </div>
+              <img src="/logo.jpg" alt="ITMA" style={{ width: 38, height: 38, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
               <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.2 }}>Fergana Presidential School</div>
             </div>
             <p style={{ fontSize: 13.5, lineHeight: 1.75, color: '#64748B' }}>Nurturing the next generation of leaders through world-class education and a commitment to excellence.</p>

@@ -23,12 +23,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ backgroundColor: '#1E3273', borderRadius: 10, width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-              <span style={{ color: '#fff', fontWeight: 800, fontSize: 14, fontFamily: 'Plus Jakarta Sans', letterSpacing: '0.02em' }}>PS</span>
-            </div>
-            <div>
-              <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14, color: '#111827', letterSpacing: '-0.01em', lineHeight: 1.2 }}>Fergana Presidential School</div>
-            </div>
+            <img src="/logo.jpg" alt="ITMA" style={{ width: 38, height: 38, borderRadius: 8, objectFit: 'cover', flexShrink: 0 }} />
+            <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 14, color: '#111827', letterSpacing: '-0.01em', lineHeight: 1.2 }}>Fergana Presidential School</div>
           </Link>
 
           {/* Desktop links */}
