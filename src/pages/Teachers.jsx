@@ -7,7 +7,7 @@ export default function Teachers() {
 
         {/* Header */}
         <div style={{ maxWidth: 560, marginBottom: 72 }}>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 56px)', color: '#111', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16 }}>
+          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 56px)', color: '#111', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16 }}>
             Our Faculty
           </h1>
           <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8 }}>
@@ -34,7 +34,7 @@ export default function Teachers() {
               />
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 16, marginBottom: 4, flexWrap: 'wrap' }}>
-                  <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 18, color: '#111', letterSpacing: '0em' }}>{t.name}</h3>
+                  <h3 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 18, color: '#111', letterSpacing: '0em' }}>{t.name}</h3>
                   <span style={{ fontSize: 12, color: '#bbb', flexShrink: 0 }}>{t.experience} experience</span>
                 </div>
                 <span style={{ display: 'inline-block', fontSize: 11.5, color: '#1E3273', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 10 }}>{t.subject}</span>

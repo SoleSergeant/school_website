@@ -8,7 +8,7 @@ export default function Students() {
       <section style={{ backgroundColor: '#0D1B36', padding: '80px 24px' }}>
         <div className="wrap">
           <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>Recognition</p>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 600 }}>
+          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 600 }}>
             Student achievements.
           </h1>
           <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.8, maxWidth: 440 }}>
@@ -20,7 +20,7 @@ export default function Students() {
       {/* 100% placement banner */}
       <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC', padding: '28px 24px' }}>
         <div className="wrap" style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 28, color: '#111', letterSpacing: '0em' }}>100%</span>
+          <span style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 28, color: '#111', letterSpacing: '0em' }}>100%</span>
           <div style={{ width: 1, height: 32, backgroundColor: '#E5E3DC' }} />
           <div>
             <div style={{ fontSize: 14, color: '#111', fontWeight: 600 }}>University Placement</div>
@@ -38,7 +38,7 @@ export default function Students() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                   <img src={s.photo || `https://i.pravatar.cc/80?u=s${s.id}`} alt={s.name} style={{ width: 44, height: 44, borderRadius: '50%', objectFit: 'cover' }} />
                   <div>
-                    <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 14.5, color: '#111', letterSpacing: '0em' }}>{s.name}</div>
+                    <div style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 14.5, color: '#111', letterSpacing: '0em' }}>{s.name}</div>
                     <div style={{ fontSize: 12, color: '#bbb', marginTop: 1 }}>Grade {s.grade}</div>
                   </div>
                 </div>

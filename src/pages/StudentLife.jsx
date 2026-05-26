@@ -38,7 +38,7 @@ export default function StudentLife() {
       <section style={{ backgroundColor: '#0D1B36', padding: '80px 24px' }}>
         <div className="wrap">
           <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>On campus</p>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
+          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
             Life at Fergana<br />Presidential School.
           </h1>
           <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.8, maxWidth: 420 }}>
@@ -50,7 +50,7 @@ export default function StudentLife() {
       {/* Activities — two column list */}
       <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC', padding: '88px 24px' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 52 }}>
+          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 52 }}>
             Everything on campus
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '0px' }}>
@@ -60,7 +60,7 @@ export default function StudentLife() {
                   <Icon size={16} style={{ color: '#555' }} />
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 15, color: '#111', letterSpacing: '0em', marginBottom: 5 }}>{title}</h3>
+                  <h3 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 15, color: '#111', letterSpacing: '0em', marginBottom: 5 }}>{title}</h3>
                   <p style={{ fontSize: 13.5, color: '#777', lineHeight: 1.7 }}>{desc}</p>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export default function StudentLife() {
       {/* Photo grid */}
       <section style={{ padding: '88px 24px' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 36 }}>
+          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 36 }}>
             Campus moments
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: 8 }}>
@@ -86,7 +86,7 @@ export default function StudentLife() {
       {/* Schedule */}
       <section style={{ backgroundColor: '#fff', borderTop: '1px solid #E5E3DC', padding: '88px 24px' }}>
         <div style={{ maxWidth: 580, margin: '0 auto', padding: '0 24px' }}>
-          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 48 }}>
+          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 48 }}>
             A day in the life
           </h2>
           {schedule.map(({ time, activity }, i) => (

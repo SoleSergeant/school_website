@@ -22,7 +22,7 @@ export default function ArticlePage() {
 
         <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>{article.category}</span>
 
-        <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 38px)', color: '#111', margin: '12px 0 20px', lineHeight: 1.15, letterSpacing: '0em' }}>
+        <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(26px, 4vw, 38px)', color: '#111', margin: '12px 0 20px', lineHeight: 1.15, letterSpacing: '0em' }}>
           {article.title}
         </h1>
 

@@ -18,7 +18,7 @@ export default function Contact() {
 
         {/* Header */}
         <div style={{ marginBottom: 64, paddingBottom: 32, borderBottom: '1px solid #E5E3DC' }}>
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.01em', marginBottom: 12 }}>
+          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.01em', marginBottom: 12 }}>
             Get in touch
           </h1>
           <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8, maxWidth: 400 }}>
@@ -54,12 +54,12 @@ export default function Contact() {
           <div>
             {sent ? (
               <div style={{ padding: '48px 0' }}>
-                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 22, color: '#111', letterSpacing: '0em', marginBottom: 8 }}>Message sent</h3>
+                <h3 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 22, color: '#111', letterSpacing: '0em', marginBottom: 8 }}>Message sent</h3>
                 <p style={{ fontSize: 14, color: '#777' }}>We'll get back to you within 1–2 business days.</p>
               </div>
             ) : (
               <form onSubmit={e => { e.preventDefault(); setSent(true) }}>
-                <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 18, color: '#111', letterSpacing: '0em', marginBottom: 28 }}>Send a message</h2>
+                <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 18, color: '#111', letterSpacing: '0em', marginBottom: 28 }}>Send a message</h2>
                 {[
                   { name: 'name',  label: 'Full Name', type: 'text',  placeholder: 'Your name' },
                   { name: 'email', label: 'Email',     type: 'email', placeholder: 'your@email.com' },
