@@ -25,7 +25,7 @@ export default function Footer() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 14 }}>
               <img src="/logo.jpg" alt="ITMA" style={{ width: 28, height: 28, borderRadius: 6, objectFit: 'cover' }} />
-              <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 13, color: '#fff', letterSpacing: '-0.01em' }}>Fergana Presidential School</span>
+              <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: 13, color: '#fff', letterSpacing: '-0.01em' }}>Fergana Presidential School</span>
             </div>
             <p style={{ fontSize: 13, color: '#4A6080', lineHeight: 1.75 }}>Nurturing tomorrow's leaders through world-class education and a commitment to excellence.</p>
           </div>

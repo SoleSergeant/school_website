@@ -23,7 +23,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none', flexShrink: 0 }}>
           <img src="/logo.jpg" alt="ITMA" style={{ width: 30, height: 30, borderRadius: 6, objectFit: 'cover' }} />
-          <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 13.5, color: '#111', letterSpacing: '-0.01em' }}>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 600, fontSize: 13.5, color: '#111', letterSpacing: '-0.01em' }}>
             Fergana Presidential School
           </span>
         </Link>

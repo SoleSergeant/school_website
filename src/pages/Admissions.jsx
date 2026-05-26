@@ -30,7 +30,7 @@ export default function Admissions() {
       <section style={{ backgroundColor: '#0D1B36', padding: '80px 24px' }}>
         <div className="wrap">
           <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>Admissions open</p>
-          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
             Join the school.
           </h1>
           <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.8, maxWidth: 400 }}>
@@ -42,14 +42,14 @@ export default function Admissions() {
       {/* Steps */}
       <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC', padding: '88px 24px' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 52 }}>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '0em', marginBottom: 52 }}>
             How to apply
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '1px', backgroundColor: '#E5E3DC', border: '1px solid #E5E3DC', borderRadius: 10, overflow: 'hidden' }}>
             {steps.map(({ n, title, desc }) => (
               <div key={n} style={{ backgroundColor: '#fff', padding: '32px 28px' }}>
-                <span style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 11, color: '#C9A84C', letterSpacing: '0.06em', display: 'block', marginBottom: 12 }}>{n}</span>
-                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 16.5, color: '#111', letterSpacing: '-0.015em', marginBottom: 8 }}>{title}</h3>
+                <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 800, fontSize: 11, color: '#C9A84C', letterSpacing: '0.06em', display: 'block', marginBottom: 12 }}>{n}</span>
+                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 16.5, color: '#111', letterSpacing: '0em', marginBottom: 8 }}>{title}</h3>
                 <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7 }}>{desc}</p>
               </div>
             ))}
@@ -62,7 +62,7 @@ export default function Admissions() {
         <div className="wrap">
           <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: 80, alignItems: 'start' }}>
             <div>
-              <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 16 }}>
+              <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '0em', marginBottom: 16 }}>
                 Eligibility
               </h2>
               <p style={{ fontSize: 15, color: '#777', lineHeight: 1.8 }}>
@@ -84,13 +84,13 @@ export default function Admissions() {
       {/* FAQ */}
       <section style={{ backgroundColor: '#fff', borderTop: '1px solid #E5E3DC', padding: '88px 24px' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '-0.035em', marginBottom: 52 }}>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 36px)', color: '#111', letterSpacing: '0em', marginBottom: 52 }}>
             Common questions
           </h2>
           <div style={{ maxWidth: 680 }}>
             {faqs.map(({ q, a }, i) => (
               <div key={i} style={{ padding: '24px 0', borderBottom: '1px solid #E5E3DC' }}>
-                <h3 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15.5, color: '#111', letterSpacing: '-0.01em', marginBottom: 8 }}>{q}</h3>
+                <h3 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 15.5, color: '#111', letterSpacing: '0em', marginBottom: 8 }}>{q}</h3>
                 <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75 }}>{a}</p>
               </div>
             ))}

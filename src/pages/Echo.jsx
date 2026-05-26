@@ -11,7 +11,7 @@ function SurveyForm({ survey }) {
     return (
       <div style={{ padding: '32px 24px', textAlign: 'center', borderBottom: '1px solid #E5E3DC' }}>
         <CheckCircle size={28} style={{ color: '#16A34A', margin: '0 auto 10px', display: 'block' }} />
-        <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 15, color: '#111', marginBottom: 4 }}>Response submitted</div>
+        <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 15, color: '#111', marginBottom: 4 }}>Response submitted</div>
         <div style={{ fontSize: 13, color: '#999' }}>Your anonymous response has been recorded. Thank you.</div>
       </div>
     )
@@ -24,7 +24,7 @@ function SurveyForm({ survey }) {
         style={{ width: '100%', padding: '28px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}
       >
         <div>
-          <div style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 700, fontSize: 17, color: '#111', marginBottom: 3, letterSpacing: '-0.015em' }}>{survey.title}</div>
+          <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 600, fontSize: 17, color: '#111', marginBottom: 3, letterSpacing: '0em' }}>{survey.title}</div>
           <div style={{ fontSize: 12.5, color: '#bbb' }}>
             {survey.responses} responses · {survey.isOpen ? 'Open' : 'Closed'}
           </div>
@@ -44,7 +44,7 @@ function SurveyForm({ survey }) {
                 <div style={{ display: 'flex', gap: 8 }}>
                   {[1, 2, 3, 4, 5].map(v => (
                     <button type="button" key={v} onClick={() => setAnswers(a => ({ ...a, [q.id]: v }))}
-                      style={{ width: 44, height: 44, borderRadius: 8, border: `1.5px solid ${answers[q.id] === v ? '#111' : '#E5E3DC'}`, backgroundColor: answers[q.id] === v ? '#111' : '#fff', color: answers[q.id] === v ? '#fff' : '#444', fontWeight: 600, fontSize: 15, cursor: 'pointer', fontFamily: 'Plus Jakarta Sans' }}
+                      style={{ width: 44, height: 44, borderRadius: 8, border: `1.5px solid ${answers[q.id] === v ? '#111' : '#E5E3DC'}`, backgroundColor: answers[q.id] === v ? '#111' : '#fff', color: answers[q.id] === v ? '#fff' : '#444', fontWeight: 600, fontSize: 15, cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
                     >{v}</button>
                   ))}
                 </div>
@@ -94,7 +94,7 @@ export default function Echo() {
             <Shield size={18} style={{ color: '#C9A84C' }} />
           </div>
           <div>
-            <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(28px, 4vw, 44px)', color: '#111', letterSpacing: '-0.04em', lineHeight: 1.05, marginBottom: 10 }}>Echo</h1>
+            <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 44px)', color: '#111', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 10 }}>Echo</h1>
             <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75 }}>
               Share your honest feedback. No names, no accounts — just your voice. Responses are 100% anonymous.
             </p>

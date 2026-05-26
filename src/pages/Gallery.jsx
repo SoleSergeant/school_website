@@ -14,7 +14,7 @@ export default function Gallery() {
 
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 48, paddingBottom: 24, borderBottom: '1px solid #E5E3DC' }}>
-          <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.04em' }}>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.01em' }}>
             Gallery
           </h1>
           <span style={{ fontSize: 13, color: '#bbb' }}>{galleryItems.length} photos</span>
