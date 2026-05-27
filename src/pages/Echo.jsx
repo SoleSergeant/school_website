@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Shield, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react'
 import { surveys } from '../data/mock'
+import { useReveal, fx } from '../hooks/useReveal'
 
 const D = "'Cormorant Garamond', Georgia, serif"
 
@@ -86,19 +87,22 @@ function SurveyForm({ survey }) {
 }
 
 export default function Echo() {
+  const [headerRef,  headerVis]  = useReveal()
+  const [surveysRef, surveysVis] = useReveal()
+
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* Header */}
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
-        <div className="wrap" style={{ maxWidth: 720 }}>
+        <div ref={headerRef} className="wrap" style={{ maxWidth: 720 }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: '#0A1628', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 6 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: '#0A1628', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 6, ...fx(headerVis, 0) }}>
               <Shield size={18} style={{ color: '#B8882A' }} />
             </div>
             <div>
-              <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(36px, 5vw, 58px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 12 }}>Echo</h1>
-              <p style={{ fontSize: 14.5, color: '#6A6A7A', lineHeight: 1.78, maxWidth: 440 }}>
+              <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(36px, 5vw, 58px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 12, ...fx(headerVis, 80, 24) }}>Echo</h1>
+              <p style={{ fontSize: 14.5, color: '#6A6A7A', lineHeight: 1.78, maxWidth: 440, ...fx(headerVis, 180) }}>
                 Share your honest feedback. No names, no accounts — just your voice. Responses are 100% anonymous.
               </p>
             </div>
@@ -107,8 +111,12 @@ export default function Echo() {
       </div>
 
       {/* Surveys */}
-      <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 32px 100px' }}>
-        {surveys.map(s => <SurveyForm key={s.id} survey={s} />)}
+      <div ref={surveysRef} style={{ maxWidth: 720, margin: '0 auto', padding: '48px 32px 100px' }}>
+        {surveys.map((s, i) => (
+          <div key={s.id} style={fx(surveysVis, i * 70)}>
+            <SurveyForm survey={s} />
+          </div>
+        ))}
       </div>
     </div>
   )

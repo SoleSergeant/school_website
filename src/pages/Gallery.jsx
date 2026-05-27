@@ -1,6 +1,7 @@
 import { galleryItems } from '../data/mock'
 import { useState } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useReveal, fx } from '../hooks/useReveal'
 
 const D = "'Cormorant Garamond', Georgia, serif"
 
@@ -9,28 +10,31 @@ export default function Gallery() {
   const prev = () => setIdx(i => (i - 1 + galleryItems.length) % galleryItems.length)
   const next = () => setIdx(i => (i + 1) % galleryItems.length)
 
+  const [headerRef, headerVis] = useReveal()
+  const [gridRef,   gridVis]   = useReveal()
+
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* Header */}
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
-        <div className="wrap" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+        <div ref={headerRef} className="wrap" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <div>
-            <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>Visual archive</p>
-            <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+            <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14, ...fx(headerVis, 0) }}>Visual archive</p>
+            <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, ...fx(headerVis, 100, 28) }}>
               Gallery
             </h1>
           </div>
-          <span style={{ fontSize: 13, color: '#AAA', paddingBottom: 4 }}>{galleryItems.length} photos</span>
+          <span style={{ fontSize: 13, color: '#AAA', paddingBottom: 4, ...fx(headerVis, 180) }}>{galleryItems.length} photos</span>
         </div>
       </div>
 
       {/* Grid */}
       <div className="wrap" style={{ padding: '56px 32px 100px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
+        <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 3 }}>
           {galleryItems.map((item, i) => (
             <div key={item.id} onClick={() => setIdx(i)}
-              style={{ position: 'relative', cursor: 'pointer', overflow: 'hidden', aspectRatio: '1' }}>
+              style={{ position: 'relative', cursor: 'pointer', overflow: 'hidden', aspectRatio: '1', ...fx(gridVis, i * 30) }}>
               <img src={item.url} alt={item.caption}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
                 onMouseEnter={e => e.target.style.transform = 'scale(1.06)'}

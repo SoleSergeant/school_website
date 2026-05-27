@@ -1,5 +1,6 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { useState } from 'react'
+import { useReveal, fx } from '../hooks/useReveal'
 
 const D = "'Cormorant Garamond', Georgia, serif"
 
@@ -14,17 +15,21 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
 
+  const [headerRef, headerVis] = useReveal()
+  const [infoRef,   infoVis]   = useReveal()
+  const [formRef,   formVis]   = useReveal()
+
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* Header */}
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
-        <div className="wrap">
-          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>Reach out</p>
-          <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 14 }}>
+        <div ref={headerRef} className="wrap">
+          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14, ...fx(headerVis, 0) }}>Reach out</p>
+          <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 14, ...fx(headerVis, 100, 28) }}>
             Get in Touch
           </h1>
-          <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 400 }}>
+          <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 400, ...fx(headerVis, 200) }}>
             Questions about admissions, campus life, or the school — we're here to help.
           </p>
         </div>
@@ -34,10 +39,10 @@ export default function Contact() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.1fr', gap: 80, alignItems: 'start' }}>
 
           {/* Info */}
-          <div>
+          <div ref={infoRef}>
             <div style={{ marginBottom: 40 }}>
-              {info.map(({ icon: Icon, label, value }) => (
-                <div key={label} style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '18px 0', borderBottom: '1px solid #EDE8DC' }}>
+              {info.map(({ icon: Icon, label, value }, i) => (
+                <div key={label} style={{ display: 'flex', alignItems: 'flex-start', gap: 16, padding: '18px 0', borderBottom: '1px solid #EDE8DC', ...fx(infoVis, i * 70) }}>
                   <div style={{ width: 32, height: 32, borderRadius: 6, backgroundColor: '#F5F1E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 }}>
                     <Icon size={14} style={{ color: '#B8882A' }} />
                   </div>
@@ -48,7 +53,7 @@ export default function Contact() {
                 </div>
               ))}
             </div>
-            <div style={{ overflow: 'hidden', border: '1px solid #E5DFCF' }}>
+            <div style={{ overflow: 'hidden', border: '1px solid #E5DFCF', ...fx(infoVis, info.length * 70) }}>
               <iframe
                 title="School Location"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=71.75,40.37,71.82,40.41&layer=mapnik"
@@ -58,7 +63,7 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div>
+          <div ref={formRef} style={fx(formVis, 80)}>
             {sent ? (
               <div style={{ padding: '56px 0' }}>
                 <div style={{ width: 40, height: 1.5, backgroundColor: '#B8882A', marginBottom: 24 }} />

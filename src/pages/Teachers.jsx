@@ -1,26 +1,30 @@
 import { teachers } from '../data/mock'
+import { useReveal, fx } from '../hooks/useReveal'
 
 const D = "'Cormorant Garamond', Georgia, serif"
 
 export default function Teachers() {
+  const [headerRef, headerVis] = useReveal()
+  const [listRef,   listVis]   = useReveal()
+
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* Header */}
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
-        <div className="wrap">
-          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16 }}>Our people</p>
-          <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(40px, 5vw, 64px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16 }}>
+        <div ref={headerRef} className="wrap">
+          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16, ...fx(headerVis, 0) }}>Our people</p>
+          <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(40px, 5vw, 64px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, ...fx(headerVis, 100, 28) }}>
             Faculty
           </h1>
-          <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 480 }}>
+          <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 480, ...fx(headerVis, 200) }}>
             Subject specialists and Cambridge-certified educators committed to developing each student's full potential.
           </p>
         </div>
       </div>
 
       {/* Teacher list */}
-      <div className="wrap" style={{ padding: '0 32px 100px' }}>
+      <div ref={listRef} className="wrap" style={{ padding: '0 32px 100px' }}>
         {teachers.map((t, i) => (
           <div key={t.id} style={{
             display: 'grid',
@@ -29,6 +33,7 @@ export default function Teachers() {
             alignItems: 'flex-start',
             padding: '36px 0',
             borderBottom: '1px solid #EDE8DC',
+            ...fx(listVis, i * 60),
           }}>
             <img
               src={t.photo || `https://i.pravatar.cc/80?u=${t.id}`}
