@@ -1,12 +1,14 @@
 import { Home, Music, Dumbbell, FlaskConical, Mic2, Globe } from 'lucide-react'
 
+const D = "'Cormorant Garamond', Georgia, serif"
+
 const lifeItems = [
-  { icon: Home,        title: 'Campus & Boarding',  desc: 'Modern boarding facilities with comfortable dorms, study rooms, and common areas for collaboration.' },
-  { icon: Music,       title: 'Clubs & Activities', desc: 'Robotics, debate, chess, music, and over 15 student-led clubs to explore your passions.' },
-  { icon: Dumbbell,    title: 'Sports & Fitness',   desc: 'Football, basketball, volleyball, and a fully equipped gym open to all students daily.' },
-  { icon: FlaskConical,title: 'Science Labs',       desc: 'State-of-the-art physics, chemistry, and biology labs for hands-on experiments.' },
-  { icon: Mic2,        title: 'TEDx & Events',      desc: 'Student-organized conferences, cultural festivals, and open mic nights throughout the year.' },
-  { icon: Globe,       title: 'International Trips',desc: 'Exchange programs and academic trips to partner schools in Kazakhstan, Turkey, and beyond.' },
+  { icon: Home,        title: 'Campus & Boarding',   desc: 'Modern boarding with comfortable dorms, study rooms, and common areas for collaboration.' },
+  { icon: Music,       title: 'Clubs & Activities',  desc: 'Robotics, debate, chess, music, and over 15 student-led clubs to explore every passion.' },
+  { icon: Dumbbell,    title: 'Sports & Fitness',     desc: 'Football, basketball, volleyball, and a fully-equipped gym open daily to all students.' },
+  { icon: FlaskConical,'title': 'Science Labs',       desc: 'State-of-the-art physics, chemistry, and biology labs for hands-on experiments.' },
+  { icon: Mic2,        title: 'TEDx & Events',        desc: 'Student-organised conferences, cultural festivals, and open mic nights throughout the year.' },
+  { icon: Globe,       title: 'International Trips',  desc: 'Exchange programmes and academic trips to partner schools in Kazakhstan, Turkey, and beyond.' },
 ]
 
 const photos = [
@@ -32,36 +34,36 @@ const schedule = [
 
 export default function StudentLife() {
   return (
-    <div style={{ backgroundColor: '#FAFAF8' }}>
+    <div style={{ backgroundColor: '#fff' }}>
 
       {/* Hero */}
-      <section style={{ backgroundColor: '#0D1B36', padding: '80px 24px' }}>
+      <section style={{ backgroundColor: '#0A1628', padding: '64px 0 60px' }}>
         <div className="wrap">
-          <p style={{ fontSize: 11, color: '#3D5270', letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, marginBottom: 18 }}>On campus</p>
-          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(36px, 5vw, 58px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, maxWidth: 560 }}>
+          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 18 }}>On campus</p>
+          <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(40px, 5.5vw, 68px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.02, marginBottom: 18, maxWidth: 560 }}>
             Life at Fergana<br />Presidential School.
           </h1>
-          <p style={{ fontSize: 15, color: '#7A90A8', lineHeight: 1.8, maxWidth: 420 }}>
-            More than academics — a full community experience that shapes character alongside intellect.
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.52)', lineHeight: 1.8, maxWidth: 420 }}>
+            More than academics — a full community that shapes character alongside intellect.
           </p>
         </div>
       </section>
 
-      {/* Activities — two column list */}
-      <section style={{ backgroundColor: '#fff', borderBottom: '1px solid #E5E3DC', padding: '88px 24px' }}>
+      {/* Activities */}
+      <section style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '88px 0' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 52 }}>
+          <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(28px, 3.5vw, 44px)', color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 56 }}>
             Everything on campus
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '0px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 80px' }}>
             {lifeItems.map(({ icon: Icon, title, desc }, i) => (
-              <div key={title} style={{ display: 'flex', gap: 18, padding: '28px 0', borderBottom: '1px solid #E5E3DC', paddingRight: i % 2 === 0 ? 40 : 0 }}>
-                <div style={{ width: 36, height: 36, borderRadius: 9, backgroundColor: '#F4F2EC', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
-                  <Icon size={16} style={{ color: '#555' }} />
+              <div key={title} style={{ display: 'flex', gap: 18, padding: '28px 0', borderTop: '1px solid #DDD8CC' }}>
+                <div style={{ width: 36, height: 36, borderRadius: 8, backgroundColor: '#0A1628', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2 }}>
+                  <Icon size={15} style={{ color: '#B8882A' }} />
                 </div>
                 <div>
-                  <h3 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 15, color: '#111', letterSpacing: '0em', marginBottom: 5 }}>{title}</h3>
-                  <p style={{ fontSize: 13.5, color: '#777', lineHeight: 1.7 }}>{desc}</p>
+                  <h3 style={{ fontSize: 15, fontWeight: 600, color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 6 }}>{title}</h3>
+                  <p style={{ fontSize: 13.5, color: '#6A6A7A', lineHeight: 1.75 }}>{desc}</p>
                 </div>
               </div>
             ))}
@@ -70,28 +72,34 @@ export default function StudentLife() {
       </section>
 
       {/* Photo grid */}
-      <section style={{ padding: '88px 24px' }}>
+      <section style={{ padding: '88px 0' }}>
         <div className="wrap">
-          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 36 }}>
-            Campus moments
+          <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(28px, 3.5vw, 44px)', color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 36 }}>
+            Campus Moments
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 3 }}>
             {photos.map((url, i) => (
-              <img key={i} src={url} alt={`Campus ${i + 1}`} style={{ width: '100%', height: i === 0 ? 280 : 200, objectFit: 'cover', borderRadius: 8 }} />
+              <div key={i} style={{ overflow: 'hidden' }}>
+                <img src={url} alt={`Campus ${i + 1}`}
+                  style={{ width: '100%', height: i === 0 ? 300 : 220, objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+                  onMouseEnter={e => e.target.style.transform = 'scale(1.04)'}
+                  onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Schedule */}
-      <section style={{ backgroundColor: '#fff', borderTop: '1px solid #E5E3DC', padding: '88px 24px' }}>
-        <div style={{ maxWidth: 580, margin: '0 auto', padding: '0 24px' }}>
-          <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(24px, 3vw, 34px)', color: '#111', letterSpacing: '0em', marginBottom: 48 }}>
-            A day in the life
+      {/* Daily schedule */}
+      <section style={{ backgroundColor: '#F5F1E8', borderTop: '1px solid #E5DFCF', padding: '88px 0' }}>
+        <div style={{ maxWidth: 600, margin: '0 auto', padding: '0 32px' }}>
+          <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(28px, 3.5vw, 44px)', color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 52 }}>
+            A Day in the Life
           </h2>
           {schedule.map(({ time, activity }, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 20, padding: '14px 0', borderBottom: i < schedule.length - 1 ? '1px solid #F0EEE8' : 'none' }}>
-              <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 700, fontSize: 12.5, color: '#C9A84C', minWidth: 46, letterSpacing: '0.04em' }}>{time}</span>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 24, padding: '13px 0', borderBottom: i < schedule.length - 1 ? '1px solid #DDD8CC' : 'none' }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#B8882A', minWidth: 44, letterSpacing: '0.06em', fontVariantNumeric: 'tabular-nums' }}>{time}</span>
               <span style={{ fontSize: 14, color: '#444' }}>{activity}</span>
             </div>
           ))}

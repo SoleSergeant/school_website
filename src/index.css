@@ -81,26 +81,36 @@
 }
 
 /* ─── Fonts ─────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
 /* ─── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:       #0A1628;
+  --gold:       #B8882A;
+  --cream:      #F5F1E8;
+  --border:     #E5DFCF;
+  --text:       #111;
+  --text-mid:   #5C5A6A;
+  --text-light: #8C8C9C;
+}
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 15px;
   line-height: 1.65;
-  color: #444;
-  background: #FAFAF8;
+  color: #333;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: #111;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #0A1628;
   margin: 0;
 }
 
@@ -117,6 +127,6 @@ button { font-family: inherit; }
 .spin { animation: spin 0.9s linear infinite; }
 
 /* ─── Container ──────────────────────────────────────────── */
-.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
 #root { min-height: 100vh; }

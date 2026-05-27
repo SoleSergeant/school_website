@@ -1,59 +1,83 @@
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { articles } from '../data/mock'
+
+const D = "'Cormorant Garamond', Georgia, serif"
 
 export default function Articles() {
   const [featured, ...rest] = articles
 
   return (
-    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh' }}>
-      <div className="wrap" style={{ padding: '80px 24px' }}>
+    <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 56, paddingBottom: 24, borderBottom: '1px solid #E5E3DC' }}>
-          <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#111', letterSpacing: '-0.01em' }}>
-            News & Articles
-          </h1>
-          <span style={{ fontSize: 13, color: '#bbb' }}>{articles.length} stories</span>
+      {/* Header */}
+      <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
+        <div className="wrap" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <div>
+            <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>From the school</p>
+            <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05 }}>
+              News & Articles
+            </h1>
+          </div>
+          <span style={{ fontSize: 13, color: '#AAA', paddingBottom: 4 }}>{articles.length} stories</span>
         </div>
+      </div>
+
+      <div className="wrap" style={{ padding: '72px 32px 100px' }}>
 
         {/* Featured */}
-        <Link to={`/articles/${featured.id}`} style={{ display: 'block', marginBottom: 64 }}>
-          <div
-            className="grid grid-cols-1 md:grid-cols-2"
-            style={{ borderRadius: 10, overflow: 'hidden', border: '1px solid #E5E3DC', backgroundColor: '#fff' }}
-            onMouseEnter={e => { e.currentTarget.querySelector('h2').style.color = '#C9A84C' }}
-            onMouseLeave={e => { e.currentTarget.querySelector('h2').style.color = '#111' }}
-          >
-            <img src={featured.cover} alt={featured.title} style={{ width: '100%', height: 280, objectFit: 'cover', display: 'block' }} />
-            <div style={{ padding: '36px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>
+        <Link to={`/articles/${featured.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 72 }}
+          onMouseEnter={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#B8882A' }}
+          onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#0A1628' }}
+        >
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{ overflow: 'hidden' }}>
+              <img src={featured.cover} alt={featured.title}
+                style={{ width: '100%', height: 340, objectFit: 'cover', display: 'block', transition: 'transform 0.5s ease' }}
+                onMouseEnter={e => e.target.style.transform = 'scale(1.04)'}
+                onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+              />
+            </div>
+            <div style={{ padding: '40px 36px', display: 'flex', flexDirection: 'column', justifyContent: 'center', backgroundColor: '#FAFAF8' }}>
+              <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 16 }}>
                 {featured.category} · Featured
               </span>
-              <h2 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: '#111', letterSpacing: '0em', lineHeight: 1.25, marginBottom: 12, transition: 'color 0.15s' }}>
+              <h2 data-h style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(20px, 2.5vw, 28px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: 14, transition: 'color 0.15s' }}>
                 {featured.title}
               </h2>
-              <p style={{ fontSize: 14, color: '#777', lineHeight: 1.7, marginBottom: 24 }}>{featured.excerpt}</p>
-              <div style={{ fontSize: 12.5, color: '#bbb' }}>{featured.author} · {featured.date}</div>
+              <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75, marginBottom: 24 }}>{featured.excerpt}</p>
+              <div style={{ fontSize: 12.5, color: '#BBB' }}>{featured.author} · {featured.date}</div>
             </div>
           </div>
         </Link>
 
+        {/* Divider */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 48 }}>
+          <div style={{ flex: 1, height: 1, backgroundColor: '#E5DFCF' }} />
+          <span style={{ fontSize: 10, fontWeight: 700, color: '#CCC', letterSpacing: '0.12em', textTransform: 'uppercase' }}>More stories</span>
+          <div style={{ flex: 1, height: 1, backgroundColor: '#E5DFCF' }} />
+        </div>
+
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: 40 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
           {rest.map(a => (
-            <Link key={a.id} to={`/articles/${a.id}`} style={{ display: 'block' }}
-              onMouseEnter={e => { e.currentTarget.querySelector('h3').style.color = '#C9A84C' }}
-              onMouseLeave={e => { e.currentTarget.querySelector('h3').style.color = '#111' }}
+            <Link key={a.id} to={`/articles/${a.id}`} style={{ display: 'block', textDecoration: 'none' }}
+              onMouseEnter={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#B8882A' }}
+              onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#0A1628' }}
             >
-              <img src={a.cover} alt={a.title} style={{ width: '100%', height: 196, objectFit: 'cover', borderRadius: 8, marginBottom: 16 }} />
-              <span style={{ fontSize: 10.5, color: '#C9A84C', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{a.category}</span>
-              <h3 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 16, color: '#111', margin: '6px 0 8px', lineHeight: 1.35, letterSpacing: '0em', transition: 'color 0.15s' }}>{a.title}</h3>
-              <p style={{ fontSize: 13, color: '#999', lineHeight: 1.65, marginBottom: 12 }}>{a.excerpt}</p>
-              <div style={{ fontSize: 12, color: '#bbb' }}>{a.author} · {a.date}</div>
+              <div style={{ overflow: 'hidden', marginBottom: 18 }}>
+                <img src={a.cover} alt={a.title} style={{ width: '100%', height: 200, objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+                  onMouseEnter={e => e.target.style.transform = 'scale(1.04)'}
+                  onMouseLeave={e => e.target.style.transform = 'scale(1)'}
+                />
+              </div>
+              <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{a.category}</span>
+              <h3 data-h style={{ fontSize: 17, fontWeight: 600, color: '#0A1628', margin: '7px 0 10px', lineHeight: 1.4, letterSpacing: '-0.01em', transition: 'color 0.15s' }}>{a.title}</h3>
+              <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.72, marginBottom: 12 }}>{a.excerpt}</p>
+              <div style={{ fontSize: 12, color: '#CCC' }}>{a.author} · {a.date}</div>
             </Link>
           ))}
         </div>
-
       </div>
     </div>
   )

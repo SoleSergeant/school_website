@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Shield, CheckCircle, ChevronDown, ChevronUp } from 'lucide-react'
 import { surveys } from '../data/mock'
 
+const D = "'Cormorant Garamond', Georgia, serif"
+
 function SurveyForm({ survey }) {
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
@@ -9,34 +11,34 @@ function SurveyForm({ survey }) {
 
   if (submitted) {
     return (
-      <div style={{ padding: '32px 24px', textAlign: 'center', borderBottom: '1px solid #E5E3DC' }}>
-        <CheckCircle size={28} style={{ color: '#16A34A', margin: '0 auto 10px', display: 'block' }} />
-        <div style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 15, color: '#111', marginBottom: 4 }}>Response submitted</div>
-        <div style={{ fontSize: 13, color: '#999' }}>Your anonymous response has been recorded. Thank you.</div>
+      <div style={{ padding: '32px 0', borderBottom: '1px solid #EDE8DC', display: 'flex', alignItems: 'center', gap: 14 }}>
+        <CheckCircle size={20} style={{ color: '#2E8B57', flexShrink: 0 }} />
+        <div>
+          <div style={{ fontSize: 14.5, fontWeight: 600, color: '#0A1628', marginBottom: 2 }}>Response recorded</div>
+          <div style={{ fontSize: 13, color: '#999' }}>Your anonymous response has been submitted. Thank you.</div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div style={{ borderBottom: '1px solid #E5E3DC' }}>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        style={{ width: '100%', padding: '28px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}
-      >
+    <div style={{ borderBottom: '1px solid #EDE8DC' }}>
+      <button onClick={() => setExpanded(!expanded)}
+        style={{ width: '100%', padding: '26px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}>
         <div>
-          <div style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 600, fontSize: 17, color: '#111', marginBottom: 3, letterSpacing: '0em' }}>{survey.title}</div>
-          <div style={{ fontSize: 12.5, color: '#bbb' }}>
-            {survey.responses} responses · {survey.isOpen ? 'Open' : 'Closed'}
+          <div style={{ fontSize: 16, fontWeight: 600, color: '#0A1628', marginBottom: 4, letterSpacing: '-0.01em' }}>{survey.title}</div>
+          <div style={{ fontSize: 12.5, color: '#BBB' }}>
+            {survey.responses} responses · <span style={{ color: survey.isOpen ? '#2E8B57' : '#999' }}>{survey.isOpen ? 'Open' : 'Closed'}</span>
           </div>
         </div>
-        {expanded ? <ChevronUp size={16} style={{ color: '#bbb', flexShrink: 0 }} /> : <ChevronDown size={16} style={{ color: '#bbb', flexShrink: 0 }} />}
+        {expanded ? <ChevronUp size={15} style={{ color: '#BBB', flexShrink: 0 }} /> : <ChevronDown size={15} style={{ color: '#BBB', flexShrink: 0 }} />}
       </button>
 
       {expanded && survey.isOpen && (
         <form onSubmit={e => { e.preventDefault(); setSubmitted(true) }} style={{ paddingBottom: 32 }}>
           {survey.questions.map((q, i) => (
             <div key={q.id} style={{ marginBottom: 28 }}>
-              <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#333', marginBottom: 12, letterSpacing: '-0.01em' }}>
+              <label style={{ display: 'block', fontSize: 13.5, fontWeight: 600, color: '#333', marginBottom: 12, letterSpacing: '-0.01em' }}>
                 {i + 1}. {q.text}
               </label>
 
@@ -44,7 +46,7 @@ function SurveyForm({ survey }) {
                 <div style={{ display: 'flex', gap: 8 }}>
                   {[1, 2, 3, 4, 5].map(v => (
                     <button type="button" key={v} onClick={() => setAnswers(a => ({ ...a, [q.id]: v }))}
-                      style={{ width: 44, height: 44, borderRadius: 8, border: `1.5px solid ${answers[q.id] === v ? '#111' : '#E5E3DC'}`, backgroundColor: answers[q.id] === v ? '#111' : '#fff', color: answers[q.id] === v ? '#fff' : '#444', fontWeight: 600, fontSize: 15, cursor: 'pointer', fontFamily: 'Inter, sans-serif' }}
+                      style={{ width: 44, height: 44, borderRadius: 2, border: `1.5px solid ${answers[q.id] === v ? '#0A1628' : '#E5DFCF'}`, backgroundColor: answers[q.id] === v ? '#0A1628' : '#fff', color: answers[q.id] === v ? '#fff' : '#666', fontWeight: 600, fontSize: 15, cursor: 'pointer', fontFamily: 'Inter, sans-serif', transition: 'all 0.15s' }}
                     >{v}</button>
                   ))}
                 </div>
@@ -53,7 +55,7 @@ function SurveyForm({ survey }) {
               {q.type === 'text' && (
                 <textarea rows={3} placeholder="Your answer..." value={answers[q.id] || ''}
                   onChange={e => setAnswers(a => ({ ...a, [q.id]: e.target.value }))}
-                  style={{ width: '100%', padding: '10px 14px', border: '1px solid #E5E3DC', borderRadius: 8, fontSize: 14, fontFamily: 'Inter', resize: 'vertical', outline: 'none', backgroundColor: '#FAFAF8', color: '#333' }}
+                  style={{ width: '100%', padding: '10px 14px', border: '1px solid #E5DFCF', borderRadius: 2, fontSize: 14, fontFamily: 'Inter, sans-serif', resize: 'vertical', outline: 'none', backgroundColor: '#FAFAF8', color: '#333' }}
                 />
               )}
 
@@ -61,21 +63,21 @@ function SurveyForm({ survey }) {
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                   {q.options.map(opt => (
                     <button type="button" key={opt} onClick={() => setAnswers(a => ({ ...a, [q.id]: opt }))}
-                      style={{ padding: '7px 16px', borderRadius: 100, border: `1.5px solid ${answers[q.id] === opt ? '#111' : '#E5E3DC'}`, backgroundColor: answers[q.id] === opt ? '#111' : '#fff', color: answers[q.id] === opt ? '#fff' : '#444', fontSize: 13, fontWeight: 500, cursor: 'pointer' }}
+                      style={{ padding: '7px 16px', borderRadius: 2, border: `1.5px solid ${answers[q.id] === opt ? '#0A1628' : '#E5DFCF'}`, backgroundColor: answers[q.id] === opt ? '#0A1628' : '#fff', color: answers[q.id] === opt ? '#fff' : '#555', fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'all 0.15s' }}
                     >{opt}</button>
                   ))}
                 </div>
               )}
             </div>
           ))}
-          <button type="submit" style={{ backgroundColor: '#0D1B36', color: '#fff', padding: '11px 24px', borderRadius: 7, fontWeight: 600, fontSize: 14, border: 'none', cursor: 'pointer' }}>
-            Submit anonymously
+          <button type="submit" style={{ backgroundColor: '#0A1628', color: '#fff', padding: '12px 28px', borderRadius: 2, fontWeight: 600, fontSize: 12, border: 'none', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Submit Anonymously
           </button>
         </form>
       )}
 
       {expanded && !survey.isOpen && (
-        <div style={{ paddingBottom: 24, fontSize: 13.5, color: '#999' }}>
+        <div style={{ paddingBottom: 24, fontSize: 13.5, color: '#AAA' }}>
           This survey is now closed. Thank you to all who participated.
         </div>
       )}
@@ -85,25 +87,28 @@ function SurveyForm({ survey }) {
 
 export default function Echo() {
   return (
-    <div style={{ backgroundColor: '#FAFAF8', minHeight: '100vh' }}>
-      <div style={{ maxWidth: 680, margin: '0 auto', padding: '80px 24px' }}>
+    <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 64, paddingBottom: 40, borderBottom: '1px solid #E5E3DC' }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: '#0D1B36', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 4 }}>
-            <Shield size={18} style={{ color: '#C9A84C' }} />
-          </div>
-          <div>
-            <h1 style={{ fontFamily: "'Merriweather', Georgia, serif", fontWeight: 700, fontSize: 'clamp(28px, 4vw, 44px)', color: '#111', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 10 }}>Echo</h1>
-            <p style={{ fontSize: 14, color: '#777', lineHeight: 1.75 }}>
-              Share your honest feedback. No names, no accounts — just your voice. Responses are 100% anonymous.
-            </p>
+      {/* Header */}
+      <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
+        <div className="wrap" style={{ maxWidth: 720 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
+            <div style={{ width: 40, height: 40, borderRadius: 8, backgroundColor: '#0A1628', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 6 }}>
+              <Shield size={18} style={{ color: '#B8882A' }} />
+            </div>
+            <div>
+              <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(36px, 5vw, 58px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 12 }}>Echo</h1>
+              <p style={{ fontSize: 14.5, color: '#6A6A7A', lineHeight: 1.78, maxWidth: 440 }}>
+                Share your honest feedback. No names, no accounts — just your voice. Responses are 100% anonymous.
+              </p>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Surveys */}
+      {/* Surveys */}
+      <div style={{ maxWidth: 720, margin: '0 auto', padding: '48px 32px 100px' }}>
         {surveys.map(s => <SurveyForm key={s.id} survey={s} />)}
-
       </div>
     </div>
   )
