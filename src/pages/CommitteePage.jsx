@@ -142,6 +142,59 @@ function MembersTab({ committeeId }) {
   )
 }
 
+// ── Event row (own state for read-more) ───────────────────────────────────────
+function EventRow({ ev, i, list }) {
+  const [textOpen, setTextOpen] = useState(false)
+  const isLong = ev.description && (ev.description.length > 280 || ev.description.includes('\n'))
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < list.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
+      {/* Image */}
+      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)' }}>
+        {ev.cover
+          ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
+        }
+      </div>
+      {/* Content */}
+      <div style={{ paddingTop: 4 }}>
+        {ev.date && (
+          <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+            {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </span>
+        )}
+        <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
+        {ev.description && (
+          <>
+            <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85, whiteSpace: 'pre-wrap', marginBottom: 12,
+              ...(!textOpen && isLong ? { display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' } : {})
+            }}>
+              {ev.description}
+            </p>
+            {isLong && (
+              <button onClick={() => setTextOpen(o => !o)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#B8882A', padding: 0, marginBottom: ev.telegram_url ? 16 : 0 }}>
+                {textOpen ? '↑ Show less' : '↓ Read more'}
+              </button>
+            )}
+          </>
+        )}
+        {ev.telegram_url && (
+          <div style={{ marginTop: ev.description ? 4 : 0 }}>
+            <a href={ev.telegram_url} target="_blank" rel="noreferrer"
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 18px', backgroundColor: '#229ED9', color: '#fff', borderRadius: 4, fontSize: 12.5, fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+            >
+              <TelegramIcon size={14} /> More photos &amp; details on Telegram
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 // ── Tab: Events ───────────────────────────────────────────────────────────────
 function EventsTab({ committeeId }) {
   const [events,   setEvents]   = useState([])
@@ -173,47 +226,11 @@ function EventsTab({ committeeId }) {
   const visible = expanded ? events : events.slice(0, 3)
   const hasMore = events.length > 3
 
-  const EventRow = ({ ev, i, list }) => (
-    <div key={ev.id} style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < list.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
-      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)' }}>
-        {ev.cover
-          ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
-        }
-      </div>
-      <div style={{ paddingTop: 4 }}>
-        {ev.date && (
-          <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-            {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </span>
-        )}
-        <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
-        {ev.description && (
-          <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85, marginBottom: ev.telegram_url ? 20 : 0, whiteSpace: 'pre-wrap', display: '-webkit-box', WebkitLineClamp: ev.telegram_url ? 4 : undefined, WebkitBoxOrient: 'vertical', overflow: ev.telegram_url ? 'hidden' : 'visible' }}>
-            {ev.description}
-          </p>
-        )}
-        {ev.telegram_url && (
-          <a href={ev.telegram_url} target="_blank" rel="noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 18px', backgroundColor: '#229ED9', color: '#fff', borderRadius: 4, fontSize: 12.5, fontWeight: 700, textDecoration: 'none', letterSpacing: '0.03em', transition: 'opacity 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
-            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-          >
-            <TelegramIcon size={14} /> More photos &amp; details on Telegram
-          </a>
-        )}
-      </div>
-    </div>
-  )
-
   return (
     <div>
-      {/* Latest 3 — always visible */}
       <div>
         {visible.map((ev, i) => <EventRow key={ev.id} ev={ev} i={i} list={visible} />)}
       </div>
-
-      {/* Toggle */}
       {hasMore && (
         <div style={{ marginTop: 40, textAlign: 'center' }}>
           <button
