@@ -259,7 +259,7 @@ function EventsTab({ committeeId }) {
 }
 
 // ─── Main editor ──────────────────────────────────────────────────────────────
-const EMPTY = { name: '', slug: '', tagline: '', about: '', cover: '', schools_count: '', founded_year: '', participants_count: '' }
+const EMPTY = { name: '', slug: '', tagline: '', about: '', cover: '', schools_count: '', founded_year: '', participants_count: '', initiatives_count: '', waste_collected_kg: '', has_green_flag: false }
 
 export default function CommitteeEditor({ overrideId, hideBack }) {
   const { id: paramId } = useParams()
@@ -281,7 +281,7 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
     supabase.from('committees').select('*').eq('id', id).single()
       .then(({ data, error: err }) => {
         if (err) { setError('Could not load committee.'); setLoading(false); return }
-        if (data) setForm({ name: data.name || '', slug: data.slug || '', tagline: data.tagline || '', about: data.about || '', cover: data.cover || '', schools_count: data.schools_count ?? '', founded_year: data.founded_year ?? '', participants_count: data.participants_count ?? '' })
+        if (data) setForm({ name: data.name || '', slug: data.slug || '', tagline: data.tagline || '', about: data.about || '', cover: data.cover || '', schools_count: data.schools_count ?? '', founded_year: data.founded_year ?? '', participants_count: data.participants_count ?? '', initiatives_count: data.initiatives_count ?? '', waste_collected_kg: data.waste_collected_kg ?? '', has_green_flag: data.has_green_flag || false })
         setLoading(false)
       })
   }, [id, isEdit])
@@ -290,7 +290,7 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
     if (!form.name.trim()) { setError('Name is required.'); return }
     if (!form.slug.trim()) { setError('Slug is required.'); return }
     setSaving(true); setError('')
-    const payload = { name: form.name.trim(), slug: form.slug.trim().toLowerCase().replace(/\s+/g, '-'), tagline: form.tagline.trim(), about: form.about.trim(), cover: form.cover.trim(), schools_count: form.schools_count !== '' ? parseInt(form.schools_count) : null, founded_year: form.founded_year !== '' ? parseInt(form.founded_year) : null, participants_count: form.participants_count !== '' ? parseInt(form.participants_count) : null }
+    const payload = { name: form.name.trim(), slug: form.slug.trim().toLowerCase().replace(/\s+/g, '-'), tagline: form.tagline.trim(), about: form.about.trim(), cover: form.cover.trim(), schools_count: form.schools_count !== '' ? parseInt(form.schools_count) : null, founded_year: form.founded_year !== '' ? parseInt(form.founded_year) : null, participants_count: form.participants_count !== '' ? parseInt(form.participants_count) : null, initiatives_count: form.initiatives_count !== '' ? parseInt(form.initiatives_count) : null, waste_collected_kg: form.waste_collected_kg !== '' ? parseInt(form.waste_collected_kg) : null, has_green_flag: form.has_green_flag }
     let err
     if (isEdit) {
       ;({ error: err } = await supabase.from('committees').update(payload).eq('id', id))
@@ -354,12 +354,26 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
 
           {/* Stats */}
           <div style={{ marginBottom: 18, padding: '18px 20px', backgroundColor: '#F8FAFC', borderRadius: 12, border: '1px solid #E2E8F0' }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 }}>About Page Stats</div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', textTransform: 'uppercase' }}>About Page Stats</div>
+              {/* Green Flag toggle */}
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                <div
+                  onClick={() => setForm(f => ({ ...f, has_green_flag: !f.has_green_flag }))}
+                  style={{ width: 36, height: 20, borderRadius: 10, backgroundColor: form.has_green_flag ? '#16A34A' : '#D1D5DB', position: 'relative', transition: 'background 0.2s', cursor: 'pointer', flexShrink: 0 }}
+                >
+                  <div style={{ position: 'absolute', top: 2, left: form.has_green_flag ? 18 : 2, width: 16, height: 16, borderRadius: '50%', backgroundColor: '#fff', transition: 'left 0.2s', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }} />
+                </div>
+                <span style={{ fontSize: 12, fontWeight: 600, color: form.has_green_flag ? '#16A34A' : '#64748B' }}>🏴 International Green Flag</span>
+              </label>
+            </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
               {[
-                { k: 'schools_count',      l: 'Schools Reached',  p: 'e.g. 5' },
-                { k: 'participants_count', l: 'Participants',      p: 'e.g. 300' },
-                { k: 'founded_year',       l: 'Founded Year',     p: 'e.g. 2022' },
+                { k: 'schools_count',      l: 'Schools Reached',    p: 'e.g. 5' },
+                { k: 'participants_count', l: 'Participants',        p: 'e.g. 300' },
+                { k: 'founded_year',       l: 'Founded Year',        p: 'e.g. 2022' },
+                { k: 'initiatives_count',  l: 'Eco Initiatives',     p: 'e.g. 8' },
+                { k: 'waste_collected_kg', l: 'Waste Collected (kg)', p: 'e.g. 450' },
               ].map(({ k, l, p }) => (
                 <div key={k}>
                   <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{l}</label>
@@ -367,7 +381,7 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 10 }}>Events and Members counts are auto-calculated. Leave a field blank to hide that stat.</p>
+            <p style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 10 }}>Events and Members are auto-calculated. Leave a field blank to hide that stat.</p>
           </div>
 
           <div>

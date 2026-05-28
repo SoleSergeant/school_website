@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Loader2, Users, Calendar, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, Loader2, Users, Calendar, ChevronDown, ChevronUp, Leaf } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const D = "'Cormorant Garamond', Georgia, serif"
@@ -36,11 +36,13 @@ function AboutTab({ committee }) {
   }, [committee.id])
 
   const stats = [
-    committee.schools_count      > 0 ? { label: 'Schools Reached', value: committee.schools_count,      suffix: '+' } : null,
-    eventCount                   > 0 ? { label: 'Events Organized', value: eventCount                               } : null,
-    memberCount                  > 0 ? { label: 'Members',          value: memberCount                              } : null,
-    committee.participants_count > 0 ? { label: 'Participants',     value: committee.participants_count, suffix: '+' } : null,
-    committee.founded_year           ? { label: 'Est.',              value: committee.founded_year,       isYear: true } : null,
+    committee.schools_count      > 0 ? { label: 'Schools Reached',    value: committee.schools_count,      suffix: '+' } : null,
+    eventCount                   > 0 ? { label: 'Events Organized',    value: eventCount                               } : null,
+    memberCount                  > 0 ? { label: 'Members',             value: memberCount                              } : null,
+    committee.participants_count > 0 ? { label: 'Participants',        value: committee.participants_count, suffix: '+' } : null,
+    committee.initiatives_count  > 0 ? { label: 'Eco Initiatives',     value: committee.initiatives_count              } : null,
+    committee.waste_collected_kg > 0 ? { label: 'Waste Collected (kg)', value: committee.waste_collected_kg, suffix: 'kg', noSuffix: true } : null,
+    committee.founded_year           ? { label: 'Est.',                 value: committee.founded_year,       isYear: true } : null,
   ].filter(Boolean)
 
   return (
@@ -51,7 +53,7 @@ function AboutTab({ committee }) {
           {stats.map(({ label, value, suffix, isYear }) => (
             <div key={label} style={{ flex: '1 1 160px', padding: '40px 36px', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
               <div style={{ fontFamily: D, fontWeight: 600, fontSize: isYear ? 38 : 52, color: '#0A1628', lineHeight: 1, letterSpacing: '-0.02em' }}>
-                {value}{!isYear && suffix}
+                {value}{!isYear && !noSuffix && suffix}
               </div>
               <div style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginTop: 12 }}>
                 {label}
@@ -247,7 +249,7 @@ export default function CommitteePage() {
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
 
       {/* Header */}
-      <div style={{ backgroundColor: '#0A1628', padding: '56px 0 0' }}>
+      <div style={{ background: committee.has_green_flag ? 'linear-gradient(135deg, #0A1628 0%, #071C11 100%)' : '#0A1628', padding: '56px 0 0' }}>
         <div className="wrap" style={{ paddingBottom: 0 }}>
           <Link to="/committees"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.45)', fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', textDecoration: 'none', marginBottom: 32, transition: 'color 0.2s' }}
@@ -256,7 +258,16 @@ export default function CommitteePage() {
           >
             <ArrowLeft size={13} /> Committees
           </Link>
-          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>
+
+          {/* Green Flag badge */}
+          {committee.has_green_flag && (
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, backgroundColor: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 4, padding: '7px 14px', marginBottom: 20 }}>
+              <Leaf size={13} style={{ color: '#4ADE80' }} />
+              <span style={{ fontSize: 10.5, fontWeight: 700, color: '#4ADE80', letterSpacing: '0.12em', textTransform: 'uppercase' }}>International Green Flag Certified</span>
+            </div>
+          )}
+
+          <p style={{ fontSize: 10, color: committee.has_green_flag ? '#4ADE80' : '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14 }}>
             Student committee
           </p>
           <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(34px, 5vw, 56px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 12 }}>
@@ -276,7 +287,7 @@ export default function CommitteePage() {
                   padding: '16px 28px',
                   background: 'none',
                   border: 'none',
-                  borderBottom: activeTab === tab ? '2px solid #B8882A' : '2px solid transparent',
+                  borderBottom: activeTab === tab ? `2px solid ${committee.has_green_flag ? '#4ADE80' : '#B8882A'}` : '2px solid transparent',
                   color: activeTab === tab ? '#fff' : 'rgba(255,255,255,0.45)',
                   fontSize: 13,
                   fontWeight: activeTab === tab ? 700 : 500,

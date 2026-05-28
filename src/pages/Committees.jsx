@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Users } from 'lucide-react'
+import { ArrowRight, Users, Leaf } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useReveal, fx } from '../hooks/useReveal'
 
@@ -72,9 +72,17 @@ export default function Committees() {
                 </Link>
 
                 {/* Info */}
-                <p style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', marginBottom: 10 }}>
-                  Committee
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+                  <p style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', margin: 0 }}>
+                    Committee
+                  </p>
+                  {c.has_green_flag && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 3, padding: '2px 8px' }}>
+                      <Leaf size={10} style={{ color: '#16A34A' }} />
+                      <span style={{ fontSize: 9, fontWeight: 700, color: '#16A34A', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Green Flag</span>
+                    </span>
+                  )}
+                </div>
                 <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 28, color: '#0A1628', lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: 12 }}>
                   {c.name}
                 </h2>
