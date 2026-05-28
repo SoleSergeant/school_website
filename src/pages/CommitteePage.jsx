@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Loader2, Users, Calendar } from 'lucide-react'
+import { ArrowLeft, Loader2, Users, Calendar, ChevronDown, ChevronUp } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 const D = "'Cormorant Garamond', Georgia, serif"
@@ -142,8 +142,9 @@ function MembersTab({ committeeId }) {
 
 // ── Tab: Events ───────────────────────────────────────────────────────────────
 function EventsTab({ committeeId }) {
-  const [events,  setEvents]  = useState([])
-  const [loading, setLoading] = useState(true)
+  const [events,   setEvents]   = useState([])
+  const [loading,  setLoading]  = useState(true)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     supabase
@@ -167,31 +168,50 @@ function EventsTab({ committeeId }) {
     </div>
   )
 
+  const visible = expanded ? events : events.slice(0, 3)
+  const hasMore = events.length > 3
+
+  const EventRow = ({ ev, i, list }) => (
+    <div key={ev.id} style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < list.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
+      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)' }}>
+        {ev.cover
+          ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
+        }
+      </div>
+      <div style={{ paddingTop: 4 }}>
+        {ev.date && (
+          <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+            {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </span>
+        )}
+        <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
+        {ev.description && <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85 }}>{ev.description}</p>}
+      </div>
+    </div>
+  )
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-      {events.map((ev, i) => (
-        <div key={ev.id} style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < events.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
-          {/* Cover */}
-          <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)', flexShrink: 0 }}>
-            {ev.cover
-              ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
-            }
-          </div>
-          {/* Content */}
-          <div style={{ paddingTop: 4 }}>
-            {ev.date && (
-              <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-                {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </span>
-            )}
-            <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
-            {ev.description && (
-              <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85 }}>{ev.description}</p>
-            )}
-          </div>
+    <div>
+      {/* Latest 3 — always visible */}
+      <div>
+        {visible.map((ev, i) => <EventRow key={ev.id} ev={ev} i={i} list={visible} />)}
+      </div>
+
+      {/* Toggle */}
+      {hasMore && (
+        <div style={{ marginTop: 40, textAlign: 'center' }}>
+          <button
+            onClick={() => setExpanded(e => !e)}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 28px', border: '1.5px solid #0A1628', borderRadius: 2, background: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#0A1628', letterSpacing: '0.08em', textTransform: 'uppercase', transition: 'background 0.2s, color 0.2s' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#0A1628'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = '#0A1628' }}
+          >
+            {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            {expanded ? 'Show Less' : `Show ${events.length - 3} More Event${events.length - 3 !== 1 ? 's' : ''}`}
+          </button>
         </div>
-      ))}
+      )}
     </div>
   )
 }
