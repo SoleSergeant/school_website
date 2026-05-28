@@ -13,7 +13,8 @@ import ArticlePage from './pages/ArticlePage'
 import Echo from './pages/Echo'
 import StudentLife from './pages/StudentLife'
 import Admissions from './pages/Admissions'
-import Gallery from './pages/Gallery'
+import Committees from './pages/Committees'
+import CommitteePage from './pages/CommitteePage'
 import Contact from './pages/Contact'
 
 // Admin pages
@@ -22,11 +23,12 @@ import Dashboard from './admin/pages/Dashboard'
 import AdminTeachers from './admin/pages/Teachers'
 import AdminStudents from './admin/pages/Students'
 import AdminUsers from './admin/pages/Users'
-import AdminGallery from './admin/pages/Gallery'
 import AdminArticles from './admin/pages/Articles'
 import ArticleEditor from './admin/pages/ArticleEditor'
 import AdminSurveys from './admin/pages/Surveys'
 import SurveyResults from './admin/pages/SurveyResults'
+import AdminCommittees from './admin/pages/Committees'
+import CommitteeEditor from './admin/pages/CommitteeEditor'
 
 export default function App() {
   return (
@@ -43,7 +45,8 @@ export default function App() {
             <Route path="echo" element={<Echo />} />
             <Route path="life" element={<StudentLife />} />
             <Route path="admissions" element={<Admissions />} />
-            <Route path="gallery" element={<Gallery />} />
+            <Route path="committees" element={<Committees />} />
+            <Route path="committees/:slug" element={<CommitteePage />} />
             <Route path="contact" element={<Contact />} />
           </Route>
 
@@ -56,7 +59,9 @@ export default function App() {
             <Route path="teachers" element={<RoleGuard roles={['superadmin']}><AdminTeachers /></RoleGuard>} />
             <Route path="students" element={<RoleGuard roles={['superadmin']}><AdminStudents /></RoleGuard>} />
             <Route path="users" element={<RoleGuard roles={['superadmin']}><AdminUsers /></RoleGuard>} />
-            <Route path="gallery" element={<RoleGuard roles={['superadmin','media']}><AdminGallery /></RoleGuard>} />
+            <Route path="committees" element={<RoleGuard roles={['superadmin']}><AdminCommittees /></RoleGuard>} />
+            <Route path="committees/new" element={<RoleGuard roles={['superadmin']}><CommitteeEditor /></RoleGuard>} />
+            <Route path="committees/:id/edit" element={<RoleGuard roles={['superadmin']}><CommitteeEditor /></RoleGuard>} />
             <Route path="articles" element={<RoleGuard roles={['superadmin','writer']}><AdminArticles /></RoleGuard>} />
             <Route path="articles/new" element={<RoleGuard roles={['superadmin','writer']}><ArticleEditor /></RoleGuard>} />
             <Route path="articles/:id/edit" element={<RoleGuard roles={['superadmin','writer']}><ArticleEditor /></RoleGuard>} />

@@ -5,10 +5,10 @@ import { Menu, X } from 'lucide-react'
 const links = [
   { to: '/teachers',   label: 'Faculty' },
   { to: '/students',   label: 'Students' },
-  { to: '/magazine',   label: 'FPS Chronicles' },
+  { to: '/magazine',    label: 'FPS Chronicles' },
+  { to: '/committees', label: 'Committees' },
   { to: '/life',       label: 'Campus' },
   { to: '/admissions', label: 'Admissions' },
-  { to: '/gallery',    label: 'Gallery' },
   { to: '/contact',    label: 'Contact' },
 ]
 
