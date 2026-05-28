@@ -50,32 +50,35 @@ export default function Articles() {
       {/* ── Issues grid ── */}
       <div className="wrap" style={{ padding: '72px 32px 100px' }}>
 
-        {loading && (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
-            {[1, 2, 3].map(i => (
-              <div key={i}>
-                <div style={{ aspectRatio: '3/4', backgroundColor: '#F5F1E8', borderRadius: 2, marginBottom: 20, animation: 'pulse 1.5s ease-in-out infinite' }} />
-                <div style={{ height: 10, backgroundColor: '#F5F1E8', borderRadius: 4, marginBottom: 10, width: '60%' }} />
-                <div style={{ height: 20, backgroundColor: '#F5F1E8', borderRadius: 4, marginBottom: 16, width: '85%' }} />
-                <div style={{ height: 40, backgroundColor: '#F5F1E8', borderRadius: 2 }} />
-              </div>
-            ))}
-          </div>
-        )}
+        {/* ref always mounted so IntersectionObserver fires even with async data */}
+        <div ref={gridRef}>
 
-        {!loading && articles.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '80px 0' }}>
-            <BookOpen size={36} style={{ color: '#DDD', margin: '0 auto 16px', display: 'block' }} />
-            <p style={{ fontSize: 15, color: '#AAA' }}>No issues published yet. Check back soon.</p>
-          </div>
-        )}
+          {loading && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
+              {[1, 2, 3].map(i => (
+                <div key={i}>
+                  <div style={{ aspectRatio: '3/4', backgroundColor: '#F5F1E8', borderRadius: 2, marginBottom: 20 }} />
+                  <div style={{ height: 10, backgroundColor: '#F5F1E8', borderRadius: 4, marginBottom: 10, width: '60%' }} />
+                  <div style={{ height: 20, backgroundColor: '#F5F1E8', borderRadius: 4, marginBottom: 16, width: '85%' }} />
+                  <div style={{ height: 40, backgroundColor: '#F5F1E8', borderRadius: 2 }} />
+                </div>
+              ))}
+            </div>
+          )}
 
-        {!loading && articles.length > 0 && (
-          <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
-            {articles.map((a, i) => {
-              const downloadUrl = getGDriveDownload(a.pdf_url)
-              return (
-                <div key={a.id} style={fx(gridVis, i * 80)}>
+          {!loading && articles.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '80px 0' }}>
+              <BookOpen size={36} style={{ color: '#DDD', margin: '0 auto 16px', display: 'block' }} />
+              <p style={{ fontSize: 15, color: '#AAA' }}>No issues published yet. Check back soon.</p>
+            </div>
+          )}
+
+          {!loading && articles.length > 0 && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
+              {articles.map((a, i) => {
+                const downloadUrl = getGDriveDownload(a.pdf_url)
+                return (
+                  <div key={a.id} style={fx(gridVis, i * 80)}>
 
                   {/* Cover */}
                   <Link to={`/magazine/${a.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 20 }}>
