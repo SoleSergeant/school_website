@@ -168,24 +168,28 @@ function EventsTab({ committeeId }) {
   )
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px 32px' }}>
-      {events.map(ev => (
-        <div key={ev.id}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+      {events.map((ev, i) => (
+        <div key={ev.id} style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < events.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
           {/* Cover */}
-          <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, marginBottom: 16, backgroundColor: '#F5F1E8', boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}>
+          <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)', flexShrink: 0 }}>
             {ev.cover
               ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-              : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={24} style={{ color: '#CCC' }} /></div>
+              : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
             }
           </div>
-          {/* Date */}
-          {ev.date && (
-            <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-              {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </span>
-          )}
-          <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 19, color: '#0A1628', margin: '6px 0 8px', lineHeight: 1.25, letterSpacing: '-0.01em' }}>{ev.title}</h3>
-          {ev.description && <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.7 }}>{ev.description}</p>}
+          {/* Content */}
+          <div style={{ paddingTop: 4 }}>
+            {ev.date && (
+              <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+                {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            )}
+            <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
+            {ev.description && (
+              <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85 }}>{ev.description}</p>
+            )}
+          </div>
         </div>
       ))}
     </div>
