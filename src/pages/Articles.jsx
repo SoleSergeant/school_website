@@ -107,7 +107,7 @@ export default function Articles() {
             From our writers
           </p>
           <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 14, ...fx(headerVis, 100, 28) }}>
-            Magazine
+            FPS Chronicles
           </h1>
           <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 440, ...fx(headerVis, 200) }}>
             A student-written publication covering school life, science, culture, and achievements — published monthly.

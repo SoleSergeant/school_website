@@ -36,7 +36,7 @@ function PDFReader({ article }) {
           onMouseEnter={e => e.currentTarget.style.color = '#fff'}
           onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
         >
-          <ArrowLeft size={13} /> Magazine
+          <ArrowLeft size={13} /> FPS Chronicles
         </Link>
 
         <div style={{ fontFamily: D, fontSize: 16, color: '#fff', textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>
@@ -97,7 +97,7 @@ function HTMLArticle({ article }) {
             onMouseEnter={e => e.currentTarget.style.color = '#0A1628'}
             onMouseLeave={e => e.currentTarget.style.color = '#AAA'}
           >
-            <ArrowLeft size={13} /> Back to Magazine
+            <ArrowLeft size={13} /> Back to FPS Chronicles
           </Link>
         </div>
 

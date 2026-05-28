@@ -112,7 +112,7 @@ export default function ArticleEditor() {
     <div style={{ padding: 32, maxWidth: 900, margin: '0 auto' }}>
       <button onClick={() => navigate('/admin/articles')}
         style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#1E3273', fontSize: 14, fontWeight: 600, marginBottom: 24 }}>
-        <ArrowLeft size={16} /> Back to Magazine
+        <ArrowLeft size={16} /> Back to FPS Chronicles
       </button>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>

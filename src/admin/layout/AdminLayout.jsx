@@ -11,7 +11,7 @@ const allLinks = [
   { to: '/admin/students', label: 'Students', icon: Users, roles: ['superadmin'] },
   { to: '/admin/users', label: 'Admin Users', icon: UserCog, roles: ['superadmin'] },
   { to: '/admin/gallery', label: 'Gallery', icon: Images, roles: ['superadmin','media'] },
-  { to: '/admin/articles', label: 'Magazine', icon: FileText, roles: ['superadmin','writer'] },
+  { to: '/admin/articles', label: 'FPS Chronicles', icon: FileText, roles: ['superadmin','writer'] },
   { to: '/admin/surveys', label: 'Surveys (Echo)', icon: MessageSquare, roles: ['superadmin','writer'] },
 ]
 

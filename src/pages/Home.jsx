@@ -153,7 +153,7 @@ export default function Home() {
       <section style={{ backgroundColor: '#F5F1E8', padding: '100px 0' }}>
         <div ref={newsRef} className="wrap">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 48, paddingBottom: 20, borderBottom: '1px solid #D8D0BE', ...fx(newsVis, 0) }}>
-            <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(26px,3vw,40px)', color: '#0A1628', letterSpacing: '-0.01em' }}>Magazine</h2>
+            <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(26px,3vw,40px)', color: '#0A1628', letterSpacing: '-0.01em' }}>FPS Chronicles</h2>
             <Link to="/magazine" style={{ fontSize: 11, fontWeight: 700, color: '#888', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 5 }}>
               All issues <ArrowRight size={11} />
             </Link>
