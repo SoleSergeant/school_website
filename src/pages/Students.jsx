@@ -68,7 +68,15 @@ export default function Students() {
               ))}
             </div>
           ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${Math.min(students.length, 3)}, minmax(0, 33.333%))`,
+              justifyContent: 'center',
+              gap: 1,
+              backgroundColor: '#E5DFCF',
+              border: '1px solid #E5DFCF',
+              overflow: 'hidden',
+            }}>
               {students.map(s => (
                 <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
