@@ -50,7 +50,7 @@ function AboutTab({ committee }) {
       {/* Stats row */}
       {stats.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', borderTop: '1px solid #E5DFCF', borderLeft: '1px solid #E5DFCF', marginBottom: 64 }}>
-          {stats.map(({ label, value, suffix, isYear }) => (
+          {stats.map(({ label, value, suffix, isYear, noSuffix }) => (
             <div key={label} style={{ flex: '1 1 160px', padding: '40px 36px', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
               <div style={{ fontFamily: D, fontWeight: 600, fontSize: isYear ? 38 : 52, color: '#0A1628', lineHeight: 1, letterSpacing: '-0.02em' }}>
                 {value}{!isYear && !noSuffix && suffix}
