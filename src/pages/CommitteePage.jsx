@@ -99,9 +99,9 @@ function MembersTab({ committeeId }) {
   )
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
       {members.map(m => (
-        <div key={m.id} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
+        <div key={m.id} style={{ backgroundColor: '#fff', border: '1px solid #E5DFCF', borderRadius: 4, padding: '28px 24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
             <img src={m.photo || `https://i.pravatar.cc/80?u=cm${m.id}`} alt={m.name}
               style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
@@ -117,17 +117,17 @@ function MembersTab({ committeeId }) {
             </>
           )}
           {(m.linkedin_url || m.telegram_url) && (
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap' }}>
               {m.linkedin_url && (
                 <a href={m.linkedin_url} target="_blank" rel="noreferrer"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s', whiteSpace: 'nowrap' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = '#0077B5'; e.currentTarget.style.color = '#0077B5' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
                 ><LinkedInIcon size={12} /> LinkedIn</a>
               )}
               {m.telegram_url && (
                 <a href={m.telegram_url} target="_blank" rel="noreferrer"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s', whiteSpace: 'nowrap' }}
                   onMouseEnter={e => { e.currentTarget.style.borderColor = '#229ED9'; e.currentTarget.style.color = '#229ED9' }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
                 ><TelegramIcon size={12} /> Telegram</a>

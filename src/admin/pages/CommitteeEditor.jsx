@@ -148,7 +148,8 @@ function MembersTab({ committeeId }) {
 
   const remove = async (id, name) => {
     if (!confirm(`Delete "${name}"?`)) return
-    await supabase.from('committee_members').delete().eq('id', id)
+    const { error } = await supabase.from('committee_members').delete().eq('id', id)
+    if (error) { alert('Delete failed: ' + error.message); return }
     setMembers(ms => ms.filter(m => m.id !== id))
   }
 
