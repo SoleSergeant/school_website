@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowDown } from 'lucide-react'
-import { articles } from '../data/mock'
+import { supabase } from '../lib/supabase'
 import { useReveal, fx, fxFade } from '../hooks/useReveal'
 
 const stats = [
@@ -26,6 +26,18 @@ export default function Home() {
   useEffect(() => {
     const t = setTimeout(() => setHeroVis(true), 100)
     return () => clearTimeout(t)
+  }, [])
+
+  /* ── Latest magazine issues from Supabase ── */
+  const [articles, setArticles] = useState([])
+  useEffect(() => {
+    supabase
+      .from('articles')
+      .select('id, title, excerpt, cover, category, issue_number, date')
+      .eq('published', true)
+      .order('date', { ascending: false, nullsFirst: false })
+      .limit(3)
+      .then(({ data }) => setArticles(data || []))
   }, [])
 
   /* ── Scroll reveals — one ref per section ── */

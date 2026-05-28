@@ -1,12 +1,11 @@
-import { useParams, Link, Navigate } from 'react-router-dom'
-import { ArrowLeft, Download, BookOpen } from 'lucide-react'
-import { articles } from '../data/mock'
+import { useParams, Link, useNavigate } from 'react-router-dom'
+import { ArrowLeft, Download, BookOpen, Loader2 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 import { fx, fxFade } from '../hooks/useReveal'
 
 const D = "'Cormorant Garamond', Georgia, serif"
 
-// Convert Google Drive share link → embeddable preview URL
 function getGDriveEmbed(url) {
   if (!url) return null
   const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/)
@@ -23,22 +22,17 @@ function getGDriveDownload(url) {
 
 // ─── Full-screen PDF reader ───────────────────────────────────────────────────
 function PDFReader({ article }) {
-  const embedUrl   = getGDriveEmbed(article.pdf_url)
+  const embedUrl    = getGDriveEmbed(article.pdf_url)
   const downloadUrl = getGDriveDownload(article.pdf_url)
   const [loaded, setLoaded] = useState(false)
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 68px)', backgroundColor: '#1C1C2E' }}>
 
-      {/* ── Reader top bar ── */}
-      <div style={{
-        height: 52,
-        backgroundColor: '#0A1628',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 28px', gap: 16, flexShrink: 0,
-      }}>
-        <Link to="/magazine" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.5)', fontSize: 11.5, textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, flexShrink: 0, transition: 'color 0.2s' }}
+      {/* Reader bar */}
+      <div style={{ height: 52, backgroundColor: '#0A1628', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 28px', gap: 16, flexShrink: 0 }}>
+        <Link to="/magazine"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.5)', fontSize: 11.5, textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase', fontWeight: 600, flexShrink: 0, transition: 'color 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.color = '#fff'}
           onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}
         >
@@ -65,12 +59,12 @@ function PDFReader({ article }) {
         )}
       </div>
 
-      {/* ── PDF iframe ── */}
+      {/* PDF iframe */}
       <div style={{ flex: 1, position: 'relative' }}>
         {!loaded && (
           <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16, backgroundColor: '#1C1C2E' }}>
-            <BookOpen size={36} style={{ color: 'rgba(255,255,255,0.2)' }} />
-            <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.06em' }}>Loading issue…</span>
+            <Loader2 size={28} style={{ color: 'rgba(255,255,255,0.25)' }} className="spin" />
+            <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.06em' }}>Loading issue…</span>
           </div>
         )}
         <iframe
@@ -85,7 +79,7 @@ function PDFReader({ article }) {
   )
 }
 
-// ─── HTML article (no PDF) ───────────────────────────────────────────────────
+// ─── HTML / no-PDF layout ────────────────────────────────────────────────────
 function HTMLArticle({ article }) {
   const [vis, setVis] = useState(false)
   useEffect(() => {
@@ -116,15 +110,16 @@ function HTMLArticle({ article }) {
         </h1>
 
         <div style={{ display: 'flex', gap: 16, fontSize: 13, color: '#BBB', marginBottom: 40, paddingBottom: 36, borderBottom: '1px solid #EDE8DC', alignItems: 'center', ...fx(vis, 260) }}>
-          <span style={{ fontWeight: 500, color: '#999' }}>{article.author}</span>
-          <span>·</span>
-          <span>{article.date}</span>
+          {article.author && <span style={{ fontWeight: 500, color: '#999' }}>{article.author}</span>}
+          {article.author && article.date && <span>·</span>}
+          {article.date && <span>{new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>}
         </div>
 
-        <div style={{ marginBottom: 52, ...fxFade(vis, 320) }}>
-          <img src={article.cover} alt={article.title}
-            style={{ width: '100%', height: 380, objectFit: 'cover', display: 'block' }} />
-        </div>
+        {article.cover && (
+          <div style={{ marginBottom: 52, ...fxFade(vis, 320) }}>
+            <img src={article.cover} alt={article.title} style={{ width: '100%', height: 380, objectFit: 'cover', display: 'block' }} />
+          </div>
+        )}
 
         {article.excerpt && (
           <p style={{ fontSize: 17, color: '#555', lineHeight: 1.85, fontStyle: 'italic', marginBottom: 36, paddingBottom: 36, borderBottom: '1px solid #EDE8DC', ...fx(vis, 400) }}>
@@ -132,39 +127,52 @@ function HTMLArticle({ article }) {
           </p>
         )}
 
-        {article.content && (
+        {article.content ? (
           <div
             style={{ fontSize: 16.5, color: '#333', lineHeight: 1.95, ...fx(vis, 460) }}
             dangerouslySetInnerHTML={{
-              __html: article.content.replace(
-                /<p>/g,
-                '<p style="margin-bottom:28px; font-size:16.5px; line-height:1.95; color:#333;">'
-              ),
+              __html: article.content.replace(/<p>/g, '<p style="margin-bottom:28px;font-size:16.5px;line-height:1.95;color:#333;">'),
             }}
           />
-        )}
-
-        {!article.content && !article.pdf_url && (
+        ) : (
           <div style={{ textAlign: 'center', padding: '60px 0', ...fx(vis, 400) }}>
             <BookOpen size={32} style={{ color: '#DDD', marginBottom: 16 }} />
-            <p style={{ fontSize: 14, color: '#AAA' }}>This issue's content is coming soon.</p>
+            <p style={{ fontSize: 14, color: '#AAA' }}>The full issue will be available soon.</p>
           </div>
         )}
+
       </div>
     </div>
   )
 }
 
-// ─── Main export ─────────────────────────────────────────────────────────────
+// ─── Main ─────────────────────────────────────────────────────────────────────
 export default function ArticlePage() {
   const { id } = useParams()
-  const article = articles.find(a => a.id === Number(id))
+  const navigate = useNavigate()
+  const [article, setArticle] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  if (!article) return <Navigate to="/magazine" />
+  useEffect(() => {
+    setLoading(true)
+    supabase.from('articles').select('*').eq('id', id).single()
+      .then(({ data, error }) => {
+        if (error || !data) { navigate('/magazine'); return }
+        setArticle(data)
+        setLoading(false)
+      })
+  }, [id, navigate])
 
-  // If a PDF is attached — show the full-screen reader
+  if (loading) {
+    return (
+      <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, color: '#AAA' }}>
+        <Loader2 size={20} className="spin" /> Loading…
+      </div>
+    )
+  }
+
+  if (!article) return null
+
   if (article.pdf_url) return <PDFReader article={article} />
-
-  // Otherwise — show the HTML article layout
   return <HTMLArticle article={article} />
 }
