@@ -158,7 +158,7 @@ export default function Home() {
                     onMouseLeave={e => e.target.style.transform = 'scale(1)'}
                   />
                 </div>
-                <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{a.category}</span>
+                <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{a.issue_number || a.category}</span>
                 <h3 data-title style={{ fontSize: 16.5, fontWeight: 600, color: '#0A1628', margin: '8px 0 10px', lineHeight: 1.4, letterSpacing: '-0.01em', transition: 'color .2s' }}>{a.title}</h3>
                 <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.72 }}>{a.excerpt}</p>
               </Link>
