@@ -36,11 +36,11 @@ function AboutTab({ committee }) {
   }, [committee.id])
 
   const stats = [
-    committee.schools_count   ? { label: 'Schools Reached',   value: committee.schools_count,      suffix: '+' } : null,
-    eventCount !== null       ? { label: 'Events Organized',   value: eventCount                               } : null,
-    memberCount !== null      ? { label: 'Members',            value: memberCount                              } : null,
-    committee.participants_count ? { label: 'Participants',    value: committee.participants_count, suffix: '+' } : null,
-    committee.founded_year    ? { label: 'Est.',               value: committee.founded_year,       isYear: true } : null,
+    committee.schools_count      > 0 ? { label: 'Schools Reached', value: committee.schools_count,      suffix: '+' } : null,
+    eventCount                   > 0 ? { label: 'Events Organized', value: eventCount                               } : null,
+    memberCount                  > 0 ? { label: 'Members',          value: memberCount                              } : null,
+    committee.participants_count > 0 ? { label: 'Participants',     value: committee.participants_count, suffix: '+' } : null,
+    committee.founded_year           ? { label: 'Est.',              value: committee.founded_year,       isYear: true } : null,
   ].filter(Boolean)
 
   return (
