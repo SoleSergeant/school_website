@@ -3,7 +3,7 @@ import { Pencil, Trash2, Plus, X, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import ImageUpload from '../components/ImageUpload'
 
-const EMPTY = { name: '', grade: '', achievement: '', photo: '' }
+const EMPTY = { name: '', grade: '', achievement: '', photo: '', linkedin_url: '', telegram_url: '' }
 
 const inputStyle = {
   width: '100%', padding: '10px 14px', border: '1px solid #E2E8F0',
@@ -37,7 +37,17 @@ export default function AdminStudents() {
 
   // ── Open form ─────────────────────────────────────────────────────────────
   const openNew  = () => { setForm(EMPTY); setEditing(null); setError(''); setShowForm(true) }
-  const openEdit = (s) => { setForm({ name: s.name, grade: s.grade || '', achievement: s.achievement || '', photo: s.photo || '' }); setEditing(s.id); setError(''); setShowForm(true) }
+  const openEdit = (s) => {
+    setForm({
+      name:         s.name,
+      grade:        s.grade        || '',
+      achievement:  s.achievement  || '',
+      photo:        s.photo        || '',
+      linkedin_url: s.linkedin_url || '',
+      telegram_url: s.telegram_url || '',
+    })
+    setEditing(s.id); setError(''); setShowForm(true)
+  }
 
   // ── Save ──────────────────────────────────────────────────────────────────
   const save = async () => {
@@ -46,10 +56,12 @@ export default function AdminStudents() {
     setError('')
 
     const payload = {
-      name:        form.name.trim(),
-      grade:       form.grade.trim(),
-      achievement: form.achievement.trim(),
-      photo:       form.photo.trim(),
+      name:         form.name.trim(),
+      grade:        form.grade.trim(),
+      achievement:  form.achievement.trim(),
+      photo:        form.photo.trim(),
+      linkedin_url: form.linkedin_url.trim(),
+      telegram_url: form.telegram_url.trim(),
     }
 
     let err
@@ -101,7 +113,7 @@ export default function AdminStudents() {
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ backgroundColor: '#F8FAFC' }}>
-                {['Student', 'Grade', 'Achievement', 'Actions'].map(h => (
+                {['Student', 'Grade', 'Achievement', 'Links', 'Actions'].map(h => (
                   <th key={h} style={{ padding: '14px 20px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: 1 }}>{h}</th>
                 ))}
               </tr>
@@ -117,7 +129,24 @@ export default function AdminStudents() {
                     </div>
                   </td>
                   <td style={{ padding: '14px 20px', fontSize: 14, color: '#374151' }}>{s.grade ? `Grade ${s.grade}` : '—'}</td>
-                  <td style={{ padding: '14px 20px', fontSize: 13, color: '#64748B', maxWidth: 300 }}>{s.achievement || '—'}</td>
+                  <td style={{ padding: '14px 20px', fontSize: 13, color: '#64748B', maxWidth: 260 }}>{s.achievement || '—'}</td>
+                  <td style={{ padding: '14px 20px' }}>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      {s.linkedin_url && (
+                        <a href={s.linkedin_url} target="_blank" rel="noreferrer"
+                          style={{ fontSize: 11, fontWeight: 600, color: '#0077B5', padding: '3px 8px', backgroundColor: '#E8F4FD', borderRadius: 6, textDecoration: 'none' }}>
+                          LinkedIn
+                        </a>
+                      )}
+                      {s.telegram_url && (
+                        <a href={s.telegram_url} target="_blank" rel="noreferrer"
+                          style={{ fontSize: 11, fontWeight: 600, color: '#229ED9', padding: '3px 8px', backgroundColor: '#E8F6FC', borderRadius: 6, textDecoration: 'none' }}>
+                          Telegram
+                        </a>
+                      )}
+                      {!s.linkedin_url && !s.telegram_url && <span style={{ fontSize: 12, color: '#CBD5E1' }}>—</span>}
+                    </div>
+                  </td>
                   <td style={{ padding: '14px 20px' }}>
                     <div style={{ display: 'flex', gap: 6 }}>
                       <button onClick={() => openEdit(s)}
@@ -165,14 +194,29 @@ export default function AdminStudents() {
               <ImageUpload value={form.photo} onChange={url => setForm(f => ({ ...f, photo: url }))} label="Photo" />
             </div>
 
-            <div style={{ marginBottom: 24 }}>
+            <div style={{ marginBottom: 16 }}>
               <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Achievement</label>
               <textarea value={form.achievement} onChange={e => setForm(f => ({ ...f, achievement: e.target.value }))} rows={3}
                 placeholder="e.g. Gold Medal – National Math Olympiad"
                 style={{ ...inputStyle, resize: 'vertical' }} />
             </div>
 
-            <div style={{ display: 'flex', gap: 12 }}>
+            <div style={{ marginBottom: 4 }}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#94A3B8', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 }}>Social links (optional)</label>
+            </div>
+
+            {[
+              { key: 'linkedin_url', label: 'LinkedIn URL', placeholder: 'https://linkedin.com/in/…' },
+              { key: 'telegram_url', label: 'Telegram URL', placeholder: 'https://t.me/…' },
+            ].map(({ key, label, placeholder }) => (
+              <div key={key} style={{ marginBottom: 16 }}>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{label}</label>
+                <input value={form[key]} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
+                  placeholder={placeholder} style={inputStyle} />
+              </div>
+            ))}
+
+            <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
               <button onClick={() => setShowForm(false)}
                 style={{ flex: 1, padding: 12, border: '1px solid #E2E8F0', borderRadius: 10, background: '#fff', cursor: 'pointer', fontWeight: 600 }}>
                 Cancel
