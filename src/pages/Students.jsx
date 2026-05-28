@@ -67,9 +67,9 @@ export default function Students() {
         <div className="wrap">
           {loading ? (
             /* skeleton — always 3 columns */
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
               {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc((100% - 2px) / 3)', boxSizing: 'border-box' }}>
+                <div key={i} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                     <div style={{ width: 48, height: 48, borderRadius: '50%', backgroundColor: '#F5F1E8', flexShrink: 0 }} />
                     <div>
@@ -85,9 +85,9 @@ export default function Students() {
             </div>
           ) : (
             /* real data — flexbox so last row centres automatically */
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
               {students.map(s => (
-                <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc((100% - 2px) / 3)', boxSizing: 'border-box' }}>
+                <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                     <img src={s.photo || `https://i.pravatar.cc/80?u=s${s.id}`} alt={s.name}
                       style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
