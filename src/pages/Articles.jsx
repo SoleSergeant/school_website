@@ -19,12 +19,12 @@ export default function Articles() {
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
         <div ref={headerRef} className="wrap" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
           <div>
-            <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14, ...fx(headerVis, 0) }}>From the school</p>
+            <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 14, ...fx(headerVis, 0) }}>From the editors</p>
             <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px, 5vw, 60px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, ...fx(headerVis, 100, 28) }}>
-              News & Articles
+              Magazine
             </h1>
           </div>
-          <span style={{ fontSize: 13, color: '#AAA', paddingBottom: 4, ...fx(headerVis, 180) }}>{articles.length} stories</span>
+          <span style={{ fontSize: 13, color: '#AAA', paddingBottom: 4, ...fx(headerVis, 180) }}>{articles.length} issues</span>
         </div>
       </div>
 
@@ -32,7 +32,7 @@ export default function Articles() {
 
         {/* Featured */}
         <div ref={featuredRef} style={fx(featuredVis, 0)}>
-          <Link to={`/articles/${featured.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 72 }}
+          <Link to={`/magazine/${featured.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 72 }}
             onMouseEnter={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#B8882A' }}
             onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#0A1628' }}
           >
@@ -61,14 +61,14 @@ export default function Articles() {
         {/* Divider */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 48 }}>
           <div style={{ flex: 1, height: 1, backgroundColor: '#E5DFCF' }} />
-          <span style={{ fontSize: 10, fontWeight: 700, color: '#CCC', letterSpacing: '0.12em', textTransform: 'uppercase' }}>More stories</span>
+          <span style={{ fontSize: 10, fontWeight: 700, color: '#CCC', letterSpacing: '0.12em', textTransform: 'uppercase' }}>More issues</span>
           <div style={{ flex: 1, height: 1, backgroundColor: '#E5DFCF' }} />
         </div>
 
         {/* Grid */}
         <div ref={gridRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 40 }}>
           {rest.map((a, i) => (
-            <Link key={a.id} to={`/articles/${a.id}`} style={{ display: 'block', textDecoration: 'none', ...fx(gridVis, i * 70) }}
+            <Link key={a.id} to={`/magazine/${a.id}`} style={{ display: 'block', textDecoration: 'none', ...fx(gridVis, i * 70) }}
               onMouseEnter={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#B8882A' }}
               onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-h]'); if (h) h.style.color = '#0A1628' }}
             >

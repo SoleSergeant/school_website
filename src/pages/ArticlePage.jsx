@@ -16,7 +16,7 @@ export default function ArticlePage() {
     return () => clearTimeout(t)
   }, [id])
 
-  if (!article) return <Navigate to="/articles" />
+  if (!article) return <Navigate to="/magazine" />
 
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
@@ -24,12 +24,12 @@ export default function ArticlePage() {
 
         {/* Back */}
         <div style={fx(vis, 0)}>
-          <Link to="/articles"
+          <Link to="/magazine"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12.5, color: '#AAA', marginBottom: 52, textDecoration: 'none', letterSpacing: '0.04em', textTransform: 'uppercase', fontWeight: 600 }}
             onMouseEnter={e => e.currentTarget.style.color = '#0A1628'}
             onMouseLeave={e => e.currentTarget.style.color = '#AAA'}
           >
-            <ArrowLeft size={13} /> Back to News
+            <ArrowLeft size={13} /> Back to Magazine
           </Link>
         </div>
 

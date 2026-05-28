@@ -141,14 +141,14 @@ export default function Home() {
       <section style={{ backgroundColor: '#F5F1E8', padding: '100px 0' }}>
         <div ref={newsRef} className="wrap">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 48, paddingBottom: 20, borderBottom: '1px solid #D8D0BE', ...fx(newsVis, 0) }}>
-            <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(26px,3vw,40px)', color: '#0A1628', letterSpacing: '-0.01em' }}>Latest News</h2>
-            <Link to="/articles" style={{ fontSize: 11, fontWeight: 700, color: '#888', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 5 }}>
-              All articles <ArrowRight size={11} />
+            <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(26px,3vw,40px)', color: '#0A1628', letterSpacing: '-0.01em' }}>Magazine</h2>
+            <Link to="/magazine" style={{ fontSize: 11, fontWeight: 700, color: '#888', textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: 5 }}>
+              All issues <ArrowRight size={11} />
             </Link>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 36 }}>
             {articles.map((a, i) => (
-              <Link key={a.id} to={`/articles/${a.id}`} style={{ textDecoration: 'none', display: 'block', ...fx(newsVis, 80 + i * 90) }}
+              <Link key={a.id} to={`/magazine/${a.id}`} style={{ textDecoration: 'none', display: 'block', ...fx(newsVis, 80 + i * 90) }}
                 onMouseEnter={e => { const h = e.currentTarget.querySelector('[data-title]'); if (h) h.style.color = '#B8882A' }}
                 onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-title]'); if (h) h.style.color = '#0A1628' }}
               >

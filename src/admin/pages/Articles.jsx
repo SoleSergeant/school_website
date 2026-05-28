@@ -10,9 +10,9 @@ export default function AdminArticles() {
   return (
     <div style={{ padding: 32 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
-        <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 26, color: '#111827' }}>Articles</h1>
+        <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 26, color: '#111827' }}>Magazine</h1>
         <Link to="/admin/articles/new" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, backgroundColor: '#1E3273', color: '#fff', padding: '10px 18px', borderRadius: 10, fontWeight: 600, fontSize: 14, textDecoration: 'none' }}>
-          <Plus size={16} /> New Article
+          <Plus size={16} /> New Issue
         </Link>
       </div>
 
@@ -20,7 +20,7 @@ export default function AdminArticles() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ backgroundColor: '#F8FAFC' }}>
-              {['Article', 'Category', 'Author', 'Date', 'Actions'].map(h => (
+              {['Issue', 'Category', 'Author', 'Date', 'Actions'].map(h => (
                 <th key={h} style={{ padding: '14px 20px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: 1 }}>{h}</th>
               ))}
             </tr>
@@ -41,7 +41,7 @@ export default function AdminArticles() {
                 <td style={{ padding: '14px 20px', fontSize: 13, color: '#94A3B8' }}>{a.date}</td>
                 <td style={{ padding: '14px 20px' }}>
                   <div className="flex gap-2">
-                    <Link to={`/articles/${a.id}`} target="_blank" style={{ padding: '6px 12px', border: '1px solid #E2E8F0', borderRadius: 8, background: '#fff', color: '#64748B', textDecoration: 'none', display: 'inline-flex' }}><Eye size={14} /></Link>
+                    <Link to={`/magazine/${a.id}`} target="_blank" style={{ padding: '6px 12px', border: '1px solid #E2E8F0', borderRadius: 8, background: '#fff', color: '#64748B', textDecoration: 'none', display: 'inline-flex' }}><Eye size={14} /></Link>
                     <Link to={`/admin/articles/${a.id}/edit`} style={{ padding: '6px 12px', border: '1px solid #E2E8F0', borderRadius: 8, background: '#fff', color: '#1E3273', textDecoration: 'none', display: 'inline-flex' }}><Pencil size={14} /></Link>
                     <button onClick={() => remove(a.id)} style={{ padding: '6px 12px', border: '1px solid #FEE2E2', borderRadius: 8, background: '#fff', cursor: 'pointer', color: '#DC2626' }}><Trash2 size={14} /></button>
                   </div>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 const cols = [
   { title: 'School',     links: [['/', 'Home'], ['/teachers', 'Faculty'], ['/students', 'Students'], ['/life', 'Campus Life']] },
-  { title: 'Resources',  links: [['/articles', 'News'], ['/echo', 'Echo'], ['/gallery', 'Gallery'], ['/admissions', 'Admissions']] },
+  { title: 'Resources',  links: [['/magazine', 'Magazine'], ['/echo', 'Echo'], ['/gallery', 'Gallery'], ['/admissions', 'Admissions']] },
   { title: 'Contact',    text: ['1 Qashqar Street, Fergana', 'info@ferganaschool.uz', '+998 73 000 00 00'] },
 ]
 

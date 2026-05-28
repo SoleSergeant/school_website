@@ -38,8 +38,8 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="teachers" element={<Teachers />} />
             <Route path="students" element={<Students />} />
-            <Route path="articles" element={<Articles />} />
-            <Route path="articles/:id" element={<ArticlePage />} />
+            <Route path="magazine" element={<Articles />} />
+            <Route path="magazine/:id" element={<ArticlePage />} />
             <Route path="echo" element={<Echo />} />
             <Route path="life" element={<StudentLife />} />
             <Route path="admissions" element={<Admissions />} />

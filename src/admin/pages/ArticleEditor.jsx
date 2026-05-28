@@ -27,15 +27,15 @@ export default function ArticleEditor() {
   return (
     <div style={{ padding: 32, maxWidth: 860, margin: '0 auto' }}>
       <button onClick={() => navigate('/admin/articles')} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#1E3273', fontSize: 14, fontWeight: 600, marginBottom: 24 }}>
-        <ArrowLeft size={16} /> Back to Articles
+        <ArrowLeft size={16} /> Back to Magazine
       </button>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28 }}>
         <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 26, color: '#111827' }}>
-          {existing ? 'Edit Article' : 'New Article'}
+          {existing ? 'Edit Issue' : 'New Issue'}
         </h1>
         <button onClick={handleSave} style={{ display: 'flex', alignItems: 'center', gap: 6, backgroundColor: saved ? '#16A34A' : '#1E3273', color: '#fff', padding: '10px 20px', borderRadius: 10, fontWeight: 600, fontSize: 14, border: 'none', cursor: 'pointer', transition: 'background 0.2s' }}>
-          <Save size={16} /> {saved ? 'Saved!' : 'Save Article'}
+          <Save size={16} /> {saved ? 'Saved!' : 'Save Issue'}
         </button>
       </div>
 
