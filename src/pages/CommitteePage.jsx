@@ -201,7 +201,7 @@ function EventCard({ ev, onClick }) {
       onMouseEnter={e => e.currentTarget.querySelector('.ev-img').style.transform = 'scale(1.04)'}
       onMouseLeave={e => e.currentTarget.querySelector('.ev-img').style.transform = 'scale(1)'}
     >
-      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 4px 20px rgba(0,0,0,0.10)', marginBottom: 20 }}>
+      <div style={{ aspectRatio: '16 / 10', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 4px 20px rgba(0,0,0,0.10)', marginBottom: 20 }}>
         {ev.cover
           ? <img className="ev-img" src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s cubic-bezier(.16,1,.3,1)' }} />
           : <div className="ev-img" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.5s' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
