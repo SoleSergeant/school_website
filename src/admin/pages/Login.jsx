@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -11,13 +11,17 @@ export default function AdminLogin() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    const result = login(email, password)
+    setLoading(true)
+    const result = await login(email, password)
+    setLoading(false)
     if (result.success) {
       navigate('/admin')
     } else {
-      setError(result.error)
+      setError(result.error || 'Login failed')
     }
   }
 
@@ -68,9 +72,9 @@ export default function AdminLogin() {
                 </button>
               </div>
             </div>
-            <button type="submit"
-              style={{ width: '100%', backgroundColor: '#1E3273', color: '#fff', padding: '14px', borderRadius: 10, fontWeight: 700, fontSize: 15, border: 'none', cursor: 'pointer' }}>
-              Log In
+            <button type="submit" disabled={loading}
+              style={{ width: '100%', backgroundColor: '#1E3273', color: '#fff', padding: '14px', borderRadius: 10, fontWeight: 700, fontSize: 15, border: 'none', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              {loading ? <><Loader2 size={16} className="spin" /> Logging in…</> : 'Log In'}
             </button>
           </form>
 
