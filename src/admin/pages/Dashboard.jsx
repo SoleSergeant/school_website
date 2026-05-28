@@ -10,9 +10,6 @@ export default function Dashboard() {
   const [articles, setArticles] = useState([])
   const [loading,  setLoading]  = useState(true)
 
-  // Committee leaders go straight to their committee
-  if (user?.role === 'committee_leader') return <Navigate to="/admin/my-committee" replace />
-
   useEffect(() => {
     const fetchAll = async () => {
       const queries = [
@@ -38,6 +35,9 @@ export default function Dashboard() {
     }
     fetchAll()
   }, [])
+
+  // Committee leaders go straight to their committee
+  if (user?.role === 'committee_leader') return <Navigate to="/admin/my-committee" replace />
 
   const cards = [
     { label: 'Teachers',    value: counts.teachers,   icon: GraduationCap, to: '/admin/teachers',   roles: ['superadmin'] },

@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { FileText, Upload, X, Loader2 } from 'lucide-react'
+import { FileText, X, Loader2 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 
 /**
