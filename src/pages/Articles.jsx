@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { BookOpen, Download } from 'lucide-react'
+import { BookOpen, Download, ChevronDown, ChevronUp } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useReveal, fx } from '../hooks/useReveal'
 
@@ -13,9 +13,73 @@ function getGDriveDownload(url) {
   return url
 }
 
+function IssueCard({ a, animStyle }) {
+  const downloadUrl = getGDriveDownload(a.pdf_url)
+  return (
+    <div style={animStyle}>
+
+      {/* Cover */}
+      <Link to={`/magazine/${a.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 20 }}>
+        <div
+          style={{ position: 'relative', aspectRatio: '3 / 4', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)', borderRadius: 2, transition: 'box-shadow 0.4s ease' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.26), 0 4px 12px rgba(0,0,0,0.12)'
+            const img = e.currentTarget.querySelector('img')
+            if (img) img.style.transform = 'scale(1.04)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)'
+            const img = e.currentTarget.querySelector('img')
+            if (img) img.style.transform = 'scale(1)'
+          }}
+        >
+          {a.cover
+            ? <img src={a.cover} alt={a.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s cubic-bezier(.16,1,.3,1)' }} />
+            : <div style={{ width: '100%', height: '100%', backgroundColor: '#F5F1E8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={32} style={{ color: '#CCC' }} /></div>
+          }
+          <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: 'linear-gradient(to right, rgba(0,0,0,0.22), transparent)', pointerEvents: 'none' }} />
+        </div>
+      </Link>
+
+      {/* Info */}
+      <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+        {a.issue_number || (a.date ? new Date(a.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : a.category)}
+      </span>
+      <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 22, color: '#0A1628', margin: '7px 0 10px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
+        {a.title}
+      </h3>
+      {a.excerpt && (
+        <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.7, marginBottom: 18 }}>{a.excerpt}</p>
+      )}
+
+      {/* Buttons */}
+      <div style={{ display: 'flex', gap: 8 }}>
+        <Link to={`/magazine/${a.id}`}
+          style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, backgroundColor: '#0A1628', color: '#fff', padding: '11px 0', borderRadius: 2, fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background-color 0.2s' }}
+          onMouseEnter={e => e.currentTarget.style.backgroundColor = '#1a2d4a'}
+          onMouseLeave={e => e.currentTarget.style.backgroundColor = '#0A1628'}
+        >
+          <BookOpen size={12} /> Read Now
+        </Link>
+        {downloadUrl && (
+          <a href={downloadUrl} target="_blank" rel="noreferrer"
+            style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '11px 16px', border: '1.5px solid #E5DFCF', borderRadius: 2, color: '#777', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = '#B8882A'; e.currentTarget.style.color = '#B8882A' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#777' }}
+          >
+            <Download size={12} /> PDF
+          </a>
+        )}
+      </div>
+
+    </div>
+  )
+}
+
 export default function Articles() {
   const [articles, setArticles] = useState([])
   const [loading,  setLoading]  = useState(true)
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     supabase
@@ -28,6 +92,10 @@ export default function Articles() {
 
   const [headerRef, headerVis] = useReveal()
   const [gridRef,   gridVis]   = useReveal()
+
+  const visible  = articles.slice(0, 3)
+  const hidden   = articles.slice(3)
+  const hasMore  = hidden.length > 0
 
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
@@ -74,71 +142,57 @@ export default function Articles() {
           )}
 
           {!loading && articles.length > 0 && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
-              {articles.map((a, i) => {
-                const downloadUrl = getGDriveDownload(a.pdf_url)
-                return (
-                  <div key={a.id} style={fx(gridVis, i * 80)}>
+            <>
+              {/* ── Latest 3 — always visible ── */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '56px 48px' }}>
+                {visible.map((a, i) => (
+                  <IssueCard key={a.id} a={a} animStyle={fx(gridVis, i * 80)} />
+                ))}
+              </div>
 
-                    {/* Cover */}
-                    <Link to={`/magazine/${a.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 20 }}>
-                      <div
-                        style={{ position: 'relative', aspectRatio: '3 / 4', overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)', borderRadius: 2, transition: 'box-shadow 0.4s ease' }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.boxShadow = '0 16px 48px rgba(0,0,0,0.26), 0 4px 12px rgba(0,0,0,0.12)'
-                          const img = e.currentTarget.querySelector('img')
-                          if (img) img.style.transform = 'scale(1.04)'
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10)'
-                          const img = e.currentTarget.querySelector('img')
-                          if (img) img.style.transform = 'scale(1)'
-                        }}
-                      >
-                        {a.cover
-                          ? <img src={a.cover} alt={a.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s cubic-bezier(.16,1,.3,1)' }} />
-                          : <div style={{ width: '100%', height: '100%', backgroundColor: '#F5F1E8', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpen size={32} style={{ color: '#CCC' }} /></div>
-                        }
-                        {/* Spine shadow */}
-                        <div style={{ position: 'absolute', top: 0, left: 0, width: 6, height: '100%', background: 'linear-gradient(to right, rgba(0,0,0,0.22), transparent)', pointerEvents: 'none' }} />
-                      </div>
-                    </Link>
-
-                    {/* Info */}
-                    <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                      {a.issue_number || (a.date ? new Date(a.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : a.category)}
+              {/* ── Older issues — collapsible ── */}
+              {hasMore && (
+                <>
+                  {/* Divider + toggle */}
+                  <div style={{ marginTop: 64, paddingTop: 40, borderTop: '1px solid #E5DFCF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                      {expanded ? 'Earlier issues' : `${hidden.length} earlier issue${hidden.length > 1 ? 's' : ''}`}
                     </span>
-                    <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 22, color: '#0A1628', margin: '7px 0 10px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
-                      {a.title}
-                    </h3>
-                    {a.excerpt && (
-                      <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.7, marginBottom: 18 }}>{a.excerpt}</p>
-                    )}
-
-                    {/* Buttons */}
-                    <div style={{ display: 'flex', gap: 8 }}>
-                      <Link to={`/magazine/${a.id}`}
-                        style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7, backgroundColor: '#0A1628', color: '#fff', padding: '11px 0', borderRadius: 2, fontSize: 11, fontWeight: 700, letterSpacing: '0.09em', textTransform: 'uppercase', textDecoration: 'none', transition: 'background-color 0.2s' }}
-                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#1a2d4a'}
-                        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#0A1628'}
-                      >
-                        <BookOpen size={12} /> Read Now
-                      </Link>
-                      {downloadUrl && (
-                        <a href={downloadUrl} target="_blank" rel="noreferrer"
-                          style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '11px 16px', border: '1.5px solid #E5DFCF', borderRadius: 2, color: '#777', fontSize: 11, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s' }}
-                          onMouseEnter={e => { e.currentTarget.style.borderColor = '#B8882A'; e.currentTarget.style.color = '#B8882A' }}
-                          onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#777' }}
-                        >
-                          <Download size={12} /> PDF
-                        </a>
-                      )}
-                    </div>
-
+                    <button
+                      onClick={() => setExpanded(v => !v)}
+                      style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'none', border: '1.5px solid #E5DFCF', borderRadius: 2, padding: '9px 18px', fontSize: 11, fontWeight: 700, color: '#0A1628', letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer', transition: 'border-color 0.2s, color 0.2s' }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = '#0A1628' }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF' }}
+                    >
+                      {expanded ? <><ChevronUp size={13} /> Collapse</> : <><ChevronDown size={13} /> Show all</>}
+                    </button>
                   </div>
-                )
-              })}
-            </div>
+
+                  {/* Collapsible grid */}
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: expanded ? '56px 48px' : '0 48px',
+                    marginTop: expanded ? 48 : 0,
+                    maxHeight: expanded ? '9999px' : 0,
+                    overflow: 'hidden',
+                    transition: 'max-height 0.55s cubic-bezier(.16,1,.3,1), margin-top 0.35s ease, gap 0.35s ease',
+                  }}>
+                    {hidden.map((a, i) => (
+                      <IssueCard
+                        key={a.id}
+                        a={a}
+                        animStyle={{
+                          opacity: expanded ? 1 : 0,
+                          transform: expanded ? 'translateY(0)' : 'translateY(20px)',
+                          transition: `opacity 0.45s ease ${i * 60}ms, transform 0.45s cubic-bezier(.16,1,.3,1) ${i * 60}ms`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
           )}
 
         </div>
