@@ -142,55 +142,77 @@ function MembersTab({ committeeId }) {
   )
 }
 
-// ── Event row (own state for read-more) ───────────────────────────────────────
-function EventRow({ ev, i, list }) {
-  const [textOpen, setTextOpen] = useState(false)
-  const isLong = ev.description && (ev.description.length > 280 || ev.description.includes('\n'))
+// ── Event modal ───────────────────────────────────────────────────────────────
+function EventModal({ ev, onClose }) {
+  useEffect(() => {
+    const handler = e => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [onClose])
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 48, padding: '48px 0', borderBottom: i < list.length - 1 ? '1px solid #E5DFCF' : 'none', alignItems: 'flex-start' }}>
-      {/* Image */}
-      <div style={{ aspectRatio: '16 / 9', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 2px 16px rgba(0,0,0,0.09)' }}>
-        {ev.cover
-          ? <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-          : <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
-        }
-      </div>
-      {/* Content */}
-      <div style={{ paddingTop: 4 }}>
-        {ev.date && (
-          <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
-            {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </span>
+    <div
+      onClick={onClose}
+      style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(10,22,40,0.7)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{ backgroundColor: '#fff', borderRadius: 4, maxWidth: 680, width: '100%', maxHeight: '88vh', overflowY: 'auto', boxShadow: '0 24px 80px rgba(0,0,0,0.25)' }}
+      >
+        {ev.cover && (
+          <div style={{ aspectRatio: '16 / 9', overflow: 'hidden' }}>
+            <img src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          </div>
         )}
-        <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
-        {ev.description && (
-          <>
-            <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85, whiteSpace: 'pre-wrap', marginBottom: 12,
-              ...(!textOpen && isLong ? { display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical', overflow: 'hidden' } : {})
-            }}>
-              {ev.description}
-            </p>
-            {isLong && (
-              <button onClick={() => setTextOpen(o => !o)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, color: '#B8882A', padding: 0, marginBottom: ev.telegram_url ? 16 : 0 }}>
-                {textOpen ? '↑ Show less' : '↓ Read more'}
-              </button>
+        <div style={{ padding: '32px 36px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+            {ev.date && (
+              <span style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>
+                {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
             )}
-          </>
-        )}
-        {ev.telegram_url && (
-          <div style={{ marginTop: ev.description ? 4 : 0 }}>
+            <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#999', fontSize: 22, lineHeight: 1, padding: 0, marginLeft: 'auto' }}>×</button>
+          </div>
+          <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 28, color: '#0A1628', margin: '0 0 20px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h2>
+          {ev.description && (
+            <p style={{ fontSize: 15, color: '#444', lineHeight: 1.9, whiteSpace: 'pre-wrap', marginBottom: ev.telegram_url ? 28 : 0 }}>{ev.description}</p>
+          )}
+          {ev.telegram_url && (
             <a href={ev.telegram_url} target="_blank" rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '9px 18px', backgroundColor: '#229ED9', color: '#fff', borderRadius: 4, fontSize: 12.5, fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', backgroundColor: '#229ED9', color: '#fff', borderRadius: 4, fontSize: 13, fontWeight: 700, textDecoration: 'none', transition: 'opacity 0.2s' }}
               onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
               onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
               <TelegramIcon size={14} /> More photos &amp; details on Telegram
             </a>
-          </div>
-        )}
+          )}
+        </div>
       </div>
+    </div>
+  )
+}
+
+// ── Event card ────────────────────────────────────────────────────────────────
+function EventCard({ ev, onClick }) {
+  return (
+    <div
+      onClick={onClick}
+      style={{ cursor: 'pointer' }}
+      onMouseEnter={e => e.currentTarget.querySelector('.ev-img').style.transform = 'scale(1.04)'}
+      onMouseLeave={e => e.currentTarget.querySelector('.ev-img').style.transform = 'scale(1)'}
+    >
+      <div style={{ aspectRatio: '3 / 4', overflow: 'hidden', borderRadius: 2, backgroundColor: '#F5F1E8', boxShadow: '0 4px 20px rgba(0,0,0,0.10)', marginBottom: 20 }}>
+        {ev.cover
+          ? <img className="ev-img" src={ev.cover} alt={ev.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.5s cubic-bezier(.16,1,.3,1)' }} />
+          : <div className="ev-img" style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 0.5s' }}><Calendar size={28} style={{ color: '#CCC' }} /></div>
+        }
+      </div>
+      {ev.date && (
+        <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: 8 }}>
+          {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
+        </p>
+      )}
+      <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 20, color: '#0A1628', lineHeight: 1.25, letterSpacing: '-0.01em', margin: 0 }}>{ev.title}</h3>
     </div>
   )
 }
@@ -200,6 +222,7 @@ function EventsTab({ committeeId }) {
   const [events,   setEvents]   = useState([])
   const [loading,  setLoading]  = useState(true)
   const [expanded, setExpanded] = useState(false)
+  const [selected, setSelected] = useState(null)
 
   useEffect(() => {
     supabase
@@ -228,11 +251,14 @@ function EventsTab({ committeeId }) {
 
   return (
     <div>
-      <div>
-        {visible.map((ev, i) => <EventRow key={ev.id} ev={ev} i={i} list={visible} />)}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 32px' }}>
+        {visible.map(ev => (
+          <EventCard key={ev.id} ev={ev} onClick={() => setSelected(ev)} />
+        ))}
       </div>
+
       {hasMore && (
-        <div style={{ marginTop: 40, textAlign: 'center' }}>
+        <div style={{ marginTop: 56, textAlign: 'center' }}>
           <button
             onClick={() => setExpanded(e => !e)}
             style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 28px', border: '1.5px solid #0A1628', borderRadius: 2, background: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#0A1628', letterSpacing: '0.08em', textTransform: 'uppercase', transition: 'background 0.2s, color 0.2s' }}
@@ -244,6 +270,8 @@ function EventsTab({ committeeId }) {
           </button>
         </div>
       )}
+
+      {selected && <EventModal ev={selected} onClose={() => setSelected(null)} />}
     </div>
   )
 }
