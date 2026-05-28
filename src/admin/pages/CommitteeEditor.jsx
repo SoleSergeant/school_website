@@ -81,6 +81,7 @@ function EventModal({ committeeId, existing, onClose, onSaved }) {
   const [form, setForm] = useState({
     title: existing?.title || '', description: existing?.description || '',
     date: existing?.date || '', cover: existing?.cover || '',
+    telegram_url: existing?.telegram_url || '',
   })
   const [saving, setSaving] = useState(false)
   const [error,  setError]  = useState('')
@@ -118,6 +119,10 @@ function EventModal({ committeeId, existing, onClose, onSaved }) {
         <div style={{ marginBottom: 14 }}>
           <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Description</label>
           <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={3} style={{ ...inputStyle, resize: 'vertical' }} />
+        </div>
+        <div style={{ marginBottom: 14 }}>
+          <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6 }}>Telegram Post URL <span style={{ color: '#9CA3AF', fontWeight: 400 }}>(optional)</span></label>
+          <input value={form.telegram_url} onChange={e => setForm(f => ({ ...f, telegram_url: e.target.value }))} placeholder="https://t.me/channel/123" style={inputStyle} />
         </div>
         <div style={{ marginBottom: 14 }}>
           <ImageUpload value={form.cover} onChange={url => setForm(f => ({ ...f, cover: url }))} label="Cover Image" aspect="wide" />
