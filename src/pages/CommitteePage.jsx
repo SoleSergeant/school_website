@@ -23,15 +23,47 @@ function TelegramIcon({ size = 13 }) {
 
 // ── Tab: About ────────────────────────────────────────────────────────────────
 function AboutTab({ committee }) {
+  const [memberCount, setMemberCount] = useState(null)
+  const [eventCount,  setEventCount]  = useState(null)
+
+  useEffect(() => {
+    supabase.from('committee_members').select('id', { count: 'exact', head: true })
+      .eq('committee_id', committee.id)
+      .then(({ count }) => setMemberCount(count ?? 0))
+    supabase.from('committee_events').select('id', { count: 'exact', head: true })
+      .eq('committee_id', committee.id)
+      .then(({ count }) => setEventCount(count ?? 0))
+  }, [committee.id])
+
+  const stats = [
+    committee.schools_count   ? { label: 'Schools Reached',   value: committee.schools_count,      suffix: '+' } : null,
+    eventCount !== null       ? { label: 'Events Organized',   value: eventCount                               } : null,
+    memberCount !== null      ? { label: 'Members',            value: memberCount                              } : null,
+    committee.participants_count ? { label: 'Participants',    value: committee.participants_count, suffix: '+' } : null,
+    committee.founded_year    ? { label: 'Est.',               value: committee.founded_year,       isYear: true } : null,
+  ].filter(Boolean)
+
   return (
-    <div style={{ maxWidth: 680 }}>
-      {committee.cover && (
-        <div style={{ marginBottom: 40, borderRadius: 2, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,0,0,0.10)' }}>
-          <img src={committee.cover} alt={committee.name} style={{ width: '100%', height: 320, objectFit: 'cover', display: 'block' }} />
+    <div>
+      {/* Stats row */}
+      {stats.length > 0 && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', borderTop: '1px solid #E5DFCF', borderLeft: '1px solid #E5DFCF', marginBottom: 64 }}>
+          {stats.map(({ label, value, suffix, isYear }) => (
+            <div key={label} style={{ flex: '1 1 160px', padding: '40px 36px', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
+              <div style={{ fontFamily: D, fontWeight: 600, fontSize: isYear ? 38 : 52, color: '#0A1628', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                {value}{!isYear && suffix}
+              </div>
+              <div style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginTop: 12 }}>
+                {label}
+              </div>
+            </div>
+          ))}
         </div>
       )}
+
+      {/* About text */}
       {committee.about ? (
-        <p style={{ fontSize: 16.5, color: '#333', lineHeight: 1.9 }}>{committee.about}</p>
+        <p style={{ fontSize: 16.5, color: '#333', lineHeight: 1.9, maxWidth: 680 }}>{committee.about}</p>
       ) : (
         <p style={{ fontSize: 15, color: '#AAA' }}>No description added yet.</p>
       )}

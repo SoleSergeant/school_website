@@ -258,7 +258,7 @@ function EventsTab({ committeeId }) {
 }
 
 // ─── Main editor ──────────────────────────────────────────────────────────────
-const EMPTY = { name: '', slug: '', tagline: '', about: '', cover: '' }
+const EMPTY = { name: '', slug: '', tagline: '', about: '', cover: '', schools_count: '', founded_year: '', participants_count: '' }
 
 export default function CommitteeEditor({ overrideId, hideBack }) {
   const { id: paramId } = useParams()
@@ -280,7 +280,7 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
     supabase.from('committees').select('*').eq('id', id).single()
       .then(({ data, error: err }) => {
         if (err) { setError('Could not load committee.'); setLoading(false); return }
-        if (data) setForm({ name: data.name || '', slug: data.slug || '', tagline: data.tagline || '', about: data.about || '', cover: data.cover || '' })
+        if (data) setForm({ name: data.name || '', slug: data.slug || '', tagline: data.tagline || '', about: data.about || '', cover: data.cover || '', schools_count: data.schools_count ?? '', founded_year: data.founded_year ?? '', participants_count: data.participants_count ?? '' })
         setLoading(false)
       })
   }, [id, isEdit])
@@ -289,7 +289,7 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
     if (!form.name.trim()) { setError('Name is required.'); return }
     if (!form.slug.trim()) { setError('Slug is required.'); return }
     setSaving(true); setError('')
-    const payload = { name: form.name.trim(), slug: form.slug.trim().toLowerCase().replace(/\s+/g, '-'), tagline: form.tagline.trim(), about: form.about.trim(), cover: form.cover.trim() }
+    const payload = { name: form.name.trim(), slug: form.slug.trim().toLowerCase().replace(/\s+/g, '-'), tagline: form.tagline.trim(), about: form.about.trim(), cover: form.cover.trim(), schools_count: form.schools_count !== '' ? parseInt(form.schools_count) : null, founded_year: form.founded_year !== '' ? parseInt(form.founded_year) : null, participants_count: form.participants_count !== '' ? parseInt(form.participants_count) : null }
     let err
     if (isEdit) {
       ;({ error: err } = await supabase.from('committees').update(payload).eq('id', id))
@@ -350,6 +350,25 @@ export default function CommitteeEditor({ overrideId, hideBack }) {
             <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 8 }}>About</label>
             <textarea value={form.about} onChange={set('about')} rows={5} placeholder="Mission and description…" style={{ ...inputStyle, resize: 'vertical' }} />
           </div>
+
+          {/* Stats */}
+          <div style={{ marginBottom: 18, padding: '18px 20px', backgroundColor: '#F8FAFC', borderRadius: 12, border: '1px solid #E2E8F0' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 }}>About Page Stats</div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
+              {[
+                { k: 'schools_count',      l: 'Schools Reached',  p: 'e.g. 5' },
+                { k: 'participants_count', l: 'Participants',      p: 'e.g. 300' },
+                { k: 'founded_year',       l: 'Founded Year',     p: 'e.g. 2022' },
+              ].map(({ k, l, p }) => (
+                <div key={k}>
+                  <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: '#374151', marginBottom: 6 }}>{l}</label>
+                  <input type="number" value={form[k]} onChange={set(k)} placeholder={p} style={inputStyle} />
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: 11.5, color: '#94A3B8', marginTop: 10 }}>Events and Members counts are auto-calculated. Leave a field blank to hide that stat.</p>
+          </div>
+
           <div>
             <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 8 }}>Cover Image</label>
             <ImageUpload value={form.cover} onChange={url => setForm(f => ({ ...f, cover: url }))} label="" aspect="wide" />
