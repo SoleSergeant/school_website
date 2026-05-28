@@ -7,17 +7,22 @@ const D = "'Cormorant Garamond', Georgia, serif"
 export default function Teachers() {
   const [teachers, setTeachers] = useState([])
   const [loading,  setLoading]  = useState(true)
+  const [listVis,  setListVis]  = useState(false)
 
   useEffect(() => {
     supabase
       .from('teachers')
       .select('id, name, subject, experience, bio, photo')
       .order('created_at', { ascending: true })
-      .then(({ data }) => { setTeachers(data || []); setLoading(false) })
+      .then(({ data }) => {
+        setTeachers(data || [])
+        setLoading(false)
+        // trigger fade-in after data arrives
+        setTimeout(() => setListVis(true), 80)
+      })
   }, [])
 
   const [headerRef, headerVis] = useReveal()
-  const [listRef,   listVis]   = useReveal()
 
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
@@ -36,7 +41,7 @@ export default function Teachers() {
       </div>
 
       {/* Teacher list */}
-      <div ref={listRef} className="wrap" style={{ padding: '0 32px 100px' }}>
+      <div className="wrap" style={{ padding: '0 32px 100px' }}>
         {loading ? (
           [1, 2, 3, 4].map(i => (
             <div key={i} style={{ display: 'grid', gridTemplateColumns: '72px 1fr auto', gap: 28, padding: '36px 0', borderBottom: '1px solid #EDE8DC' }}>

@@ -16,9 +16,15 @@ export default function Students() {
       .then(({ data }) => { setStudents(data || []); setLoading(false) })
   }, [])
 
+
+  const [gridVis,   setGridVis]  = useState(false)
+
+  useEffect(() => {
+    if (!loading) setTimeout(() => setGridVis(true), 80)
+  }, [loading])
+
   const [headerRef,  headerVis]  = useReveal()
   const [bannerRef,  bannerVis]  = useReveal()
-  const [gridRef,    gridVis]    = useReveal()
 
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
@@ -50,7 +56,7 @@ export default function Students() {
 
       {/* Students grid */}
       <section style={{ padding: '80px 0' }}>
-        <div ref={gridRef} className="wrap">
+        <div className="wrap">
           {loading ? (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
               {[1, 2, 3, 4, 5, 6].map(i => (
