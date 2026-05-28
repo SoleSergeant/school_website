@@ -260,8 +260,9 @@ function EventsTab({ committeeId }) {
 // ─── Main editor ──────────────────────────────────────────────────────────────
 const EMPTY = { name: '', slug: '', tagline: '', about: '', cover: '' }
 
-export default function CommitteeEditor() {
-  const { id } = useParams()
+export default function CommitteeEditor({ overrideId, hideBack }) {
+  const { id: paramId } = useParams()
+  const id = overrideId || paramId
   const navigate = useNavigate()
   const isEdit = Boolean(id)
 
@@ -297,17 +298,20 @@ export default function CommitteeEditor() {
     }
     if (err) { setError(err.message); setSaving(false); return }
     setSaved(true)
-    setTimeout(() => navigate('/admin/committees'), 1200)
+    if (!hideBack) setTimeout(() => navigate('/admin/committees'), 1200)
+    else setTimeout(() => setSaved(false), 2000)
   }
 
   if (loading) return <div style={{ padding: 32, display: 'flex', alignItems: 'center', gap: 12, color: '#64748B' }}><Loader2 size={18} className="spin" /> Loading…</div>
 
   return (
     <div style={{ padding: 32, maxWidth: 860, margin: '0 auto' }}>
-      <button onClick={() => navigate('/admin/committees')}
-        style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#1E3273', fontSize: 14, fontWeight: 600, marginBottom: 24 }}>
-        <ArrowLeft size={16} /> Back to Committees
-      </button>
+      {!hideBack && (
+        <button onClick={() => navigate('/admin/committees')}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', color: '#1E3273', fontSize: 14, fontWeight: 600, marginBottom: 24 }}>
+          <ArrowLeft size={16} /> Back to Committees
+        </button>
+      )}
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <h1 style={{ fontFamily: 'Plus Jakarta Sans', fontWeight: 800, fontSize: 26, color: '#111827' }}>

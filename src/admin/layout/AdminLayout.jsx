@@ -1,8 +1,8 @@
 import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import {
-  LayoutDashboard, Users, GraduationCap, Images,
-  FileText, MessageSquare, UserCog, LogOut, ExternalLink
+  LayoutDashboard, Users, GraduationCap,
+  FileText, MessageSquare, UserCog, LogOut, ExternalLink, Shield
 } from 'lucide-react'
 
 const allLinks = [
@@ -13,12 +13,14 @@ const allLinks = [
   { to: '/admin/committees', label: 'Committees', icon: Users, roles: ['superadmin'] },
   { to: '/admin/articles', label: 'FPS Chronicles', icon: FileText, roles: ['superadmin','writer'] },
   { to: '/admin/surveys', label: 'Surveys (Echo)', icon: MessageSquare, roles: ['superadmin','writer'] },
+  { to: '/admin/my-committee', label: 'My Committee', icon: Shield, roles: ['committee_leader'] },
 ]
 
 const roleColors = {
   superadmin: { bg: '#FEF3C7', text: '#92400E', label: 'Superadmin' },
   media: { bg: '#DBEAFE', text: '#1E40AF', label: 'Media' },
   writer: { bg: '#D1FAE5', text: '#065F46', label: 'Writer' },
+  committee_leader: { bg: '#EDE9FE', text: '#5B21B6', label: 'Committee Leader' },
 }
 
 export default function AdminLayout() {

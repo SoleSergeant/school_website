@@ -29,6 +29,7 @@ import AdminSurveys from './admin/pages/Surveys'
 import SurveyResults from './admin/pages/SurveyResults'
 import AdminCommittees from './admin/pages/Committees'
 import CommitteeEditor from './admin/pages/CommitteeEditor'
+import MyCommittee from './admin/pages/MyCommittee'
 
 export default function App() {
   return (
@@ -67,6 +68,7 @@ export default function App() {
             <Route path="articles/:id/edit" element={<RoleGuard roles={['superadmin','writer']}><ArticleEditor /></RoleGuard>} />
             <Route path="surveys" element={<RoleGuard roles={['superadmin','writer']}><AdminSurveys /></RoleGuard>} />
             <Route path="surveys/:id/results" element={<RoleGuard roles={['superadmin','writer']}><SurveyResults /></RoleGuard>} />
+            <Route path="my-committee" element={<RoleGuard roles={['committee_leader']}><MyCommittee /></RoleGuard>} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />
