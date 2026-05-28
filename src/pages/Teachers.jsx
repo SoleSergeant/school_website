@@ -7,19 +7,13 @@ const D = "'Cormorant Garamond', Georgia, serif"
 export default function Teachers() {
   const [teachers, setTeachers] = useState([])
   const [loading,  setLoading]  = useState(true)
-  const [listVis,  setListVis]  = useState(false)
 
   useEffect(() => {
     supabase
       .from('teachers')
       .select('id, name, subject, experience, bio, photo')
       .order('created_at', { ascending: true })
-      .then(({ data }) => {
-        setTeachers(data || [])
-        setLoading(false)
-        // trigger fade-in after data arrives
-        setTimeout(() => setListVis(true), 80)
-      })
+      .then(({ data }) => { setTeachers(data || []); setLoading(false) })
   }, [])
 
   const [headerRef, headerVis] = useReveal()
@@ -30,7 +24,9 @@ export default function Teachers() {
       {/* Header */}
       <div style={{ backgroundColor: '#F5F1E8', borderBottom: '1px solid #E5DFCF', padding: '56px 0 52px' }}>
         <div ref={headerRef} className="wrap">
-          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16, ...fx(headerVis, 0) }}>Our people</p>
+          <p style={{ fontSize: 10, color: '#B8882A', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: 16, ...fx(headerVis, 0) }}>
+            Our people
+          </p>
           <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(40px, 5vw, 64px)', color: '#0A1628', letterSpacing: '-0.01em', lineHeight: 1.05, marginBottom: 16, ...fx(headerVis, 100, 28) }}>
             Faculty
           </h1>
@@ -54,7 +50,7 @@ export default function Teachers() {
             </div>
           ))
         ) : (
-          teachers.map((t, i) => (
+          teachers.map(t => (
             <div key={t.id} style={{
               display: 'grid',
               gridTemplateColumns: '72px 1fr auto',
@@ -62,7 +58,6 @@ export default function Teachers() {
               alignItems: 'flex-start',
               padding: '36px 0',
               borderBottom: '1px solid #EDE8DC',
-              ...fx(listVis, i * 60),
             }}>
               <img
                 src={t.photo || `https://i.pravatar.cc/80?u=${t.id}`}

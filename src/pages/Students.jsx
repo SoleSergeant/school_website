@@ -16,15 +16,8 @@ export default function Students() {
       .then(({ data }) => { setStudents(data || []); setLoading(false) })
   }, [])
 
-
-  const [gridVis,   setGridVis]  = useState(false)
-
-  useEffect(() => {
-    if (!loading) setTimeout(() => setGridVis(true), 80)
-  }, [loading])
-
-  const [headerRef,  headerVis]  = useReveal()
-  const [bannerRef,  bannerVis]  = useReveal()
+  const [headerRef, headerVis] = useReveal()
+  const [bannerRef, bannerVis] = useReveal()
 
   return (
     <div style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
@@ -76,8 +69,8 @@ export default function Students() {
             </div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
-              {students.map((s, i) => (
-                <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', ...fx(gridVis, i * 50) }}>
+              {students.map(s => (
+                <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                     <img src={s.photo || `https://i.pravatar.cc/80?u=s${s.id}`} alt={s.name}
                       style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
