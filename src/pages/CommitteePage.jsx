@@ -101,7 +101,7 @@ function MembersTab({ committeeId }) {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
       {members.map(m => (
-        <div key={m.id} style={{ backgroundColor: '#fff', border: '1px solid #E5DFCF', borderRadius: 4, padding: '28px 24px' }}>
+        <div key={m.id} style={{ backgroundColor: '#fff', border: '1px solid #E5DFCF', borderRadius: 4, padding: '28px 24px', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
             <img src={m.photo || `https://i.pravatar.cc/80?u=cm${m.id}`} alt={m.name}
               style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
@@ -117,7 +117,7 @@ function MembersTab({ committeeId }) {
             </>
           )}
           {(m.linkedin_url || m.telegram_url) && (
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap' }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'nowrap', marginTop: 'auto', paddingTop: 16 }}>
               {m.linkedin_url && (
                 <a href={m.linkedin_url} target="_blank" rel="noreferrer"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s', whiteSpace: 'nowrap' }}
