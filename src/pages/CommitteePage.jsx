@@ -189,7 +189,7 @@ function EventsTab({ committeeId }) {
         )}
         <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 26, color: '#0A1628', margin: '10px 0 16px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{ev.title}</h3>
         {ev.description && (
-          <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85, marginBottom: ev.telegram_url ? 20 : 0, display: '-webkit-box', WebkitLineClamp: ev.telegram_url ? 4 : undefined, WebkitBoxOrient: 'vertical', overflow: ev.telegram_url ? 'hidden' : 'visible' }}>
+          <p style={{ fontSize: 14.5, color: '#555', lineHeight: 1.85, marginBottom: ev.telegram_url ? 20 : 0, whiteSpace: 'pre-wrap', display: '-webkit-box', WebkitLineClamp: ev.telegram_url ? 4 : undefined, WebkitBoxOrient: 'vertical', overflow: ev.telegram_url ? 'hidden' : 'visible' }}>
             {ev.description}
           </p>
         )}
