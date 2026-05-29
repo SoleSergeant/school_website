@@ -92,12 +92,16 @@ export default function ContactSubmissions() {
   const [loading,  setLoading]  = useState(true)
   const [filter,   setFilter]   = useState('All')
 
+  const [dbError, setDbError] = useState('')
+
   const load = async () => {
     setLoading(true)
-    const { data } = await supabase
+    setDbError('')
+    const { data, error } = await supabase
       .from('contact_submissions')
       .select('*')
       .order('created_at', { ascending: false })
+    if (error) setDbError(error.message)
     setMessages(data || [])
     setLoading(false)
   }
@@ -132,6 +136,16 @@ export default function ContactSubmissions() {
           <RefreshCw size={14} /> Refresh
         </button>
       </div>
+
+      {/* DB error */}
+      {dbError && (
+        <div style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 10, padding: '14px 18px', marginBottom: 24, fontSize: 13.5, color: '#B91C1C' }}>
+          <strong>Database error:</strong> {dbError}
+          <div style={{ marginTop: 6, fontSize: 12.5, color: '#DC2626' }}>
+            Make sure you've created the <code>contact_submissions</code> table in Supabase and added the required RLS policies (see below).
+          </div>
+        </div>
+      )}
 
       {/* Subject filter chips */}
       {!loading && messages.length > 0 && (

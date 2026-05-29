@@ -63,7 +63,7 @@ export default function Contact() {
       message: form.message.trim(),
     })
     setSending(false)
-    if (err) { setError('Something went wrong. Please try again.'); return }
+    if (err) { setError(err.message || 'Something went wrong. Please try again.'); return }
     setSent(true)
   }
 
