@@ -2,7 +2,7 @@ import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import {
   LayoutDashboard, Users, GraduationCap,
-  FileText, MessageSquare, UserCog, LogOut, ExternalLink, Shield
+  FileText, MessageSquare, UserCog, LogOut, ExternalLink, Shield, Inbox
 } from 'lucide-react'
 
 const allLinks = [
@@ -13,6 +13,7 @@ const allLinks = [
   { to: '/admin/committees', label: 'Committees', icon: Users, roles: ['superadmin'] },
   { to: '/admin/articles', label: 'FPS Chronicles', icon: FileText, roles: ['superadmin','writer'] },
   { to: '/admin/surveys', label: 'Surveys (Echo)', icon: MessageSquare, roles: ['superadmin','writer'] },
+  { to: '/admin/messages', label: 'Messages', icon: Inbox, roles: ['superadmin'] },
   { to: '/admin/my-committee', label: 'My Committee', icon: Shield, roles: ['committee_leader'] },
 ]
 
