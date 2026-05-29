@@ -13,7 +13,7 @@ export default function Committees() {
   useEffect(() => {
     supabase
       .from('committees')
-      .select('id, name, slug, tagline, cover')
+      .select('id, name, slug, tagline, cover, has_green_flag')
       .order('created_at', { ascending: true })
       .then(({ data }) => { setCommittees(data || []); setLoading(false) })
   }, [])

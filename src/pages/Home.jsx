@@ -165,10 +165,10 @@ export default function Home() {
                 onMouseLeave={e => { const h = e.currentTarget.querySelector('[data-title]'); if (h) h.style.color = '#0A1628' }}
               >
                 <div style={{ overflow: 'hidden', marginBottom: 18 }}>
-                  <img src={a.cover} alt={a.title} style={{ width: '100%', height: 210, objectFit: 'cover', display: 'block', transition: 'transform .45s cubic-bezier(.16,1,.3,1)' }}
+                  {a.cover && <img src={a.cover} alt={a.title} style={{ width: '100%', height: 210, objectFit: 'cover', display: 'block', transition: 'transform .45s cubic-bezier(.16,1,.3,1)' }}
                     onMouseEnter={e => e.target.style.transform = 'scale(1.04)'}
                     onMouseLeave={e => e.target.style.transform = 'scale(1)'}
-                  />
+                  />}
                 </div>
                 <span style={{ fontSize: 9.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>{a.issue_number || a.category}</span>
                 <h3 data-title style={{ fontSize: 16.5, fontWeight: 600, color: '#0A1628', margin: '8px 0 10px', lineHeight: 1.4, letterSpacing: '-0.01em', transition: 'color .2s' }}>{a.title}</h3>
