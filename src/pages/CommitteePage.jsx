@@ -212,7 +212,20 @@ function EventCard({ ev, onClick }) {
           {new Date(ev.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' })}
         </p>
       )}
-      <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 20, color: '#0A1628', lineHeight: 1.25, letterSpacing: '-0.01em', margin: 0 }}>{ev.title}</h3>
+      <h3 style={{ fontFamily: D, fontWeight: 600, fontSize: 20, color: '#0A1628', lineHeight: 1.25, letterSpacing: '-0.01em', margin: '0 0 12px' }}>{ev.title}</h3>
+      {ev.telegram_url && (
+        <a
+          href={ev.telegram_url}
+          target="_blank"
+          rel="noreferrer"
+          onClick={e => e.stopPropagation()}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 700, color: '#229ED9', textDecoration: 'none', letterSpacing: '0.04em' }}
+          onMouseEnter={e => e.currentTarget.style.opacity = '0.75'}
+          onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+        >
+          <TelegramIcon size={13} /> View on Telegram
+        </a>
+      )}
     </div>
   )
 }
