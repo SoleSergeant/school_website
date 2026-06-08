@@ -78,12 +78,6 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          <div style={{ marginTop: 24, padding: '16px', backgroundColor: '#F4F6FB', borderRadius: 10, fontSize: 12, color: '#64748B' }}>
-            <strong>Test accounts:</strong><br />
-            admin@ferganaschool.uz / admin123 (Superadmin)<br />
-            media@ferganaschool.uz / media123 (Media)<br />
-            writer@ferganaschool.uz / writer123 (Writer)
-          </div>
         </div>
       </div>
     </div>
