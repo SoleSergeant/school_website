@@ -85,7 +85,7 @@ export default function Students() {
             </div>
           ) : (
             /* real data — flexbox so last row centres automatically */
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
               {students.map(s => (
                 <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
