@@ -66,10 +66,9 @@ export default function Students() {
       <section style={{ padding: '80px 0' }}>
         <div className="wrap">
           {loading ? (
-            /* skeleton — always 3 columns */
-            <div style={{ display: 'flex', flexWrap: 'wrap', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
               {[1, 2, 3, 4, 5, 6].map(i => (
-                <div key={i} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
+                <div key={i} style={{ backgroundColor: '#fff', padding: '32px 28px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                     <div style={{ width: 48, height: 48, borderRadius: '50%', backgroundColor: '#F5F1E8', flexShrink: 0 }} />
                     <div>
@@ -84,46 +83,49 @@ export default function Students() {
               ))}
             </div>
           ) : (
-            /* real data — flexbox so last row centres automatically */
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', backgroundColor: '#fff', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
-              {students.map(s => (
-                <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', flex: '0 0 calc(100% / 3)', boxSizing: 'border-box', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
-                    <img src={s.photo || `https://i.pravatar.cc/80?u=s${s.id}`} alt={s.name}
-                      style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
-                    <div>
-                      <div style={{ fontSize: 14.5, fontWeight: 600, color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 2 }}>{s.name}</div>
-                      <div style={{ fontSize: 11.5, color: '#AAA' }}>{s.grade ? `Grade ${s.grade}` : ''}</div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, backgroundColor: '#E5DFCF', border: '1px solid #E5DFCF', overflow: 'hidden' }}>
+              {students.map((s, i) => {
+                const remainder = students.length % 3
+                const isLone = remainder === 1 && i === students.length - 1
+                return (
+                  <div key={s.id} style={{ backgroundColor: '#fff', padding: '32px 28px', ...(isLone ? { gridColumn: 2 } : {}) }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+                      <img src={s.photo || `https://i.pravatar.cc/80?u=s${s.id}`} alt={s.name}
+                        style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                      <div>
+                        <div style={{ fontSize: 14.5, fontWeight: 600, color: '#0A1628', letterSpacing: '-0.01em', marginBottom: 2 }}>{s.name}</div>
+                        <div style={{ fontSize: 11.5, color: '#AAA' }}>{s.grade ? `Grade ${s.grade}` : ''}</div>
+                      </div>
                     </div>
+                    <div style={{ width: 24, height: 1.5, backgroundColor: '#B8882A', marginBottom: 12 }} />
+                    <p style={{ fontSize: 13.5, color: '#B8882A', lineHeight: 1.65, fontWeight: 500, marginBottom: (s.linkedin_url || s.telegram_url) ? 16 : 0 }}>
+                      {s.achievement}
+                    </p>
+                    {(s.linkedin_url || s.telegram_url) && (
+                      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        {s.linkedin_url && (
+                          <a href={s.linkedin_url} target="_blank" rel="noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#0077B5'; e.currentTarget.style.color = '#0077B5' }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
+                          >
+                            <LinkedInIcon size={12} /> LinkedIn
+                          </a>
+                        )}
+                        {s.telegram_url && (
+                          <a href={s.telegram_url} target="_blank" rel="noreferrer"
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#229ED9'; e.currentTarget.style.color = '#229ED9' }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
+                          >
+                            <TelegramIcon size={12} /> Telegram
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
-                  <div style={{ width: 24, height: 1.5, backgroundColor: '#B8882A', marginBottom: 12 }} />
-                  <p style={{ fontSize: 13.5, color: '#B8882A', lineHeight: 1.65, fontWeight: 500, marginBottom: (s.linkedin_url || s.telegram_url) ? 16 : 0 }}>
-                    {s.achievement}
-                  </p>
-                  {(s.linkedin_url || s.telegram_url) && (
-                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                      {s.linkedin_url && (
-                        <a href={s.linkedin_url} target="_blank" rel="noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
-                          onMouseEnter={e => { e.currentTarget.style.borderColor = '#0077B5'; e.currentTarget.style.color = '#0077B5' }}
-                          onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
-                        >
-                          <LinkedInIcon size={12} /> LinkedIn
-                        </a>
-                      )}
-                      {s.telegram_url && (
-                        <a href={s.telegram_url} target="_blank" rel="noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: 5, fontSize: 11, fontWeight: 600, color: '#0A1628', textDecoration: 'none', padding: '5px 11px', border: '1.5px solid #E5DFCF', borderRadius: 4, transition: 'border-color 0.2s, color 0.2s' }}
-                          onMouseEnter={e => { e.currentTarget.style.borderColor = '#229ED9'; e.currentTarget.style.color = '#229ED9' }}
-                          onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5DFCF'; e.currentTarget.style.color = '#0A1628' }}
-                        >
-                          <TelegramIcon size={12} /> Telegram
-                        </a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ))}
+                )
+              })}
             </div>
           )}
         </div>
