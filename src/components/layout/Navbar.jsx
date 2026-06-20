@@ -5,10 +5,9 @@ import { Menu, X } from 'lucide-react'
 const links = [
   { to: '/teachers',   label: 'Faculty' },
   { to: '/students',   label: 'Students' },
-  { to: '/magazine',    label: 'FPS Chronicles' },
+  { to: '/magazine',   label: 'FPS Chronicles' },
   { to: '/committees', label: 'Committees' },
-  { to: '/life',       label: 'Campus' },
-  { to: '/admissions', label: 'Admissions' },
+  { to: '/news',       label: 'News' },
   { to: '/contact',    label: 'Contact' },
 ]
 
@@ -118,11 +117,6 @@ export default function Navbar() {
               >{label}</Link>
             ))}
           </nav>
-          <div style={{ padding: '24px 32px 32px' }}>
-            <Link to="/admissions" style={{ display: 'block', textAlign: 'center', backgroundColor: '#0A1628', color: '#fff', padding: '15px', borderRadius: 2, fontSize: 12, fontWeight: 700, textDecoration: 'none', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              Apply Now
-            </Link>
-          </div>
         </div>
       )}
     </>

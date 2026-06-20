@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowDown } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { useReveal, fx, fxFade } from '../hooks/useReveal'
 
 const stats = [
-  { n: '500+', label: 'Enrolled students' },
+  { n: '240',  label: 'Enrolled students' },
   { n: '120+', label: 'Olympiad medals' },
-  { n: '14',   label: 'Subjects offered' },
+  { n: '10+',  label: 'Subjects offered' },
   { n: '100%', label: 'University placement' },
 ]
 
 const pillars = [
-  { n: '01', title: 'Cambridge IGCSE', desc: 'Internationally recognised curriculum alongside the Uzbek national programme, preparing students for the world\'s top universities.' },
-  { n: '02', title: 'STEAM Focus',     desc: 'Science, Technology, Engineering, Arts and Mathematics — integrated, project-driven, and competitive from day one.' },
-  { n: '03', title: 'Free Boarding',   desc: 'Full accommodation and meals on campus, fully funded by the state. Admission is merit-based, completely free of charge.' },
-  { n: '04', title: 'CIS Accredited',  desc: 'Full accreditation from the Council of International Schools — a standard held by fewer than 1,400 schools worldwide.' },
+  { n: '01', title: 'Cambridge',      desc: 'Internationally recognised Cambridge curriculum alongside the Uzbek national programme, preparing students for the world\'s top universities.' },
+  { n: '02', title: 'STEM Focus',     desc: 'Science, Technology, Engineering and Mathematics — integrated, project-driven, and competitive from day one.' },
+  { n: '03', title: 'Free Boarding',  desc: 'Full accommodation and meals on campus, fully funded by the state. Places are awarded on merit, completely free of charge.' },
+  { n: '04', title: 'CIS Accredited', desc: 'Full accreditation from the Council of International Schools — a standard held by fewer than 1,400 schools worldwide.' },
 ]
 
 const D = "'Cormorant Garamond', Georgia, serif"
@@ -45,7 +45,6 @@ export default function Home() {
   const [aboutRef,   aboutVis]   = useReveal()
   const [pillarsRef, pillarsVis] = useReveal()
   const [newsRef,    newsVis]    = useReveal()
-  const [ctaRef,     ctaVis]     = useReveal()
 
   return (
     <div>
@@ -63,26 +62,21 @@ export default function Home() {
 
         <div className="wrap" style={{ position: 'relative', paddingTop: 140, paddingBottom: 100 }}>
           <p style={{ fontSize: 10.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 30, ...fx(heroVis, 200) }}>
-            Est. 2020 · CIS Accredited · Fergana, Uzbekistan
+            Est. 2021 · CIS Accredited · Fergana, Uzbekistan
           </p>
           <h1 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(52px,8vw,96px)', color: '#fff', lineHeight: 0.97, letterSpacing: '-0.01em', marginBottom: 32, maxWidth: 720, ...fx(heroVis, 380, 32) }}>
             Where Gifted<br />Minds Find<br />Their Calling.
           </h1>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.58)', lineHeight: 1.85, maxWidth: 400, marginBottom: 48, ...fx(heroVis, 560) }}>
-            Cambridge IGCSE meets Uzbekistan's finest — an exceptional environment for students aged 11–18.
+            Cambridge meets Uzbekistan's finest — an exceptional STEM environment for students aged 12–18.
           </p>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', alignItems: 'center', ...fx(heroVis, 720) }}>
-            <Link to="/admissions" style={{ display: 'inline-block', backgroundColor: '#B8882A', color: '#fff', padding: '14px 32px', borderRadius: 2, fontWeight: 600, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}>Apply Now</Link>
-            <Link to="/life" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, color: 'rgba(255,255,255,0.62)', fontSize: 13, textDecoration: 'none', padding: '13px 20px', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 2 }}>
-              Explore campus <ArrowRight size={13} />
+            <Link to="/news" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, color: 'rgba(255,255,255,0.62)', fontSize: 13, textDecoration: 'none', padding: '13px 20px', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 2 }}>
+              Latest news <ArrowRight size={13} />
             </Link>
           </div>
         </div>
 
-        <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7, ...fxFade(heroVis, 1100) }}>
-          <span style={{ fontSize: 9, color: '#fff', letterSpacing: '0.16em', textTransform: 'uppercase', opacity: 0.35 }}>Scroll</span>
-          <ArrowDown size={13} color="#fff" style={{ opacity: 0.35 }} />
-        </div>
       </section>
 
       {/* ─── Stats strip ─── */}
@@ -108,14 +102,11 @@ export default function Home() {
               A presidential school<br />built on merit.
             </h2>
             <p style={{ fontSize: 15.5, color: '#5C5A6A', lineHeight: 1.85, marginBottom: 16 }}>
-              Established in 2020 under the initiative of the President of Uzbekistan, Fergana Presidential School is a state-funded boarding institution for the nation's most gifted students.
+              Established in 2021 under the initiative of the President of Uzbekistan, Fergana Presidential School is a state-funded boarding institution for the nation's most gifted students.
             </p>
-            <p style={{ fontSize: 15.5, color: '#5C5A6A', lineHeight: 1.85, marginBottom: 40 }}>
+            <p style={{ fontSize: 15.5, color: '#5C5A6A', lineHeight: 1.85 }}>
               Our graduates compete at international olympiads, gain entry to the world's top universities, and return to lead Uzbekistan's future.
             </p>
-            <Link to="/admissions" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12, fontWeight: 700, color: '#0A1628', textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase', borderBottom: '1.5px solid #B8882A', paddingBottom: 3 }}>
-              Admissions info <ArrowRight size={12} />
-            </Link>
           </div>
           <div style={{ overflow: 'hidden', ...fx(aboutVis, 160) }}>
             <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&q=80" alt="School"
@@ -175,24 +166,6 @@ export default function Home() {
                 <p style={{ fontSize: 13.5, color: '#888', lineHeight: 1.72 }}>{a.excerpt}</p>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── CTA ─── */}
-      <section style={{ backgroundColor: '#0A1628', padding: '120px 0' }}>
-        <div ref={ctaRef} className="wrap" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 10.5, color: '#B8882A', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: 24, ...fx(ctaVis, 0) }}>Admissions now open</p>
-          <h2 style={{ fontFamily: D, fontWeight: 600, fontSize: 'clamp(38px,6vw,72px)', color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.02, maxWidth: 560, margin: '0 auto 24px', ...fx(ctaVis, 100, 28) }}>
-            Ready to begin<br />your journey?
-          </h2>
-          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.42)', maxWidth: 400, margin: '0 auto 48px', ...fx(ctaVis, 220) }}>
-            For gifted students aged 11–18. Applications are free. Places awarded purely on merit.
-          </p>
-          <div style={fx(ctaVis, 340)}>
-            <Link to="/admissions" style={{ display: 'inline-block', backgroundColor: '#B8882A', color: '#fff', padding: '16px 44px', borderRadius: 2, fontWeight: 600, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none' }}>
-              Start Your Application
-            </Link>
           </div>
         </div>
       </section>

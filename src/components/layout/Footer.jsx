@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
 const cols = [
-  { title: 'School',     links: [['/', 'Home'], ['/teachers', 'Faculty'], ['/students', 'Students'], ['/life', 'Campus Life']] },
-  { title: 'Resources',  links: [['/magazine', 'FPS Chronicles'], ['/committees', 'Committees'], ['/echo', 'Echo'], ['/admissions', 'Admissions']] },
-  { title: 'Contact',    text: ['1 Qashqar Street, Fergana', 'info@ferganaschool.uz', '+998 73 000 00 00'] },
+  { title: 'School',     links: [['/', 'Home'], ['/teachers', 'Faculty'], ['/students', 'Students'], ['/news', 'News']] },
+  { title: 'Resources',  links: [['/magazine', 'FPS Chronicles'], ['/committees', 'Committees'], ['/echo', 'Echo']] },
+  { title: 'Contact',    text: ['1 Qashqar Street, Fergana', 'prmfrd@piima.uz', '(+998) 73 249 25 10'] },
 ]
 
 export default function Footer() {
@@ -23,7 +23,7 @@ export default function Footer() {
               </div>
             </div>
             <p style={{ fontSize: 13, color: '#4A6080', lineHeight: 1.8, maxWidth: 240 }}>
-              State-funded boarding school for gifted students aged 11–18. Est. 2020, Fergana, Uzbekistan.
+              State-funded boarding school for gifted students aged 12–18. Est. 2021, Fergana, Uzbekistan.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-          <span style={{ fontSize: 12, color: '#2E4A68' }}>© 2025 Fergana Presidential School. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: '#2E4A68' }}>© 2026 Fergana Presidential School. All rights reserved.</span>
           <Link to="/admin/login"
             style={{ fontSize: 12, color: '#1E3248' }}
             onMouseEnter={e => e.target.style.color = '#5A7590'}

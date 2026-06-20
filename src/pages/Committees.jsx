@@ -34,7 +34,7 @@ export default function Committees() {
             Committees
           </h1>
           <p style={{ fontSize: 15, color: '#6A6A7A', lineHeight: 1.8, maxWidth: 460, ...fx(headerVis, 200) }}>
-            Two student-run groups shaping campus life — from flagship events to sustainability initiatives.
+            Student-run groups shaping campus life — from flagship events to sustainability initiatives.
           </p>
         </div>
       </div>

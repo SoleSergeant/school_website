@@ -13,30 +13,11 @@ function TelegramIcon({ size = 16 }) {
   )
 }
 
-function InstagramIcon({ size = 16 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-    </svg>
-  )
-}
-
-function YoutubeIcon({ size = 16 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
-    </svg>
-  )
-}
 
 const SUBJECTS = ['General Inquiry', 'Admissions', 'Media & Press', 'Partnerships', 'Other']
 
 const socials = [
-  { Icon: TelegramIcon,  label: 'Telegram',  handle: '@ferganaschool',             href: 'https://t.me/ferganaschool',               color: '#229ED9' },
-  { Icon: InstagramIcon, label: 'Instagram', handle: '@fergana_presidential',       href: 'https://instagram.com/fergana_presidential', color: '#E1306C' },
-  { Icon: YoutubeIcon,   label: 'YouTube',   handle: 'Fergana Presidential School', href: 'https://youtube.com/@ferganaschool',        color: '#FF0000' },
+  { Icon: TelegramIcon, label: 'Telegram', handle: '@pmfergana', href: 'https://t.me/pmfergana', color: '#229ED9' },
 ]
 
 export default function Contact() {
@@ -97,8 +78,8 @@ export default function Contact() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderLeft: '1px solid #E5DFCF' }}>
             {[
               { icon: MapPin, label: 'Address',      value: '1 Qashqar Street\nFergana, Uzbekistan', delay: 0 },
-              { icon: Phone,  label: 'Phone',         value: '+998 73 000 00 00',                     delay: 60 },
-              { icon: Mail,   label: 'Email',          value: 'info@ferganaschool.uz',                 delay: 120 },
+              { icon: Phone,  label: 'Phone',         value: '(+998) 73 249 25 10',                   delay: 60 },
+              { icon: Mail,   label: 'Email',          value: 'prmfrd@piima.uz',                       delay: 120 },
               { icon: Clock,  label: 'Office Hours',  value: 'Mon–Fri\n08:00 – 17:00',               delay: 180 },
             ].map(({ icon: Icon, label, value, delay }) => (
               <div key={label} style={{ padding: '40px 32px', borderRight: '1px solid #E5DFCF', borderBottom: '1px solid #E5DFCF', ...fx(tilesVis, delay) }}>

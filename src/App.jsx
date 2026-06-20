@@ -11,8 +11,7 @@ import Students from './pages/Students'
 import Articles from './pages/Articles'
 import ArticlePage from './pages/ArticlePage'
 import Echo from './pages/Echo'
-import StudentLife from './pages/StudentLife'
-import Admissions from './pages/Admissions'
+import News from './pages/News'
 import Committees from './pages/Committees'
 import CommitteePage from './pages/CommitteePage'
 import Contact from './pages/Contact'
@@ -31,6 +30,7 @@ import AdminCommittees from './admin/pages/Committees'
 import CommitteeEditor from './admin/pages/CommitteeEditor'
 import MyCommittee from './admin/pages/MyCommittee'
 import ContactSubmissions from './admin/pages/ContactSubmissions'
+import AdminNews from './admin/pages/News'
 
 export default function App() {
   return (
@@ -45,8 +45,7 @@ export default function App() {
             <Route path="magazine" element={<Articles />} />
             <Route path="magazine/:id" element={<ArticlePage />} />
             <Route path="echo" element={<Echo />} />
-            <Route path="life" element={<StudentLife />} />
-            <Route path="admissions" element={<Admissions />} />
+            <Route path="news" element={<News />} />
             <Route path="committees" element={<Committees />} />
             <Route path="committees/:slug" element={<CommitteePage />} />
             <Route path="contact" element={<Contact />} />
@@ -71,6 +70,7 @@ export default function App() {
             <Route path="surveys/:id/results" element={<RoleGuard roles={['superadmin','writer']}><SurveyResults /></RoleGuard>} />
             <Route path="my-committee" element={<RoleGuard roles={['committee_leader']}><MyCommittee /></RoleGuard>} />
             <Route path="messages" element={<RoleGuard roles={['superadmin']}><ContactSubmissions /></RoleGuard>} />
+            <Route path="news" element={<RoleGuard roles={['superadmin']}><AdminNews /></RoleGuard>} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" />} />
